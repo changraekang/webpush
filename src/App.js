@@ -10,6 +10,7 @@ import './styles/global.css'
 import Main from "./pages/Main";
 import Test from "./pages/Test";
 import Layout from "./templates/Layout";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Main />} />
+          <Route exact path="/signup" element={<Signup />} />
           {/* 에러페이지 */}
           <Route exact path="/test" element={<Test />} />
         </Routes>
