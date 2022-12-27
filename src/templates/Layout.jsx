@@ -80,7 +80,7 @@ const MyMenu = styled.ul`
   position: absolute;
   right: 16px;
   top: 70px;
-  width: 110px;
+  width: 105px;
   border-radius: 8px;
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
   background-color: ${NAV_MY_MENU_COLOR};
@@ -138,7 +138,7 @@ export default function Layout({children}) {
           <TopHeader>
               <MyButton onClick={handleOpenMyMenu}>
                 {<img src={mypageLogo} alt="마이페이지 로고" />}
-                김태희(사용자)
+                김태희(master)
               </MyButton>
               {openMyMenu && 
                 <MyMenu>
