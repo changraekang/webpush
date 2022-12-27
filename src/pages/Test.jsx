@@ -73,7 +73,7 @@ const Test = () => {
       <TestTitle>TEST PAGE</TestTitle>
       {AuthList.map(({ title, explain }) => {
         return (
-          <TestWapper>
+          <TestWapper key={explain}>
             <TestButtonWapper>
               <TestButton onClick={() => onClickAuth(title)}>Auth</TestButton>
               <TestFlex>{title}</TestFlex>
