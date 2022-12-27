@@ -1,4 +1,3 @@
-
 import {
   BrowserRouter,
   Route,
@@ -7,6 +6,7 @@ import {
   Router,
   Routes,
 } from "react-router-dom";
+import Main from "./pages/Main";
 import Test from "./pages/Test";
 import Layout from "./templates/Layout";
 
@@ -14,11 +14,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Layout />
         <Routes>
+          <Route exact path="/" element={<Main />} />
           {/* 에러페이지 */}
-          <Route exact path="/" element={<Test />} />
-
+          <Route exact path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </>
