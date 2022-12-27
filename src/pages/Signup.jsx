@@ -10,9 +10,14 @@ import inActiveCheck from '../assets/images/inactive-check.png';
 import { useState } from "react";
 
 const Section = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
+  padding: 100px 0;
   font-family: 'Pretendard-Regular';
+  /* padding: 186px 0; */
   background-color: ${MAIN_BACKGROUND_COLOR};
 `
 
