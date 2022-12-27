@@ -14,14 +14,9 @@ const NormalBtn = styled.button`
   cursor: pointer;
 `
 
-export default function NormalButton({children}) {
+export default function NormalButton({children, handleGoSignup}) {
   // const navigate = useNavigate();
 
-  const handleGoSignup = (e) => {
-    e.preventDefault();
-    // navigate('/signup');
-    console.log('hello');
-  };
   return (
     <NormalBtn onClick={handleGoSignup}>{children}</NormalBtn>
   )

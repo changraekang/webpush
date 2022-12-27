@@ -84,7 +84,7 @@ export default function Login() {
   const handleGoSignup = () => {
     // e.preventDefault();
     // navigate('/signup');
-    console.log('hello');
+    console.log('hello!');
   };
 
   return (
@@ -113,7 +113,7 @@ export default function Login() {
             <li>아아디 찾기</li>
             <li>비밀번호 찾기</li>
           </RadioList>
-          <NormalButton onClick={handleGoSignup}>회원가입</NormalButton>
+          <NormalButton handleGoSignup={handleGoSignup}>회원가입</NormalButton>
           {/* <NormalBtn onClick={handleGoSignup}>회원가입</NormalBtn> */}
         </WrapContents>
       </AuthBox>  
