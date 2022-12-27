@@ -3,7 +3,7 @@ import mypageLogo from '../assets/images/mypage-logo.png';
 import styled from 'styled-components';
 import {SIDE_NAV_COLOR} from '../constants/color';
 import {NAV_MAIN_COLOR} from '../constants/color';
-import {NAV_FONT_COLOR} from '../constants/color';
+import {NAV_HOVER_COLOR} from '../constants/color';
 
 const Header = styled.header`
   display: flex;
@@ -33,6 +33,7 @@ const WrapRight = styled.div`
 const TopHeader = styled.div`
   background: ${NAV_MAIN_COLOR};
   padding: 21px;
+  box-sizing: border-box;
 `
 
 const MyButton = styled.button`
@@ -44,7 +45,14 @@ const MyButton = styled.button`
   align-items: center;
   gap: 12px;
   float: right;
+  padding: 5px;
   cursor: pointer;
+  font-weight: 900;
+
+  :hover {
+    background: ${NAV_HOVER_COLOR};
+    border-radius: 5px;
+  }
 `
 
 export default function Layout({children}) {

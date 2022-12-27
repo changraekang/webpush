@@ -6,6 +6,8 @@ export const MAIN_BACKGROUND_COLOR = 'rgba(226, 192, 250, 0.822)'
 // 네브바
 export const NAV_MAIN_COLOR = 'rgba(226, 192, 250, 0.822)'
 export const NAV_FONT_COLOR = "#fff"
+export const NAV_HOVER_COLOR = '#d293ffd5'
+
 
 
 // 버튼컬러
