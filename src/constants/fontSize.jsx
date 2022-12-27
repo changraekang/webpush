@@ -9,6 +9,10 @@ export const AUTH_BUTTON_SIZE= '20px';
 export const NAV_MAIN_SIZE= '16px';
       
 // 메인
-// export const MAIN_TITLE_SIZE= '16px';
-// export const MAIN_TITLE_SIZE= '32px';
+export const MAIN_DEMO_CONTENT_SIZE= '12px';
+export const MAIN_SUBCONTENT_SIZE= '14px';
+export const MAIN_CONTENT_SIZE= '16px';
+export const MAIN_MESSAGE_TITLE_SIZE= '20px';
+export const MAIN_SUBTITLE_SIZE= '24px';
+export const MAIN_TITLE_SIZE= '32px';
  
