@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { ACTIVE_BUTTON_COLOR } from "../constants/color";
-import { AuthList } from "../atom/test";
+import {
+  AuthList,
+  CategoryList,
+  MemberList,
+  MessageList,
+  ProjectList,
+} from "../atom/test";
 import { instanceAxios } from "../api/axios";
 const TestWapper = styled.div`
   display: flex;
@@ -76,6 +82,36 @@ const Test = () => {
           <TestWapper key={explain}>
             <TestButtonWapper>
               <TestButton onClick={() => onClickAuth(title)}>Auth</TestButton>
+              <TestFlex>{title}</TestFlex>
+            </TestButtonWapper>
+            <TestFlex>{explain}</TestFlex>
+            <TestExplainFlex>결과</TestExplainFlex>
+          </TestWapper>
+        );
+      })}
+      Category
+      --------------------------------------------------------------------------------------------------------------------------------
+      {CategoryList.map(({ title, explain }) => {
+        return (
+          <TestWapper key={explain}>
+            <TestButtonWapper>
+              <TestButton onClick={() => onClickAuth(title)}>
+                Category
+              </TestButton>
+              <TestFlex>{title}</TestFlex>
+            </TestButtonWapper>
+            <TestFlex>{explain}</TestFlex>
+            <TestExplainFlex>결과</TestExplainFlex>
+          </TestWapper>
+        );
+      })}
+      Member
+      --------------------------------------------------------------------------------------------------------------------------------
+      {MemberList.map(({ title, explain }) => {
+        return (
+          <TestWapper key={explain}>
+            <TestButtonWapper>
+              <TestButton onClick={() => onClickAuth(title)}>Member</TestButton>
               <TestFlex>{title}</TestFlex>
             </TestButtonWapper>
             <TestFlex>{explain}</TestFlex>
