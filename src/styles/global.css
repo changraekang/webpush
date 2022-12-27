@@ -8,3 +8,7 @@
 *, body{
   font-family: 'Pretendard-Regular';
 }
+
+a {
+  text-decoration: none;
+}
