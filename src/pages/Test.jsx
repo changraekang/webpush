@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { ACTIVE_BUTTON_COLOR } from "../constants/color";
 import { AuthList } from "../atom/test";
+import { instanceAxios } from "../api/axios";
 const TestWapper = styled.div`
   display: flex;
   width: 155px;
@@ -56,8 +57,15 @@ const TestButton = styled.button`
   border: none;
 `;
 const Test = () => {
-  const onClickAuth = (title) => {
+  const onClickAuth = async (title) => {
     console.log(title, "주소");
+    let data = "";
+    try {
+      const response = await instanceAxios.post(`/auth/${title}`, data);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
