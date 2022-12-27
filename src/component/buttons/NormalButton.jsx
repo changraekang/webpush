@@ -11,10 +11,18 @@ const NormalBtn = styled.button`
   background-color: ${NORMAL_BUTTON_COLOR};
   color:${NORMAL_BUTTON_FONT_COLOR};
   font-size: ${BUTTON_SIZE};
+  cursor: pointer;
 `
 
 export default function NormalButton({children}) {
+  // const navigate = useNavigate();
+
+  const handleGoSignup = (e) => {
+    e.preventDefault();
+    // navigate('/signup');
+    console.log('hello');
+  };
   return (
-    <NormalBtn>{children}</NormalBtn>
+    <NormalBtn onClick={handleGoSignup}>{children}</NormalBtn>
   )
 }
