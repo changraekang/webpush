@@ -1,12 +1,13 @@
 import logo from '../assets/images/logo.png';
 import mypageLogo from '../assets/images/mypage-logo.png';
 import styled from 'styled-components';
-import {SIDE_NAV_COLOR ,NAV_FONT_HOVER_COLOR,NAV_MAIN_COLOR,NAV_BUTTON_HOVER_COLOR,NAV_FONT_COLOR} from '../constants/color';
+import {NAV_MY_MENU_LINE_COLOR,NAV_MY_MENU_COLOR, SIDE_NAV_COLOR ,NAV_FONT_HOVER_COLOR,NAV_MAIN_COLOR,NAV_BUTTON_HOVER_COLOR,NAV_FONT_COLOR} from '../constants/color';
 import { useEffect, useState } from 'react';
 
 
 const Header = styled.header`
   display: flex;
+  font-family: 'Pretendard-Regular';
 `
 const Nav = styled.nav`
   background: ${SIDE_NAV_COLOR};
@@ -33,27 +34,8 @@ const WrapRight = styled.div`
 const TopHeader = styled.div`
   background: ${NAV_MAIN_COLOR};
   padding: 21px;
-  box-sizing: border-box;
 `
 
-const MyButton = styled.button`
-  display: block;
-  border: none;
-  background: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  float: right;
-  padding: 5px;
-  cursor: pointer;
-  font-weight: 900;
-
-  &:hover {
-    background: ${NAV_BUTTON_HOVER_COLOR};
-    border-radius: 8px;
-  }
-`
 const LI = styled.li`
   margin-bottom: 32px;
   `
@@ -74,11 +56,63 @@ const SubLI = styled.li`
   margin-bottom:20px;
 `
 
+const MyButton = styled.button`
+position: relative;
+  display: block;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  float: right;
+  padding: 5px;
+  cursor: pointer;
+  font-weight: 900;
+
+  &:hover {
+    background: ${NAV_BUTTON_HOVER_COLOR};
+    border-radius: 8px;
+  }
+`
+
+const MyMenu = styled.ul`
+  position: absolute;
+  right: 16px;
+  top: 70px;
+  width: 110px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
+  background-color: ${NAV_MY_MENU_COLOR};
+  text-align: center;
+  padding: 16px;
+
+  &::after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 2px;
+    background-color: ${NAV_MY_MENU_LINE_COLOR};
+    left: 15px;
+    top: 55px;
+  }
+`
+const MyMenuLi = styled.li`
+  margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
+`
+//${(props) => (props.last ? "32px" : "16px")};
+
 export default function Layout({children}) {
   const [openNav, setOpenNav] = useState(false);
+  const [openMyMenu, setOpenMyMenu] = useState(false);
 
   const handleOpenNav = () => {
     !openNav ? setOpenNav(true) : setOpenNav(false)
+  }
+
+  const handleOpenMyMenu = () => {
+    !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false)
   }
 
   return (
@@ -102,10 +136,17 @@ export default function Layout({children}) {
       {/* 오른쪽 */}
       <WrapRight>
           <TopHeader>
-              <MyButton>
-                <img src={mypageLogo} alt="마이페이지 로고" />
+              <MyButton onClick={handleOpenMyMenu}>
+                {<img src={mypageLogo} alt="마이페이지 로고" />}
                 김태희(사용자)
               </MyButton>
+              {openMyMenu && 
+                <MyMenu>
+                  <MyMenuLi first>MASTER</MyMenuLi>
+                  <MyMenuLi>비밀변경</MyMenuLi>
+                  <MyMenuLi>로그아웃</MyMenuLi>
+                </MyMenu>
+              }
           </TopHeader>
           <main>
             { children }
