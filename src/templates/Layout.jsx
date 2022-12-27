@@ -3,6 +3,7 @@ import mypageLogo from '../assets/images/mypage-logo.png';
 import styled from 'styled-components';
 import {SIDE_NAV_COLOR} from '../constants/color';
 import {NAV_MAIN_COLOR} from '../constants/color';
+import {NAV_FONT_COLOR} from '../constants/color';
 
 const Header = styled.header`
   display: flex;

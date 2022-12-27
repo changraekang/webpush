@@ -7,6 +7,7 @@ import {
   Router,
   Routes,
 } from "react-router-dom";
+import './styles/global.css'
 import Test from "./pages/Test";
 import Layout from "./templates/Layout";
 
