@@ -20,12 +20,8 @@ border: none;
 const Test = () => {
     return (
         <div>
-<<<<<<< HEAD
           <h1>TEST</h1>
           <TestButton>test</TestButton> 
-=======
-          <h1></h1>  
->>>>>>> 22ff3146e336cd817543acdca79507be43b2b59a
         </div>
     );
 };
