@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ACTIVE_BUTTON_COLOR } from "../constants/color";
-
+import { AuthList } from "../atom/test";
 const TestWapper = styled.div`
   display: flex;
   width: 155px;
@@ -22,6 +22,7 @@ const TestFlex = styled.div`
   font-family: sans-serif;
 `;
 const TestExplainFlex = styled.div`
+  width: 250px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -55,49 +56,25 @@ const TestButton = styled.button`
   border: none;
 `;
 const Test = () => {
+  const onClickAuth = (title) => {
+    console.log(title, "주소");
+  };
+
   return (
     <>
       <TestTitle>TEST PAGE</TestTitle>
-      <TestWapper>
-        <TestButtonWapper>
-          <TestButton>Auth</TestButton>
-          <TestFlex>email</TestFlex>
-        </TestButtonWapper>
-        <TestFlex>설명</TestFlex>
-        <TestExplainFlex>결과</TestExplainFlex>
-      </TestWapper>
-      <TestWapper>
-        <TestButtonWapper>
-          <TestButton>Auth</TestButton>
-          <TestFlex>login</TestFlex>
-        </TestButtonWapper>
-        <TestFlex>설명</TestFlex>
-        <TestExplainFlex>결과</TestExplainFlex>
-      </TestWapper>
-      <TestWapper>
-        <TestButtonWapper>
-          <TestButton>Auth</TestButton>
-          <TestFlex>reset</TestFlex>
-        </TestButtonWapper>
-        <TestFlex>설명</TestFlex>
-        <TestExplainFlex>결과</TestExplainFlex>
-      </TestWapper>
-      <TestWapper>
-        <TestButtonWapper>
-          <TestButton>Auth</TestButton>
-          <TestFlex>refresh</TestFlex>
-        </TestButtonWapper>
-        <TestFlex>설명</TestFlex>
-        <TestExplainFlex>결과</TestExplainFlex>
-      </TestWapper>
-      <TestWapper>
-        <TestButtonWapper>
-          <TestButton>Auth</TestButton>
-          <TestFlex>register</TestFlex>
-        </TestButtonWapper>
-        <TestFlex>설명</TestFlex>
-        <TestExplainFlex>결과</TestExplainFlex>
-      </TestWapper>
+      {AuthList.map(({ title, explain }) => {
+        return (
+          <TestWapper>
+            <TestButtonWapper>
+              <TestButton onClick={() => onClickAuth(title)}>Auth</TestButton>
+              <TestFlex>{title}</TestFlex>
+            </TestButtonWapper>
+            <TestFlex>{explain}</TestFlex>
+            <TestExplainFlex>결과</TestExplainFlex>
+          </TestWapper>
+        );
+      })}
     </>
   );
 };
