@@ -1,4 +1,4 @@
-import "./App.css";
+
 import {
   BrowserRouter,
   Route,
@@ -8,13 +8,17 @@ import {
   Routes,
 } from "react-router-dom";
 import Test from "./pages/Test";
+import Layout from "./templates/Layout";
+
 function App() {
   return (
     <>
       <BrowserRouter>
+        <Layout />
         <Routes>
           {/* 에러페이지 */}
-          <Route path="/test" element={<Test />} />
+          <Route exact path="/" element={<Test />} />
+
         </Routes>
       </BrowserRouter>
     </>
