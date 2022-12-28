@@ -151,7 +151,7 @@ const Test = () => {
       name: "강창래3",
       password: "asd!1234",
       phone: "010-4911-4073",
-      token: "18073768",
+      token: "25882507",
     };
     /**
     let data = {
