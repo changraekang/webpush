@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import AuthBox from "../component/containers/AuthBox";
-import {MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../constants/color';
-import {AUTH_RADIO_SIZE, BUTTON_SIZE} from '../constants/fontSize';
-import logo from '../assets/images/logo.png';
-import {LoginButton,BeforeLoginButton, GoSignupButton} from "../component/buttons/AuthButtons";
-import activeCheck from '../assets/images/active-check.png';
-import inActiveCheck from '../assets/images/inactive-check.png';
+import AuthBox from "../../component/containers/auth/AuthBox";
+import {MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../../constants/color';
+import {AUTH_RADIO_SIZE, BUTTON_SIZE} from '../../constants/fontSize';
+import logo from '../../assets/images/logo.png';
+import {LoginButton,BeforeLoginButton, GoSignupButton} from "../../component/buttons/AuthButtons";
+import activeCheck from '../../assets/images/active-check.png';
+import inActiveCheck from '../../assets/images/inactive-check.png';
 import { useState } from "react";
 import { useNavigate } from "react-router";
 

@@ -57,7 +57,6 @@ function BeforeSignupButton({children}) {
   )
 }
 
-
 // 이메일 인증
 function CertificationButton({children}) {
   return (

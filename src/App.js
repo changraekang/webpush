@@ -9,9 +9,9 @@ import {
 import './styles/global.css'
 import Main from "./pages/Main";
 import Test from "./pages/Test";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import MakePush from "./pages/MakePush";
+import Signup from "./pages/Auth/Signup";
+import Login from "./pages/Auth/Login";
+import MakePush from "./pages/push/MakePush";
 
 function App() {
   return (
