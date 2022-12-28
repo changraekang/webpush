@@ -5,7 +5,9 @@ import Layout from '../templates/Layout'
 export default function MakePush() {
   return (
     <Layout>
-      <MakePushBox></MakePushBox>
+      <MakePushBox>
+        <p>push</p>
+      </MakePushBox>
     </Layout>
   )
 }
