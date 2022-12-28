@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthBox from '../component/containers/AuthBox';
+import AuthBox from '../component/containers/auth/AuthBox';
 import Layout from '../templates/Layout';
 
 const Main = () => {
