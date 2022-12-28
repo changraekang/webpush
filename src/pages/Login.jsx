@@ -3,8 +3,7 @@ import AuthBox from "../component/containers/AuthBox";
 import {MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../constants/color';
 import {AUTH_RADIO_SIZE, BUTTON_SIZE} from '../constants/fontSize';
 import logo from '../assets/images/logo.png';
-import InactiveButton from "../component/buttons/InactiveButton";
-import NormalButton from "../component/buttons/NormalButton";
+import {InactiveButton, NormalButton, ActiveButton} from "../component/buttons/AuthButtons";
 import activeCheck from '../assets/images/active-check.png';
 import inActiveCheck from '../assets/images/inactive-check.png';
 import { useState } from "react";
@@ -61,19 +60,7 @@ const RadioLi = styled.li`
   gap: 4px;
 `
 
-const NormalBtn = styled.button`
-  display: block;
-  width: 100%;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid ${NORMAL_BUTTON_BORDER_COLOR};
-  background-color: ${NORMAL_BUTTON_COLOR};
-  color:${NORMAL_BUTTON_FONT_COLOR};
-  font-size: ${BUTTON_SIZE};
-  cursor: pointer;
-
-`
-
+//--------------로그인 페이지--------------------------
 export default function Login() {
   const navigate = useNavigate();
   const [isCheck, setIsCheck] = useState(false);
