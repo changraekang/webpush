@@ -144,14 +144,20 @@ const Test = () => {
     setError("");
     setSucces([]);
     let data = {
-      company: "kakao",
-      confirmPassword: "1234qwer",
-      email: "stork_kcr@naver.com",
-      name: "강창래",
-      password: "1234qwer",
+      company: "필수",
+      confirmPassword: "asd!1234",
+      email: "1234@naver.com",
+      name: "강창래2",
+      password: "asd!1234",
       phone: "010-4911-4073",
-      token: "20372573",
+      token: "68122076",
     };
+    /**
+    let data = {
+      email: "stork_kcr@naver.com",
+      token: "74516212",
+    };
+    */
 
     try {
       if (path === "POST") {
