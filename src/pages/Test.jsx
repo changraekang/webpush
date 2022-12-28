@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import {
   ACTIVE_BUTTON_COLOR,
-  NAV_BUTTON_HOVER_COLOR,
+  MAIN_COLOR,
   NAV_MY_MENU_COLOR,
   NAV_MY_MENU_LINE_COLOR,
 } from "../constants/color";
@@ -88,7 +88,7 @@ const MyButton = styled.button`
   cursor: pointer;
   font-weight: 900;
   &:hover {
-    background: ${NAV_BUTTON_HOVER_COLOR};
+    background: ${MAIN_COLOR};
     border-radius: 8px;
   }
 `;
@@ -146,11 +146,11 @@ const Test = () => {
     let data = {
       company: "필수",
       confirmPassword: "asd!1234",
-      email: "1234@naver.com",
-      name: "강창래2",
+      email: "444@naver.com",
+      name: "강창래3",
       password: "asd!1234",
       phone: "010-4911-4073",
-      token: "68122076",
+      token: "18073768",
     };
     /**
     let data = {

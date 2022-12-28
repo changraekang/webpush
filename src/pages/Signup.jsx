@@ -6,6 +6,7 @@ import logo from '../assets/images/logo.png';
 import {CertificationButton,UnCertificationButton,SignupButton,BeforeSignupButton,} from "../component/buttons/AuthButtons";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import SignupAgreement from '../component/agreement/SignupAgreement'
 
 const Section = styled.section`
   display: flex;
@@ -81,7 +82,6 @@ const EmailInput = styled.input`
 const EmailList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 8px;
   position: absolute;
   width: 176px;
   right: 95px;
@@ -97,6 +97,8 @@ const EmailList = styled.ul`
 
 const EmailOptions = styled.li`
   padding: 12px 0;
+  border-bottom: 1px solid ${EMAIL_OPTION_BORDER_COLOR};
+  border-bottom: ${(props)=> (props.last ? "none" : `1px solid ${EMAIL_OPTION_BORDER_COLOR}`  )};
  
 `
 //--------------로그인 페이지--------------------------
@@ -144,7 +146,7 @@ export default function Signup() {
                       <button value={item}>{item}</button>
                     </EmailOptions>
                   ))}
-                  <EmailOptions onClick={handleSelectEmail}>
+                  <EmailOptions last onClick={handleSelectEmail}>
                     <button value=''>직접입력</button>
                   </EmailOptions>
                 </EmailList>
@@ -176,43 +178,8 @@ export default function Signup() {
             <InputAlign last>
               <Input type="text" id="company" placeholder="회사명을 입력해주세요."/>
             </InputAlign>
-            
-            {/* <InputAlign agreement>
-              <div>
-                <input type="checkbox" id="agreement"/>
-                <label htmlFor="agreement">전체 약관동의</label>
-              </div>
-            </InputAlign>
-            <DesingLine></DesingLine>
-            <InputAlign agreement>
-              <div>
-                <input type="checkbox" id="agreement1"/>
-                <label htmlFor="agreement1">만 14세 이상입니다.(필수)</label>
-              </div>
-              <button>전문보기</button>
-            </InputAlign >
-            <InputAlign agreement>
-              <div>
-                <input type="checkbox" id="agreement2"/>
-                <label htmlFor="agreement2">DMPUSH 이용약관.(필수)</label>
-              </div>
-              <button>전문보기</button>
-            </InputAlign>
-            <InputAlign agreement>
-              <div>
-                <input type="checkbox" id="agreement3"/>
-                <label htmlFor="agreement3">DMPUSH 이용약관.(필수)</label>
-              </div>
-              <button>전문보기</button>
-            </InputAlign>
-            <InputAlign agreement>
-              <div>
-                <input type="checkbox" id="agreement4"/>
-                <label htmlFor="agreement4">DMPUSH 이용약관.(필수)</label>
-              </div>
-              <button>전문보기</button>
-            </InputAlign> */}
 
+            <SignupAgreement />
             <BeforeSignupButton type="submit">회원가입</BeforeSignupButton>
           </form>
         </WrapContents>
