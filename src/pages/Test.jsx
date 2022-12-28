@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  ACTIVE_BUTTON_COLOR,
-  NAV_BUTTON_HOVER_COLOR,
-  NAV_MY_MENU_COLOR,
-  NAV_MY_MENU_LINE_COLOR,
-} from "../constants/color";
+import { ACTIVE_BUTTON_COLOR, MAIN_COLOR } from "../constants/color";
 import {
   AuthList,
   CategoryList,
@@ -88,7 +83,7 @@ const MyButton = styled.button`
   cursor: pointer;
   font-weight: 900;
   &:hover {
-    background: ${NAV_BUTTON_HOVER_COLOR};
+    background: ${MAIN_COLOR};
     border-radius: 8px;
   }
 `;
@@ -150,7 +145,7 @@ const Test = () => {
       name: "강창래2",
       password: "asd!1234",
       phone: "010-4911-4073",
-      token: "68122076",
+      token: "26201026",
     };
     /**
     let data = {
