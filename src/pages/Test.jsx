@@ -141,7 +141,7 @@ const Test = () => {
     setTitle(title);
     setPath(path);
     setError("");
-    let data = "";
+    let data = { email: "stork_kcr@naver.com" };
     try {
       if (path === "POST") {
         const response = await instanceAxios.post(`/auth/${title}`, data);
