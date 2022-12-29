@@ -1,6 +1,6 @@
 import FindMemberBox from "../../components/containers/auth/FindMemberBox";
 import styled from "styled-components";
-import {ActiveFindPasswordButton, InactiveFindPasswordButton} from '../../components/buttons/FindMemberButtons'
+import {ActiveFindEmailButton, InactiveFindEmailButton} from '../../components/buttons/FindMemberButtons'
 import {MAIN_BACKGROUND_COLOR, AUTH_MESSAGE_COLOR,AUTH_LABEL_COLOR,INACTIVE_INPUT_BORDER_COLOR, ACTIVE_INPUT_BORDER_COLOR} from '../../constants/color'
 import { useState } from "react";
 
@@ -65,10 +65,10 @@ export default function FindPassword() {
               <InputStyle onChange={handleInput} value={phone} type="text" id='phone' placeholder="휴대폰 번호를 입력해주세요."/> 
             </div>
             {phone && 
-              <ActiveFindPasswordButton>확인</ActiveFindPasswordButton>
+              <ActiveFindEmailButton>확인</ActiveFindEmailButton>
             }
             {!phone && 
-              <InactiveFindPasswordButton>확인</InactiveFindPasswordButton>
+              <InactiveFindEmailButton>확인</InactiveFindEmailButton>
             }
           </FormStyle>
       </FindMemberBox>
