@@ -2,9 +2,11 @@
 export const MAIN_COLOR = "#68C2F4";
 export const MAIN_BACKGROUND_COLOR = "#E9F1F5";
 export const MAIN_SUBTITLE_FONT_COLOR = "#AFAFAF";
+export const MAIN_FONT_COLOR = "#000";
 
 //박스 배경색
 export const MAIN_BOX_COLOR = "#fff";
+export const MAIN_DEMOBOX_COLOR = "#FAFAFA";
 
 // 네브바
 export const NAV_MAIN_COLOR = "#68C2F4";
@@ -39,5 +41,3 @@ export const EMAIL_OPTION_BORDER_COLOR = "#68C2F4";
 export const AUTH_TITLE_COLOR = "#000";
 export const AUTH_MESSAGE_COLOR = "#333";
 export const AUTH_LABEL_COLOR = "#333";
-// 컬러 통합
-export const MAIN_FONT_COLOR = "#000";
