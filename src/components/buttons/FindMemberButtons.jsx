@@ -36,5 +36,18 @@ function InactiveFindPasswordButton({children}) {
   )
 }
 
+// 이메일 찾기
+function ActiveFindEmailButton({children}) {
+  return (
+    <Button active>{children}</Button>
+  )
+}
 
-export {ActiveFindPasswordButton, InactiveFindPasswordButton}
+function InactiveFindEmailButton({children}) {
+  return (
+    <Button inactive>{children}</Button>
+  )
+}
+
+
+export {ActiveFindPasswordButton, InactiveFindPasswordButton, ActiveFindEmailButton, InactiveFindEmailButton}
