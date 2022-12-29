@@ -12,6 +12,7 @@ import {
   MAIN_SUBCONTENT_SIZE,
   MAIN_TITLE_SIZE,
   MAIN_SUBTITLE_SIZE,
+  MAIN_CONTENT_SIZE
 } from "../../constants/fontSize";
 import activeCheck from "../../assets/images/active-check.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
@@ -58,18 +59,24 @@ const DemoShowSection = styled.section`
   margin-left: 10px;
 `;
 
-const Title = styled.h2`
+const PageTitle = styled.h2`
   font-size: ${MAIN_TITLE_SIZE};
   font-weight: 600;
   padding-bottom: 12px;
 `;
-const SubTitle = styled.h3`
+
+const Title = styled.h3`
+  font-size: ${ MAIN_SUBTITLE_SIZE};
+  font-weight: 600;
+  padding-bottom: 12px;
+`;
+const SubTitle = styled.h4`
   width: 100px;
   font-size: ${MAIN_SUBTITLE_SIZE};
   font-weight: 500;
   padding: 6px;
 `;
-const SubDemoTitle = styled.h3`
+const SubDemoTitle = styled.h4`
   width: 100%;
   font-size: ${MAIN_SUBTITLE_SIZE};
   font-weight: 500;
@@ -131,7 +138,7 @@ const RadioList = styled.ul`
   margin: 14px 0;
   justify-content: flex-start;
   align-items: center;
-  font-size: ${MAIN_SUBCONTENT_SIZE};
+  font-size: ${MAIN_CONTENT_SIZE};
 `;
 
 const RadioLi = styled.li`
@@ -175,7 +182,7 @@ export default function MakePush() {
   return (
     <Layout>
       <TitleWrapper>
-        <Title>PUSH 작성</Title>
+        <PageTitle>PUSH 작성</PageTitle>
         <Message>
           고객들에게 날릴 웹푸시를 작성 및 등록할 수 있는 페이지입니다.
         </Message>
