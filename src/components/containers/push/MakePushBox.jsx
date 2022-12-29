@@ -8,8 +8,8 @@ const Box = styled.div`
 
 export default function MakePushBox({children}) {
   return (
-    <Box>
-        {children}
-    </Box>
+      <Box>
+          {children}
+      </Box>
   )
 }
