@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import AuthBox from "../../components/containers/auth/AuthBox";
-import {MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../../constants/color';
+import {MAIN_BACKGROUND_COLOR,AUTH_LABEL_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../../constants/color';
 import {AUTH_RADIO_SIZE, BUTTON_SIZE} from '../../constants/fontSize';
 import logo from '../../assets/images/logo.png';
 import {LoginButton,BeforeLoginButton, GoSignupButton} from "../../components/buttons/AuthButtons";
@@ -8,6 +8,7 @@ import activeCheck from '../../assets/images/active-check.png';
 import inActiveCheck from '../../assets/images/inactive-check.png';
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Section = styled.section`
   display: flex;
@@ -64,6 +65,11 @@ const WrapFindAuth = styled.div`
   gap: 16px;
 `
 
+const LinkStyle = styled(Link)`
+  text-decoration: none;
+  color: ${AUTH_LABEL_COLOR};
+`
+
 //--------------로그인 페이지--------------------------
 export default function Login() {
   const navigate = useNavigate();
@@ -101,8 +107,16 @@ export default function Login() {
               아이디 저장
             </RadioLi>
             <WrapFindAuth>
-              <li>아아디 찾기</li>
-              <li>비밀번호 찾기</li>
+              <li>
+                <LinkStyle to="/findEmail">
+                  아아디 찾기
+                </LinkStyle>
+              </li>
+              <li>
+                <LinkStyle to="/findPassword">
+                비밀번호 찾기
+                </LinkStyle>
+              </li>
             </WrapFindAuth>
           </RadioList>
           <GoSignupButton handleGoSignup={handleGoSignup}>회원가입</GoSignupButton>
