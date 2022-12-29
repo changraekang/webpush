@@ -26,7 +26,7 @@ export const NORMAL_BUTTON_COLOR = '#FFFFFF'
 export const NORMAL_BUTTON_FONT_COLOR = '#68C2F4'
 export const NORMAL_BUTTON_BORDER_COLOR = '#68C2F4'
 
-// 회원가입, 로그인 
+// 회원가입, 로그인 , 비밀번호 찾기, 이메일 찾기 INPUT
 export const ACTIVE_INPUT_COLOR = '#FFF'
 export const ACTIVE_INPUT_FONT_COLOR = '#68C2F4'
 export const ACTIVE_INPUT_BORDER_COLOR = '#68C2F4'
@@ -38,4 +38,6 @@ export const EMAIL_OPTION_BORDER_COLOR = '#68C2F4'
 export const AUTH_TITLE_COLOR = '#000'
 export const AUTH_MESSAGE_COLOR = '#333'
 export const AUTH_LABEL_COLOR = '#333'
+
+
 
