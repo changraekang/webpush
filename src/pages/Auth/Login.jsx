@@ -6,6 +6,7 @@ import {
   INACTIVE_INPUT_BORDER_COLOR,
   INACTIVE_INPUT_FONT_COLOR,
   INACTIVE_INPUT_COLOR,
+  ACTIVE_INPUT_BORDER_COLOR,
   NORMAL_BUTTON_BORDER_COLOR,
   NORMAL_BUTTON_COLOR,
   NORMAL_BUTTON_FONT_COLOR,
@@ -58,14 +59,14 @@ const Input = styled.input`
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
 
-  &:focus{
+  &:focus {
     border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
   }
-  
-  &::placeholder{
+
+  &::placeholder {
     color: ${INACTIVE_INPUT_FONT_COLOR};
   }
-`
+`;
 
 const RadioList = styled.ul`
   display: flex;

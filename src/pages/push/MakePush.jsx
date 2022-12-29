@@ -14,6 +14,7 @@ import {
   MAIN_SUBTITLE_SIZE,
 } from "../../constants/fontSize";
 import activeCheck from "../../assets/images/active-check.png";
+import Fox from "../../assets/images/fox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
 import { DemoBox, DemoWrapBox } from "../../components/containers/push/DemoBox";
 
@@ -291,7 +292,7 @@ export default function MakePush() {
             <DemoWrapperBox>
               <DemoBox>
                 <>
-                  <img src={inActiveCheck} width="192px" height="192px" />
+                  <img src={Fox} width="192px" height="192px" />
                 </>
                 <DemoSection>
                   <SubDemoTitle>제목 타이틀</SubDemoTitle>
