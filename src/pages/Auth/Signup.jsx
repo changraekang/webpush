@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import AuthBox from "../../component/containers/auth/AuthBox";
+import AuthBox from "../../components/containers/auth/AuthBox";
 import {AUTH_TITLE_COLOR,AUTH_MESSAGE_COLOR,AUTH_LABEL_COLOR, MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR,ACTIVE_INPUT_COLOR, EMAIL_OPTION_BORDER_COLOR} from '../../constants/color';
 import {SAMLL_INPUT_SIZE} from '../../constants/fontSize';
 import logo from '../../assets/images/logo.png';
-import {CertificationButton,UnCertificationButton,SignupButton,BeforeSignupButton,} from "../../component/buttons/AuthButtons";
+import {CertificationButton,UnCertificationButton,SignupButton,BeforeSignupButton,} from "../../components/buttons/AuthButtons";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import SignupAgreement from '../../component/agreement/SignupAgreement'
+import SignupAgreement from '../../components/agreement/SignupAgreement'
 
 const Section = styled.section`
   display: flex;

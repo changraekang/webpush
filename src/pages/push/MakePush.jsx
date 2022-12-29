@@ -1,5 +1,5 @@
 import React from 'react'
-import MakePushBox from '../../component/containers/push/MakePushBox'
+import MakePushBox from '../../components/containers/push/MakePushBox'
 import Layout from '../../templates/Layout'
 
 export default function MakePush() {
