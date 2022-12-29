@@ -262,7 +262,7 @@ export default function MakePush() {
               <Input
                 type="text"
                 placeholder="이메일을 입력하세요"
-                readOnly="true"
+                readOnly={true}
               ></Input>
             </WrapMessage>
           </PushBox>
