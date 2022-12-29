@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import AuthBox from "../../components/containers/auth/AuthBox";
-import {MAIN_BACKGROUND_COLOR,AUTH_LABEL_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../../constants/color';
+import {ACTIVE_INPUT_BORDER_COLOR,MAIN_BACKGROUND_COLOR,AUTH_LABEL_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR, INACTIVE_INPUT_COLOR, NORMAL_BUTTON_BORDER_COLOR, NORMAL_BUTTON_COLOR, NORMAL_BUTTON_FONT_COLOR} from '../../constants/color';
 import {AUTH_RADIO_SIZE, BUTTON_SIZE} from '../../constants/fontSize';
 import logo from '../../assets/images/logo.png';
 import {LoginButton,BeforeLoginButton, GoSignupButton} from "../../components/buttons/AuthButtons";
@@ -43,8 +43,15 @@ const Input = styled.input`
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${INACTIVE_INPUT_FONT_COLOR};
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
+  
+  &:focus{
+    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
+  }
+  
+  &::placeholder{
+    color: ${INACTIVE_INPUT_FONT_COLOR};
+  }
 `
 
 const RadioList = styled.ul`
