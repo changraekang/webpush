@@ -48,26 +48,26 @@ const InputStyle = styled.input`
 `
 
 export default function FindPassword() {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleInput = (e) => {
-    setEmail(e.target.value)
+    setPhone(e.target.value)
   }
   return (
     <Section>
-        <h1 className="ir">비밀번호 찾기</h1> 
+        <h1 className="ir">이메일 찾기</h1> 
       <FindMemberBox>
-        <Title>비밀번호 찾기</Title>
+        <Title>이메일 찾기</Title>
         <SubMessage>회원가입 시 입력한 이메일을 입력해주세요!</SubMessage>
           <FormStyle action="post">
-            <LabelStyle htmlFor="email">이메일</LabelStyle>
+            <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
             <div>
-              <InputStyle onChange={handleInput} value={email} type="text" id='email' placeholder="휴대폰 번호를 입력해주세요."/> 
+              <InputStyle onChange={handleInput} value={phone} type="text" id='phone' placeholder="휴대폰 번호를 입력해주세요."/> 
             </div>
-            {email && 
+            {phone && 
               <ActiveFindPasswordButton>확인</ActiveFindPasswordButton>
             }
-            {!email && 
+            {!phone && 
               <InactiveFindPasswordButton>확인</InactiveFindPasswordButton>
             }
           </FormStyle>
