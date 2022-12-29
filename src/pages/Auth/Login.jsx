@@ -56,9 +56,16 @@ const Input = styled.input`
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${INACTIVE_INPUT_FONT_COLOR};
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
-`;
+
+  &:focus{
+    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
+  }
+  
+  &::placeholder{
+    color: ${INACTIVE_INPUT_FONT_COLOR};
+  }
+`
 
 const RadioList = styled.ul`
   display: flex;

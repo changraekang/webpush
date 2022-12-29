@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import AuthBox from "../../components/containers/auth/AuthBox";
-import {AUTH_TITLE_COLOR,AUTH_MESSAGE_COLOR,AUTH_LABEL_COLOR, MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR,ACTIVE_INPUT_COLOR, EMAIL_OPTION_BORDER_COLOR} from '../../constants/color';
+import {ACTIVE_INPUT_BORDER_COLOR,AUTH_TITLE_COLOR,AUTH_MESSAGE_COLOR,AUTH_LABEL_COLOR, MAIN_BACKGROUND_COLOR, INACTIVE_INPUT_BORDER_COLOR, INACTIVE_INPUT_FONT_COLOR,ACTIVE_INPUT_COLOR, EMAIL_OPTION_BORDER_COLOR} from '../../constants/color';
 import {SAMLL_INPUT_SIZE} from '../../constants/fontSize';
 import logo from '../../assets/images/logo.png';
-import {CertificationButton,UnCertificationButton,SignupButton,BeforeSignupButton,} from "../../components/buttons/AuthButtons";
+import {CertificationButton,UnCertificationButton,SignupButton,BeforeSignupButton,ActiveTokenButton,InactiveTokenButton} from "../../components/buttons/AuthButtons";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import SignupAgreement from '../../components/agreement/SignupAgreement'
+import { instanceAxios } from "../../api/axios";
 
 const Section = styled.section`
   display: flex;
@@ -47,7 +48,7 @@ const WrapContents = styled.div`
 const InputAlign = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 8px;
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
@@ -62,7 +63,14 @@ const Input = styled.input`
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${INACTIVE_INPUT_FONT_COLOR};
+
+  &:focus{
+    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
+  }
+  
+  &::placeholder{
+    color: ${INACTIVE_INPUT_FONT_COLOR};
+  }
 `
 
 const Label = styled.label`
@@ -75,8 +83,11 @@ const EmailInput = styled.input`
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${INACTIVE_INPUT_FONT_COLOR};
   cursor: pointer;
+
+  &::placeholder {
+    color: ${INACTIVE_INPUT_FONT_COLOR};
+  }
 `
 
 const EmailList = styled.ul`
@@ -106,16 +117,86 @@ export default function Signup() {
   const navigate = useNavigate();
   const emailList = ["naver.com", "hanmail.net", "kakao.com", "gmail.com"] 
   const [isOpenEmail, setIsOpenEmail] = useState(false);
-  const [email, setEmail] = useState('')
+  const [isOpenTokenInput, setIsOpenTokenInput] = useState(false);
+  const [email, setEmail] = useState('');
+
   const handleOpenEmail = () => {
     !isOpenEmail ? setIsOpenEmail(true) : setIsOpenEmail(false);
   }
 
-  const handleSelectEmail = (e) => {
+  const [inputs, setInputs] = useState({
+    id : '', 
+    email: '',
+    password:'',
+    confirmPassword:'',
+    name:'',
+    phone:'',
+    company:'',
+    token:'',
+  });
+
+  const { id, token, password, confirmPassword, name, phone, company } = inputs;
+
+  const handleInputValues = (e) => { 
+    e.preventDefault();
+    const { name, value }  = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+    console.log(inputs);
+  };
+
+  const handleEmail = (e) => {
+    e.preventDefault();
     handleOpenEmail();
     setEmail(e.target.value);
-    console.log(email);
-  } 
+  }
+  
+
+  // 토큰 요청 
+  const requestToken = async (e) => {
+    e.preventDefault();
+    try{
+      const response = await instanceAxios.post('/auth/emailToken', {
+        "email" : `${id}@${email}`
+      });
+      if(response.status === 200) {
+        alert(response.data.data);
+        setIsOpenTokenInput(true);
+      }
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const requestCompleteToken = async (e) => {
+    e.preventDefault();
+    try{
+      const response = await instanceAxios.post('/auth/emailTokenComplete', {
+        "email" : `${id}@${email}`,
+        "token" : token
+      });
+      if(response.status === 200) {
+        alert(response.data.data)
+      }
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // 로그인 data
+  // const loginData = {
+  //   "company": company,
+  //   "confirmPassword": confirmPassword,
+  //   "email": `${id}@${email}`,
+  //   "name": name,
+  //   "password": password,
+  //   "phone": phone,
+  //   "token": token
+  // }
 
   return (
     <Section>
@@ -130,7 +211,15 @@ export default function Signup() {
           <form action="post">
             <Label htmlFor="email">이메일</Label>
             <InputAlign>
-              <Input first type="text" placeholder="아이디" id="email"/>
+              <Input 
+                first 
+                type="text" 
+                placeholder="아이디" 
+                id="email"
+                value={id}
+                name="id"
+                onChange={handleInputValues}
+               />
               <span>@</span>
               <EmailInput 
                 type="text" 
@@ -138,45 +227,106 @@ export default function Signup() {
                 readOnly 
                 onClick={handleOpenEmail}
                 value={email}
+                name="email"
               />
               {isOpenEmail && 
                 <EmailList>
                   {emailList.map((item, index)=>(
-                    <EmailOptions key={index} onClick={handleSelectEmail}>
-                      <button value={item}>{item}</button>
+                    <EmailOptions key={index} >
+                      <button onClick={handleEmail} value={item}>{item}</button>
                     </EmailOptions>
                   ))}
-                  <EmailOptions last onClick={handleSelectEmail}>
+                  <EmailOptions last >
                     <button value=''>직접입력</button>
                   </EmailOptions>
                 </EmailList>
               }
-              <UnCertificationButton>인증하기</UnCertificationButton>
+              {(!id || !email) &&
+                <UnCertificationButton>확인</UnCertificationButton>
+              }
+              {(id && email) &&
+                <CertificationButton requestToken={requestToken}>확인</CertificationButton>
+              }
             </InputAlign>
+            {isOpenTokenInput && 
+            <>
+              {/* <Label htmlFor="password">인증 번호 입력</Label> */}
+              <InputAlign>
+                <Input 
+                type="text" 
+                placeholder="인증번호를 적어주세요."
+                name="token"
+                onChange={handleInputValues}
+                value={token}
+                />
+                {token && 
+                  <ActiveTokenButton requestCompleteToken={requestCompleteToken}>인증하기</ActiveTokenButton>
+                }
+                {!token && 
+                  <InactiveTokenButton>인증하기</InactiveTokenButton>
+                }
+              </InputAlign>
+            </>
+            }
 
             <Label htmlFor="password">비밀번호</Label>
             <InputAlign>
-              <Input type="text" id="password" placeholder="비밀번호를 입력해주세요."/>
+              <Input 
+              type="password" 
+              id="password" 
+              placeholder="비밀번호를 입력해주세요."
+              value={password}
+              name="password"
+              onChange={handleInputValues}
+              />
             </InputAlign>
 
-            <Label htmlFor="checkPassword">비밀번호 확인</Label>
+            <Label htmlFor="confirmPassword">비밀번호 확인</Label>
             <InputAlign>
-              <Input type="text" id="checkPassword" placeholder="비밀번호를 확인해주세요."/>
+              <Input 
+              type="password" 
+              id="confirmPassword" 
+              placeholder="비밀번호를 확인해주세요."
+              value={confirmPassword}
+              name="confirmPassword"
+              onChange={handleInputValues}
+              />
             </InputAlign>
 
             <Label htmlFor="name">이름</Label>
             <InputAlign>
-              <Input type="text" id="name" placeholder="이름(본인 성명)을 입력해주세요."/>
+              <Input 
+              type="text" 
+              id="name" 
+              placeholder="이름(본인 성명)을 입력해주세요."
+              value={name}
+              name="name"
+              onChange={handleInputValues}
+              />
             </InputAlign>
 
             <Label htmlFor="phone">휴대폰 번호</Label>
             <InputAlign>
-              <Input type="text" id="phone" placeholder="휴대폰 번호를 입력해주세요."/>
+              <Input 
+              type="text" 
+              id="phone" 
+              placeholder="휴대폰 번호를 입력해주세요."
+              value={phone}
+              name="phone"
+              onChange={handleInputValues}
+              />
             </InputAlign>
 
             <Label htmlFor="company">회사명</Label>
             <InputAlign last>
-              <Input type="text" id="company" placeholder="회사명을 입력해주세요."/>
+              <Input 
+              type="text" 
+              id="company" 
+              placeholder="회사명을 입력해주세요."
+              value={company}
+              name="company"
+              onChange={handleInputValues}
+              />
             </InputAlign>
 
             <SignupAgreement />

@@ -58,18 +58,31 @@ function BeforeSignupButton({children}) {
 }
 
 // 이메일 인증
-function CertificationButton({children}) {
+function CertificationButton({children, requestToken}) {
   return (
-    <Button certificate active>{children}</Button>
+    <Button onClick={requestToken} certificate active style={{"width":"190px" }}>{children}</Button>
   )
 }
 
 // 이메일 비인증
 function UnCertificationButton({children}) {
   return (
-    <Button certificate inactive style={{"width":"190px" }}>{children}</Button>
+    <Button disabled certificate inactive style={{"width":"190px" }}>{children}</Button>
   )
 }
 
+// 토큰 넣고 인증
+function ActiveTokenButton({children, requestCompleteToken}) {
+  return (
+    <Button type="submit" onClick={requestCompleteToken} certificate active style={{"width":"105px"}}>{children}</Button>
+  )
+}
 
-export {LoginButton,BeforeLoginButton,SignupButton,BeforeSignupButton,GoSignupButton,CertificationButton,UnCertificationButton}
+// 토큰 넣기 전
+function InactiveTokenButton({children}) {
+  return (
+    <Button disabled certificate inactive style={{"width":"105px"}}>{children}</Button>
+  )
+}
+
+export {ActiveTokenButton,InactiveTokenButton, LoginButton,BeforeLoginButton,SignupButton,BeforeSignupButton,GoSignupButton,CertificationButton,UnCertificationButton}
