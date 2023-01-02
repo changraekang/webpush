@@ -148,7 +148,7 @@ const handleInputValues = (e) => {
     try{
       const response = await instanceAxios.post('/auth/login', loginData);
       if(response.status === 200) {
-        alert(response.data);
+        navigate('/makepush');
       }
       console.log(response);
     } catch (err) {

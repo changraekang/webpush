@@ -3,7 +3,9 @@ import mypageLogo from '../assets/images/mypage-logo.png';
 import styled from 'styled-components';
 import {NAV_MY_MENU_HOVER_COLOR, NAV_MY_MENU_LINE_COLOR,NAV_MY_MENU_COLOR, SIDE_NAV_COLOR ,NAV_FONT_HOVER_COLOR,NAV_MAIN_COLOR,NAV_BUTTON_HOVER_COLOR,NAV_FONT_COLOR} from '../constants/color';
 import { useEffect, useState } from 'react';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { instanceAxios } from '../api/axios';
+import {deviceDetect} from "react-device-detect";
 
 const Header = styled.header`
   display: flex;
@@ -100,11 +102,13 @@ const MyMenu = styled.ul`
   }
 `
 const MyMenuLi = styled.li`
+  cursor: pointer;
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
 `
 //${(props) => (props.last ? "32px" : "16px")};
 
 export default function Layout({children}) {
+  const navigate = useNavigate();
   const [openNav, setOpenNav] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
 
@@ -114,6 +118,33 @@ export default function Layout({children}) {
 
   const handleOpenMyMenu = () => {
     !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false)
+  }
+
+  const [browserName, setBrowserName] = useState("");
+  useEffect(()=> {
+    setBrowserName(deviceDetect().browserName.toUpperCase());
+    if(browserName === "CHOROME" || "SAFARI" || "EDGE" || "OPERA" || "FIREFOX" || "INTERNET EXPLORER") {
+     setBrowserName("PC");
+    } 
+    console.log("브라우저 이름 : ", browserName )
+  },[browserName]);
+
+  const handleLogout  = () => {
+    try {
+      const response = instanceAxios.post('/api/member/logout', {
+        "deviceInfo": {
+          "deviceId": "Non empty string",
+          "deviceType": "DEVICE_TYPE_" + browserName,
+          "notificationToken": "Non empty string"
+        }
+      });
+      if(response.status === 200) {
+        navigate('/');
+      }
+      console.log(response)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -144,7 +175,9 @@ export default function Layout({children}) {
                 <MyMenu>
                   <MyMenuLi first>MASTER</MyMenuLi>
                   <MyMenuLi>비밀변경</MyMenuLi>
-                  <MyMenuLi>로그아웃</MyMenuLi>
+                  <MyMenuLi onClick={handleLogout}>
+                      로그아웃
+                  </MyMenuLi>
                 </MyMenu>
               }
           </TopHeader>
