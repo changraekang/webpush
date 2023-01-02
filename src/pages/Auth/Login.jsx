@@ -25,6 +25,7 @@ import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import {deviceDetect, mobileModel, osName} from "react-device-detect";
 import { instanceAxios } from "../../api/axios";
+import { setAccessTokenToCookie, setRefreshTokenToCookie } from "../../cookie/controlCookie";
 
 const Section = styled.section`
   display: flex;
@@ -148,6 +149,13 @@ const handleInputValues = (e) => {
     try{
       const response = await instanceAxios.post('/auth/login', loginData);
       if(response.status === 200) {
+        const refreshToken = response.data.refreshToken;
+        const accessToken = response.data.accessToken;
+        const tokenType = response.data.tokenType;
+        const headersToken = tokenType + accessToken;
+        setAccessTokenToCookie(headersToken);
+        setRefreshTokenToCookie(refreshToken);
+        instanceAxios.defaults.headers.common['Authorization'] = headersToken;
         navigate('/makepush');
       }
       console.log(response);

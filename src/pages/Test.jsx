@@ -16,6 +16,7 @@ import {
 } from "../atom/test";
 import { instanceAxios } from "../api/axios";
 import fox from "../assets/images/fox.png";
+import Layout from "../templates/Layout";
 const TestWapper = styled.div`
   display: flex;
   width: 155px;
@@ -275,7 +276,7 @@ const Test = () => {
   };
 
   return (
-    <>
+    <Layout>
       <TestTitle>
         TEST PAGE <img height="84px" src={fox}></img>
       </TestTitle>
@@ -453,7 +454,7 @@ const Test = () => {
               }
             })}
       </TestWapper>
-    </>
+    </Layout>
   );
 };
 

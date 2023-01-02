@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { instanceAxios } from '../api/axios';
 import {deviceDetect} from "react-device-detect";
+import { getCookie, setAccessTokenToCookie, setRefreshTokenToCookie } from '../cookie/controlCookie';
+import { logout } from '../cookie/controlCookie';
 
 const Header = styled.header`
   display: flex;
@@ -111,6 +113,8 @@ export default function Layout({children}) {
   const navigate = useNavigate();
   const [openNav, setOpenNav] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
+  const [minutes, setMinutes] = useState(10);
+  const [seconds, setSeconds] = useState(0);
 
   const handleOpenNav = () => {
     !openNav ? setOpenNav(true) : setOpenNav(false)
@@ -126,7 +130,7 @@ export default function Layout({children}) {
     if(browserName === "CHOROME" || "SAFARI" || "EDGE" || "OPERA" || "FIREFOX" || "INTERNET EXPLORER") {
      setBrowserName("PC");
     } 
-    console.log("브라우저 이름 : ", browserName )
+    console.log("브라우저 이름 : ", browserName);
   },[browserName]);
 
   const handleLogout  = () => {
@@ -147,6 +151,55 @@ export default function Layout({children}) {
     }
   }
 
+  // refreshToken 재발급
+  const accessToken = getCookie('accessToken');
+  const refreshToken = getCookie('refreshToken');
+  const logoutTimer = () => {
+    if(accessToken && refreshToken) {
+      logout();
+      alert('세션이 만료되었습니다.');
+      navigate("/");
+    }
+  }  
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if (parseInt(seconds) > 0) {
+        setSeconds(parseInt(seconds) - 1);
+      }
+      if (parseInt(seconds) === 0) {
+        if (parseInt(minutes) === 0) {
+          logoutTimer();
+          clearInterval(countdown);
+        } else {
+          setMinutes(parseInt(minutes) - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => clearInterval(countdown);
+  }, [minutes, seconds]);
+
+  const requestAccessToken = async (token) => {
+    try{
+      const response = await instanceAxios.post('/auth/refresh', {
+        "refreshToken" : token,
+      });
+      const tokenType = response.data.tokenType;
+      const headersToken = tokenType + response.data.accessToken;
+      setAccessTokenToCookie(headersToken);
+      setRefreshTokenToCookie(response.data.refreshToken);
+      instanceAxios.defaults.headers.common['Authorization'] = headersToken;
+      console.log(response,"토큰 초기화"); 
+    } catch (err){
+      console.error(err)
+    }
+  }
+  
+  useEffect(() => {
+    requestAccessToken(refreshToken);
+  }, [])
+
   return (
     <Header>
     {/* 왼쪽 */}
@@ -157,8 +210,8 @@ export default function Layout({children}) {
               <LI onClick={handleOpenNav}><A href='#'>PUSH 관리</A></LI>
               {openNav && 
                 <SubNav>
-                  <SubLI><A href='#'>push 작성</A></SubLI>
-                  <SubLI><A href='#'>push 리스트</A></SubLI>
+                  <SubLI><Link to="/makePush">push 작성</Link></SubLI>
+                  <SubLI><Link to="/test">push 리스트</Link></SubLI>
                 </SubNav>
               }  
             
@@ -176,7 +229,7 @@ export default function Layout({children}) {
                   <MyMenuLi first>MASTER</MyMenuLi>
                   <MyMenuLi>비밀변경</MyMenuLi>
                   <MyMenuLi onClick={handleLogout}>
-                      로그아웃
+                    로그아웃
                   </MyMenuLi>
                 </MyMenu>
               }
