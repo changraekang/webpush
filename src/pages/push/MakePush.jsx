@@ -192,9 +192,10 @@ const ReserveWrapper = styled.div`
 export default function MakePush() {
   const offset = 1000 * 60 * 60 * 9;
   const koreaNow = new Date(new Date().getTime() + offset);
-  let ReserveMin = koreaNow.toISOString().slice(0, 16);
-  let thisMonth = koreaNow.toISOString().slice(0, 10);
-  let thisClock = koreaNow.toISOString().slice(11, 16);
+  const [thisClock, setThisClock] = useState("");
+  const [thisMonth, setThisMonth] = useState("");
+  const [ReserveMin, setReserveMin] = useState("");
+
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
   const [isAdsCheck, setIsAdsCheck] = useState(false);
@@ -215,7 +216,11 @@ export default function MakePush() {
     date: "",
   });
 
-  useEffect(() => {}, [inputs]);
+  useEffect(() => {
+    setReserveMin(koreaNow.toISOString().slice(0, 16));
+    setThisMonth(koreaNow.toISOString().slice(0, 10));
+    setThisClock(koreaNow.toISOString().slice(11, 16));
+  }, [inputs]);
 
   // 이미지 파일 관리
   const [previewImg, setPreviewImg] = useState(null);
