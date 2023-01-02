@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PushBox from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
@@ -190,6 +190,11 @@ const ReserveWrapper = styled.div`
   justify-content: flex-start;
 `;
 export default function MakePush() {
+  const offset = 1000 * 60 * 60 * 9;
+  const koreaNow = new Date(new Date().getTime() + offset);
+  let ReserveMin = koreaNow.toISOString().slice(0, 16);
+  let thisMonth = koreaNow.toISOString().slice(0, 10);
+  let thisClock = koreaNow.toISOString().slice(11, 16);
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
   const [isAdsCheck, setIsAdsCheck] = useState(false);
@@ -209,6 +214,11 @@ export default function MakePush() {
     image: "",
     date: "",
   });
+
+  useEffect(() => {
+    console.log(ReserveMin, "현재날짜");
+    console.log(thisClock, "현재시간");
+  }, []);
   const handleWebCheckRadio = () => {
     isWebCheck ? setisWebCheck(false) : setisWebCheck(true);
   };
@@ -235,9 +245,16 @@ export default function MakePush() {
 
   const { web, mobile, ads, info, etc, title, content, link, image, date } =
     inputs;
-
   const handleInputValues = (e) => {
     e.preventDefault();
+    if (e.target.name === "date") {
+      if (e.target.value.slice(11, 16) < thisClock) {
+        setInputs({
+          date: ReserveMin,
+        });
+        return alert("현재시간보다 빠르게 설정 할 수 없습니다.");
+      }
+    }
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -250,6 +267,9 @@ export default function MakePush() {
     });
   };
   const onClickSubmit = () => {
+    if (isDirectCheck) {
+      inputs.date = thisMonth + " " + thisClock;
+    }
     console.log(inputs, "제출");
   };
   return (
@@ -386,11 +406,11 @@ export default function MakePush() {
                   </RadioLi>
                   {isReserveCheck && (
                     <InputDate
-                      type="date"
+                      type="datetime-local"
                       name="date"
                       value={date}
                       onChange={handleInputValues}
-                      min="2023-01-02"
+                      min={ReserveMin}
                     ></InputDate>
                   )}
                 </ReserveWrapper>
