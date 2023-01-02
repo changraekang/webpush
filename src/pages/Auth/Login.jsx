@@ -23,7 +23,7 @@ import inActiveCheck from "../../assets/images/inactive-check.png";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import {deviceDetect, mobileModel, osName} from "react-device-detect";
+import { deviceDetect, mobileModel, osName } from "react-device-detect";
 import { instanceAxios } from "../../api/axios";
 import { setAccessTokenToCookie, setRefreshTokenToCookie } from "../../cookie/controlCookie";
 
@@ -62,14 +62,14 @@ const Input = styled.input`
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
 
-  &:focus{
+  &:focus {
     border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
   }
-  
-  &::placeholder{
+
+  &::placeholder {
     color: ${INACTIVE_INPUT_FONT_COLOR};
   }
-`
+`;
 
 const RadioList = styled.ul`
   display: flex;
@@ -99,21 +99,21 @@ export default function Login() {
   const navigate = useNavigate();
   const [isCheck, setIsCheck] = useState(false);
   const [inputs, setInputs] = useState({
-    email : '', 
-    password : '',
+    email: "",
+    password: "",
   });
 
-const { email, password } = inputs;
+  const { email, password } = inputs;
 
-const handleInputValues = (e) => { 
-    const { name, value }  = e.target;
+  const handleInputValues = (e) => {
+    const { name, value } = e.target;
     setInputs({
       ...inputs,
       [name]: value,
     });
     console.log(inputs);
-};
-  
+  };
+
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
   };
@@ -125,26 +125,33 @@ const handleInputValues = (e) => {
 
   // 로그인 data
   const [browserName, setBrowserName] = useState("");
-  useEffect(()=> {
+  useEffect(() => {
     setBrowserName(deviceDetect().browserName.toUpperCase());
-    if(browserName === "CHOROME" || "SAFARI" || "EDGE" || "OPERA" || "FIREFOX" || "INTERNET EXPLORER") {
-     setBrowserName("PC");
-    } 
-    console.log("브라우저 이름 : ", browserName )
-  },[browserName]);
-
+    if (
+      browserName === "CHOROME" ||
+      "SAFARI" ||
+      "EDGE" ||
+      "OPERA" ||
+      "FIREFOX" ||
+      "INTERNET EXPLORER"
+    ) {
+      setBrowserName("PC");
+    }
+    console.log("브라우저 이름 : ", browserName);
+  }, [browserName]);
+  
   const loginData = {
-    "deviceInfo": {
-      "deviceId": "Non empty string",
-      "deviceType": "DEVICE_TYPE_" + browserName,
-      "notificationToken": "Non empty string"
+    deviceInfo: {
+      deviceId: "Non empty string",
+      deviceType: "DEVICE_TYPE_" + browserName,
+      notificationToken: "Non empty string",
     },
-    "email": email,
-    "password": password
-  }
+    email: email,
+    password: password,
+  };
 
   // 로그인 요청
-  const requestLogin= async (e) => {
+  const requestLogin = async (e) => {
     e.preventDefault();
     try{
       const response = await instanceAxios.post('/auth/login', loginData);
@@ -157,12 +164,11 @@ const handleInputValues = (e) => {
         setRefreshTokenToCookie(refreshToken);
         instanceAxios.defaults.headers.common['Authorization'] = headersToken;
         navigate('/makepush');
-      }
       console.log(response);
     } catch (err) {
       console.error(err);
     }
-  }
+  };
   return (
     <Section>
       <h1 className="ir">회원가입</h1>
@@ -173,17 +179,30 @@ const handleInputValues = (e) => {
         <WrapContents>
           <form action="post">
             <div>
-              <Input onChange={handleInputValues} name="email" type="text" placeholder="이메일을 입력하세요" />
+              <Input
+                onChange={handleInputValues}
+                name="email"
+                type="text"
+                placeholder="이메일을 입력하세요"
+              />
             </div>
             <div>
-              <Input onChange={handleInputValues} name="password" last type="password" placeholder="비밀번호를 입력하세요" />
+              <Input
+                onChange={handleInputValues}
+                name="password"
+                last
+                type="password"
+                placeholder="비밀번호를 입력하세요"
+              />
             </div>
-            {(!email || !password) && 
+            {(!email || !password) && (
               <BeforeLoginButton type="submit">로그인</BeforeLoginButton>
-            }
-            {(email && password) && 
-              <LoginButton type="submit" requestLogin={requestLogin}>로그인</LoginButton>
-            }
+            )}
+            {email && password && (
+              <LoginButton type="submit" requestLogin={requestLogin}>
+                로그인
+              </LoginButton>
+            )}
           </form>
           <RadioList>
             <RadioLi onClick={handleCheckRadio}>
