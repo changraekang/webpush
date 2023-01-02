@@ -104,6 +104,46 @@ export default function Login() {
     navigate("/signup");
   };
 
+  // 로그인 data
+  const [browserName, setBrowserName] = useState("");
+  useEffect(() => {
+    setBrowserName(deviceDetect().browserName.toUpperCase());
+    if (
+      browserName === "CHOROME" ||
+      "SAFARI" ||
+      "EDGE" ||
+      "OPERA" ||
+      "FIREFOX" ||
+      "INTERNET EXPLORER"
+    ) {
+      setBrowserName("PC");
+    }
+    console.log("브라우저 이름 : ", browserName);
+  }, [browserName]);
+
+  const loginData = {
+    deviceInfo: {
+      deviceId: "Non empty string",
+      deviceType: "DEVICE_TYPE_" + browserName,
+      notificationToken: "Non empty string",
+    },
+    email: email,
+    password: password,
+  };
+
+  // 로그인 요청
+  const requestLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await instanceAxios.post("/auth/login", loginData);
+      if (response.status === 200) {
+        alert(response.data);
+      }
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <Section>
       <h1 className="ir">회원가입</h1>
