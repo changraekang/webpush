@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import PushBox from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
@@ -216,6 +216,41 @@ export default function MakePush() {
   });
 
   useEffect(() => {}, [inputs]);
+
+  // 이미지 파일 관리
+  const [previewImg, setPreviewImg] = useState(null);
+  const encodeFileBase64 = (file) => {
+    const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    setPreviewImg(file);
+
+    // return new Promise((resolve) => {
+    //   reader.onload = () => {
+    //     setPreviewImg(file.result);
+    //     resolve();
+    //   }
+    // })
+  };
+
+  // 이미지 파일 업로드
+  const imageInputRef = useRef(null);
+  const formData = new FormData();
+  const [demoImg, setDomoImg] = useState("");
+  const handleUploadImage = (e) => {
+    const fileList = e.target.files;
+    encodeFileBase64(fileList[0]);
+    // formData.append('file', previewImg);
+    // for(const keyValues of formData) console.log("for 문: ", keyValues);
+    const url = URL.createObjectURL(fileList[0]);
+    setDomoImg(url);
+  };
+
+  const onImgInputBtnClick = (e) => {
+    e.preventDefault();
+    imageInputRef.current.click();
+  };
+
+  // 라디오 체크
   const handleWebCheckRadio = () => {
     isWebCheck ? setisWebCheck(false) : setisWebCheck(true);
   };
@@ -240,8 +275,10 @@ export default function MakePush() {
     setIsDirectCheck(false);
   };
 
+  // 메세지 입력
   const { web, mobile, ads, info, etc, title, content, link, image, date } =
     inputs;
+
   const handleInputValues = (e) => {
     e.preventDefault();
     if (e.target.name === "date") {
@@ -263,18 +300,23 @@ export default function MakePush() {
       etc: isEtcCheck,
     });
   };
+
+  // 제출
   const onClickSubmit = () => {
     if (isDirectCheck) {
       inputs.date = thisMonth + " " + thisClock;
     }
-    if (inputs.date.slice(0, 10) === thisMonth) {
-      if (inputs.date.slice(11, 16) < thisClock) {
-        setInputs({
-          date: ReserveMin,
-        });
-        return alert("현재시간보다 빠르게 설정 할 수 없습니다.");
+    if (isReserveCheck) {
+      if (inputs.date.slice(0, 10) === thisMonth) {
+        if (inputs.date.slice(11, 16) < thisClock) {
+          setInputs({
+            date: ReserveMin,
+          });
+          return alert("현재시간보다 빠르게 설정 할 수 없습니다.");
+        }
       }
     }
+    inputs.image = previewImg;
     console.log(inputs, "제출");
   };
   return (
@@ -378,13 +420,22 @@ export default function MakePush() {
               <WrapMessage>
                 <SubTitle>이미지</SubTitle>
                 <ImageInput
-                  type="text"
                   placeholder="이미지를 등록하세요"
+                  value={previewImg ? previewImg.name : ""}
                   name="image"
                   readOnly={true}
-                  value={image}
                 ></ImageInput>
-                <RegisterImageButton>이미지 등록</RegisterImageButton>
+                <ImageInput
+                  placeholder="이미지를 등록하세요"
+                  style={{ display: "none" }}
+                  type="file"
+                  accept="image/*"
+                  ref={imageInputRef}
+                  onChange={handleUploadImage}
+                ></ImageInput>
+                <RegisterImageButton handleUploadImage={onImgInputBtnClick}>
+                  이미지 등록
+                </RegisterImageButton>
               </WrapMessage>
             </PushBox>
             <PushBox>
@@ -428,7 +479,7 @@ export default function MakePush() {
               <DemoWrapperBox>
                 <DemoBox>
                   <>
-                    <img src={Fox} width="192px" height="192px" />
+                    <img src={Fox} width="192px" height="192px" alt="여우" />
                   </>
                   <DemoSection>
                     <SubDemoTitle>{inputs.title}</SubDemoTitle>

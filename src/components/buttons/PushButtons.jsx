@@ -66,8 +66,8 @@ function InactivePushButton({ children }) {
 }
 
 // 이미지 등록
-function RegisterImageButton({ children }) {
-  return <ImageButton>{children}</ImageButton>;
+function RegisterImageButton({ children, handleUploadImage }) {
+  return <ImageButton onClick={handleUploadImage}>{children}</ImageButton>;
 }
 
 export { ActivePushButton, InactivePushButton, RegisterImageButton };
