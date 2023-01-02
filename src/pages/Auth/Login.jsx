@@ -25,7 +25,10 @@ import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { deviceDetect, mobileModel, osName } from "react-device-detect";
 import { instanceAxios } from "../../api/axios";
-import { setAccessTokenToCookie, setRefreshTokenToCookie } from "../../cookie/controlCookie";
+import {
+  setAccessTokenToCookie,
+  setRefreshTokenToCookie,
+} from "../../cookie/controlCookie";
 
 const Section = styled.section`
   display: flex;
@@ -139,7 +142,7 @@ export default function Login() {
     }
     console.log("브라우저 이름 : ", browserName);
   }, [browserName]);
-  
+
   const loginData = {
     deviceInfo: {
       deviceId: "Non empty string",
@@ -153,18 +156,19 @@ export default function Login() {
   // 로그인 요청
   const requestLogin = async (e) => {
     e.preventDefault();
-    try{
-      const response = await instanceAxios.post('/auth/login', loginData);
-      if(response.status === 200) {
+    try {
+      const response = await instanceAxios.post("/auth/login", loginData);
+      if (response.status === 200) {
         const refreshToken = response.data.refreshToken;
         const accessToken = response.data.accessToken;
         const tokenType = response.data.tokenType;
         const headersToken = tokenType + accessToken;
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
-        instanceAxios.defaults.headers.common['Authorization'] = headersToken;
-        navigate('/makepush');
-      console.log(response);
+        instanceAxios.defaults.headers.common["Authorization"] = headersToken;
+        navigate("/makepush");
+        console.log(response);
+      }
     } catch (err) {
       console.error(err);
     }

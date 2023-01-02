@@ -125,6 +125,13 @@ const Input = styled.input`
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
   color: ${MAIN_FONT_COLOR};
 `;
+const InputDate = styled.input`
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  color: ${MAIN_FONT_COLOR};
+`;
 const ImageInput = styled.input`
   width: 100%;
   padding: 16px;
@@ -176,13 +183,20 @@ const ButtonWrapper = styled.div`
   width: 320px;
   padding-bottom: 80px;
 `;
+const ReserveWrapper = styled.div`
+  width: 320px;
+  height: 36px;
+  display: flex;
+  justify-content: flex-start;
+`;
 export default function MakePush() {
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
   const [isAdsCheck, setIsAdsCheck] = useState(false);
   const [isInfoCheck, setisInfoCheck] = useState(false);
   const [isEtcCheck, setisEtcCheck] = useState(false);
-  const [isDirectCheck, setisDirectCheck] = useState(false);
+  const [isDirectCheck, setIsDirectCheck] = useState(false);
+  const [isReserveCheck, setIsReserveCheck] = useState(false);
   const [inputs, setInputs] = useState({
     web: false,
     mobile: false,
@@ -211,7 +225,12 @@ export default function MakePush() {
     isEtcCheck ? setisEtcCheck(false) : setisEtcCheck(true);
   };
   const handleDirectCheckRadio = () => {
-    isDirectCheck ? setisDirectCheck(false) : setisDirectCheck(true);
+    isDirectCheck ? setIsDirectCheck(false) : setIsDirectCheck(true);
+    setIsReserveCheck(false);
+  };
+  const handleReserveCheckRadio = () => {
+    isReserveCheck ? setIsReserveCheck(false) : setIsReserveCheck(true);
+    setIsDirectCheck(false);
   };
 
   const { web, mobile, ads, info, etc, title, content, link, image, date } =
@@ -347,18 +366,34 @@ export default function MakePush() {
               <Title>04.발송 유형</Title>
               <RadioList>
                 <RadioLi onClick={handleDirectCheckRadio}>
-                  {!isWebCheck && (
-                    <img src={inActiveCheck} alt="웹푸시 체크 아이콘" />
+                  {!isDirectCheck && (
+                    <img src={inActiveCheck} alt="즉시발송 체크 아이콘" />
                   )}
-                  {isWebCheck && (
-                    <img src={activeCheck} alt="웹푸시 체크 아이콘" />
+                  {isDirectCheck && (
+                    <img src={activeCheck} alt="즉시발송 체크 아이콘" />
                   )}
                   즉시발송
                 </RadioLi>
-                <RadioLi onClick={handleMobileCheckRadio}>
-                  <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
-                  예약발송
-                </RadioLi>
+                <ReserveWrapper>
+                  <RadioLi onClick={handleReserveCheckRadio}>
+                    {!isReserveCheck && (
+                      <img src={inActiveCheck} alt="예약발송 체크 아이콘" />
+                    )}
+                    {isReserveCheck && (
+                      <img src={activeCheck} alt="예약발송 체크 아이콘" />
+                    )}
+                    예약발송
+                  </RadioLi>
+                  {isReserveCheck && (
+                    <InputDate
+                      type="date"
+                      name="date"
+                      value={date}
+                      onChange={handleInputValues}
+                      min="2023-01-02"
+                    ></InputDate>
+                  )}
+                </ReserveWrapper>
               </RadioList>
             </PushBox>
           </Section>
