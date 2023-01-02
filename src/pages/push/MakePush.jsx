@@ -215,7 +215,7 @@ export default function MakePush() {
     date: "",
   });
 
-  useEffect(() => {}, [inputs.date]);
+  useEffect(() => {}, [inputs]);
   const handleWebCheckRadio = () => {
     isWebCheck ? setisWebCheck(false) : setisWebCheck(true);
   };
