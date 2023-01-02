@@ -23,9 +23,9 @@ const Button = styled.button`
   }
 `
 //로그인 유효성 통과 전
-function LoginButton({children}) {
+function LoginButton({children, requestLogin}) {
   return (
-    <Button active>{children}</Button>
+    <Button active onClick={requestLogin}>{children}</Button>
   )
 }
 

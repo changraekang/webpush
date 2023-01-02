@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import SignupAgreement from '../../components/agreement/SignupAgreement'
 import { instanceAxios } from "../../api/axios";
-import {deviceDetect, mobileModel, osName} from "react-device-detect"
 
 const Section = styled.section`
   display: flex;
@@ -204,7 +203,11 @@ export default function Signup() {
     try{
       const response = await instanceAxios.post('/auth/register', registerData);
       if(response.status === 200) {
-        navigate('/');
+        navigate('/', {
+          state : {
+            "token" : token
+          }
+        });
         console.log("로그인 성공🎉");
       }
       console.log(response);
