@@ -129,19 +129,12 @@ export default function Login() {
   // 로그인 data
   const [browserName, setBrowserName] = useState("");
   useEffect(() => {
-    setBrowserName(deviceDetect().browserName.toUpperCase());
-    if (
-      browserName === "CHOROME" ||
-      "SAFARI" ||
-      "EDGE" ||
-      "OPERA" ||
-      "FIREFOX" ||
-      "INTERNET EXPLORER"
-    ) {
+    if (deviceDetect().isBrowser) {
       setBrowserName("PC");
+    } else if (deviceDetect().isMobile) {
+      setBrowserName("MOBILE");
     }
-    console.log("브라우저 이름 : ", browserName);
-  }, []);
+  }, [browserName]);
 
   const loginData = {
     deviceInfo: {
