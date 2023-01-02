@@ -127,7 +127,7 @@ const handleInputValues = (e) => {
   useEffect(()=> {
     setBrowserName(deviceDetect().browserName.toUpperCase());
     if(browserName === "CHOROME" || "SAFARI" || "EDGE" || "OPERA" || "FIREFOX" || "INTERNET EXPLORER") {
-      setBrowserName("PC");
+     setBrowserName("PC");
     } 
     console.log("브라우저 이름 : ", browserName )
   },[browserName]);
