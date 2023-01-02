@@ -215,10 +215,7 @@ export default function MakePush() {
     date: "",
   });
 
-  useEffect(() => {
-    console.log(ReserveMin, "현재날짜");
-    console.log(thisClock, "현재시간");
-  }, []);
+  useEffect(() => {}, [inputs.date]);
   const handleWebCheckRadio = () => {
     isWebCheck ? setisWebCheck(false) : setisWebCheck(true);
   };
