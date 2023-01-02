@@ -12,13 +12,16 @@ import {
   MAIN_SUBCONTENT_SIZE,
   MAIN_TITLE_SIZE,
   MAIN_SUBTITLE_SIZE,
-  MAIN_CONTENT_SIZE
+  MAIN_CONTENT_SIZE,
 } from "../../constants/fontSize";
 import activeCheck from "../../assets/images/active-check.png";
 import Fox from "../../assets/images/fox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
 import { DemoBox, DemoWrapBox } from "../../components/containers/push/DemoBox";
-
+import {
+  ActivePushButton,
+  InactivePushButton,
+} from "../../components/buttons/PushButtons";
 const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -26,7 +29,12 @@ const TitleWrapper = styled.div`
   padding-top: 100px;
   padding-left: 40px;
 `;
-
+const PageWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const SectionWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -40,7 +48,7 @@ const Section = styled.section`
   margin-left: 10px;
   width: 877px;
   padding-left: 10px;
-  padding-bottom: 400px;
+  padding-bottom: 100px;
   /* height: 100vh; */
   font-family: "Pretendard-Regular";
   /* padding: 186px 0; */
@@ -67,7 +75,7 @@ const PageTitle = styled.h2`
 `;
 
 const Title = styled.h3`
-  font-size: ${ MAIN_SUBTITLE_SIZE};
+  font-size: ${MAIN_SUBTITLE_SIZE};
   font-weight: 600;
   padding-bottom: 12px;
 `;
@@ -152,7 +160,12 @@ const SubMessage = styled.p`
   color: ${MAIN_SUBTITLE_FONT_COLOR};
   text-align: center;
 `;
-
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 320px;
+  padding-bottom: 80px;
+`;
 export default function MakePush() {
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
@@ -160,7 +173,18 @@ export default function MakePush() {
   const [isInfoCheck, setisInfoCheck] = useState(false);
   const [isEtcCheck, setisEtcCheck] = useState(false);
   const [isDirectCheck, setisDirectCheck] = useState(false);
-
+  const [inputs, setInputs] = useState({
+    web: false,
+    mobile: false,
+    ads: false,
+    info: false,
+    etc: false,
+    title: "",
+    content: "",
+    link: "",
+    image: "",
+    date: "",
+  });
   const handleWebCheckRadio = () => {
     isWebCheck ? setisWebCheck(false) : setisWebCheck(true);
   };
@@ -180,6 +204,25 @@ export default function MakePush() {
     isDirectCheck ? setisDirectCheck(false) : setisDirectCheck(true);
   };
 
+  const { web, mobile, ads, info, etc, title, content, link, image, date } =
+    inputs;
+
+  const handleInputValues = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+      web: isWebCheck,
+      mobile: isMobileCheck,
+      ads: isAdsCheck,
+      info: isInfoCheck,
+      etc: isEtcCheck,
+    });
+  };
+  const onClickSubmit = () => {
+    console.log(inputs, "제출");
+  };
   return (
     <Layout>
       <TitleWrapper>
@@ -188,136 +231,153 @@ export default function MakePush() {
           고객들에게 날릴 웹푸시를 작성 및 등록할 수 있는 페이지입니다.
         </Message>
       </TitleWrapper>
-      <SectionWrapper>
-        <Section>
-          <PushBox>
-            <Title>01.PUSH 유형</Title>
-            <RadioList>
-              <RadioLi onClick={handleWebCheckRadio}>
-                {!isWebCheck && (
-                  <img src={inActiveCheck} alt="웹푸시 체크 아이콘" />
-                )}
-                {isWebCheck && (
-                  <img src={activeCheck} alt="웹푸시 체크 아이콘" />
-                )}
-                웹 푸시
-              </RadioLi>
-              <RadioLi onClick={handleMobileCheckRadio}>
-                {!isMobileCheck && (
+      <PageWrapper>
+        <SectionWrapper>
+          <Section>
+            <PushBox>
+              <Title>01.PUSH 유형</Title>
+              <RadioList>
+                <RadioLi onClick={handleWebCheckRadio}>
+                  {!isWebCheck && (
+                    <img src={inActiveCheck} alt="웹푸시 체크 아이콘" />
+                  )}
+                  {isWebCheck && (
+                    <img src={activeCheck} alt="웹푸시 체크 아이콘" />
+                  )}
+                  웹 푸시
+                </RadioLi>
+                <RadioLi onClick={handleMobileCheckRadio}>
+                  {!isMobileCheck && (
+                    <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
+                  )}
+                  {isMobileCheck && (
+                    <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
+                  )}
+                  모바일 웹 푸시
+                </RadioLi>
+              </RadioList>
+            </PushBox>
+            <PushBox>
+              <Title>02.메시지 유형</Title>
+              <RadioList>
+                <RadioLi onClick={handleAdsCheckRadio}>
+                  {!isAdsCheck && (
+                    <img src={inActiveCheck} alt="광고성 체크 아이콘" />
+                  )}
+                  {isAdsCheck && (
+                    <img src={activeCheck} alt="웹푸시 체크 아이콘" />
+                  )}
+                  광고성
+                </RadioLi>
+                <RadioLi onClick={handleInfoCheckRadio}>
+                  {!isInfoCheck && (
+                    <img src={inActiveCheck} alt="정보성 체크 아이콘" />
+                  )}
+                  {isInfoCheck && (
+                    <img src={activeCheck} alt="기타 체크 아이콘" />
+                  )}
+                  정보성
+                </RadioLi>
+                <RadioLi onClick={handleEtcCheckRadio}>
+                  {!isEtcCheck && (
+                    <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
+                  )}
+                  {isEtcCheck && (
+                    <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
+                  )}
+                  기타
+                </RadioLi>
+              </RadioList>
+            </PushBox>
+            <PushBox>
+              <Title>03.메시지 내용</Title>
+              <WrapMessage>
+                <SubTitle>타이틀</SubTitle>
+                <Input
+                  type="text"
+                  placeholder="제목을 입력해주세요."
+                  value={title}
+                  name="title"
+                  onChange={handleInputValues}
+                ></Input>
+              </WrapMessage>
+              <WrapAreaMessage>
+                <SubTitle>내용</SubTitle>
+                <InputArea
+                  type="textarea"
+                  placeholder="웹푸시에 넣을 내용을 입력해주세요."
+                  value={content}
+                  name="content"
+                  onChange={handleInputValues}
+                ></InputArea>
+              </WrapAreaMessage>
+              <WrapMessage>
+                <SubTitle>링크</SubTitle>
+                <Input
+                  type="text"
+                  placeholder="연결할 주소를 입력해주세요"
+                  value={link}
+                  name="link"
+                  onChange={handleInputValues}
+                ></Input>
+              </WrapMessage>
+              <WrapMessage>
+                <SubTitle>이미지</SubTitle>
+                <Input
+                  type="text"
+                  placeholder="이메일을 입력하세요"
+                  name="image"
+                  readOnly={true}
+                  value={image}
+                ></Input>
+              </WrapMessage>
+            </PushBox>
+            <PushBox>
+              <Title>04.발송 유형</Title>
+              <RadioList>
+                <RadioLi onClick={handleDirectCheckRadio}>
+                  {!isWebCheck && (
+                    <img src={inActiveCheck} alt="웹푸시 체크 아이콘" />
+                  )}
+                  {isWebCheck && (
+                    <img src={activeCheck} alt="웹푸시 체크 아이콘" />
+                  )}
+                  즉시발송
+                </RadioLi>
+                <RadioLi onClick={handleMobileCheckRadio}>
                   <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
-                )}
-                {isMobileCheck && (
-                  <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
-                )}
-                모바일 웹 푸시
-              </RadioLi>
-            </RadioList>
-          </PushBox>
-          <PushBox>
-            <Title>02.메시지 유형</Title>
-            <RadioList>
-              <RadioLi onClick={handleAdsCheckRadio}>
-                {!isAdsCheck && (
-                  <img src={inActiveCheck} alt="광고성 체크 아이콘" />
-                )}
-                {isAdsCheck && (
-                  <img src={activeCheck} alt="웹푸시 체크 아이콘" />
-                )}
-                광고성
-              </RadioLi>
-              <RadioLi onClick={handleInfoCheckRadio}>
-                {!isInfoCheck && (
-                  <img src={inActiveCheck} alt="정보성 체크 아이콘" />
-                )}
-                {isInfoCheck && (
-                  <img src={activeCheck} alt="기타 체크 아이콘" />
-                )}
-                정보성
-              </RadioLi>
-              <RadioLi onClick={handleEtcCheckRadio}>
-                {!isEtcCheck && (
-                  <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
-                )}
-                {isEtcCheck && (
-                  <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
-                )}
-                기타
-              </RadioLi>
-            </RadioList>
-          </PushBox>
-          <PushBox>
-            <Title>03.메시지 내용</Title>
-            <WrapMessage>
-              <SubTitle>타이틀</SubTitle>
-              <Input type="text" placeholder="제목을 입력해주세요."></Input>
-            </WrapMessage>
-            <WrapAreaMessage>
-              <SubTitle>내용</SubTitle>
-              <InputArea
-                type="textarea"
-                placeholder="웹푸시에 넣을 내용을 입력해주세요."
-              ></InputArea>
-            </WrapAreaMessage>
-            <WrapMessage>
-              <SubTitle>링크</SubTitle>
-              <Input
-                type="text"
-                placeholder="연결할 주소를 입력해주세요"
-              ></Input>
-            </WrapMessage>
-            <WrapMessage>
-              <SubTitle>이미지</SubTitle>
-              <Input
-                type="text"
-                placeholder="이메일을 입력하세요"
-                readOnly={true}
-              ></Input>
-            </WrapMessage>
-          </PushBox>
-          <PushBox>
-            <Title>04.발송 유형</Title>
-            <RadioList>
-              <RadioLi onClick={handleDirectCheckRadio}>
-                {!isWebCheck && (
-                  <img src={inActiveCheck} alt="웹푸시 체크 아이콘" />
-                )}
-                {isWebCheck && (
-                  <img src={activeCheck} alt="웹푸시 체크 아이콘" />
-                )}
-                즉시발송
-              </RadioLi>
-              <RadioLi onClick={handleMobileCheckRadio}>
-                <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
-                예약발송
-              </RadioLi>
-            </RadioList>
-          </PushBox>
-        </Section>
-        <DemoSection>
-          <DemoWrapBox>
-            <Title>웹푸시 미리보기</Title>
-            <DemoWrapperBox>
-              <DemoBox>
-                <>
-                  <img src={Fox} width="192px" height="192px" />
-                </>
-                <DemoSection>
-                  <SubDemoTitle>제목 타이틀</SubDemoTitle>
-                  <SubMessage>
-                    내용이들어가는 부분입니다.내용이들어가는
-                    부분입니다.내용이들어가는 부분입니다.내용이들어가는
-                    부분입니다.내용이들어가는 부분입니다.내용이들어가는
-                    부분입니다.내용이들어가는 부분입니다.내용이들어가는
-                    부분입니다.내용이들어가는 부분입니다.내용이들어가는
-                    부분입니다.내용이들어가는 부분입니다.내용...
-                  </SubMessage>
-                  <SubMessage>제목 타이틀</SubMessage>
-                </DemoSection>
-              </DemoBox>
-            </DemoWrapperBox>
-          </DemoWrapBox>
-        </DemoSection>
-      </SectionWrapper>
+                  예약발송
+                </RadioLi>
+              </RadioList>
+            </PushBox>
+          </Section>
+          <DemoSection>
+            <DemoWrapBox>
+              <Title>웹푸시 미리보기</Title>
+              <DemoWrapperBox>
+                <DemoBox>
+                  <>
+                    <img src={Fox} width="192px" height="192px" />
+                  </>
+                  <DemoSection>
+                    <SubDemoTitle>{inputs.title}</SubDemoTitle>
+                    <SubMessage>{inputs.content}</SubMessage>
+                    <SubMessage>{inputs.link}</SubMessage>
+                  </DemoSection>
+                </DemoBox>
+              </DemoWrapperBox>
+            </DemoWrapBox>
+          </DemoSection>
+        </SectionWrapper>
+        <ButtonWrapper>
+          {content && (
+            <ActivePushButton handleSubmit={onClickSubmit}>
+              발송
+            </ActivePushButton>
+          )}
+          {!content && <InactivePushButton>발송</InactivePushButton>}
+        </ButtonWrapper>
+      </PageWrapper>
     </Layout>
   );
 }
