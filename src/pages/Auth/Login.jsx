@@ -96,8 +96,6 @@ const LinkStyle = styled(Link)`
 //--------------로그인 페이지--------------------------
 export default function Login() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const notificationToken = location.state.token;
   const [isCheck, setIsCheck] = useState(false);
   const [inputs, setInputs] = useState({
     email : '', 
@@ -138,7 +136,7 @@ const handleInputValues = (e) => {
     "deviceInfo": {
       "deviceId": "Non empty string",
       "deviceType": "DEVICE_TYPE_" + browserName,
-      "notificationToken": notificationToken
+      "notificationToken": "Non empty string"
     },
     "email": email,
     "password": password
