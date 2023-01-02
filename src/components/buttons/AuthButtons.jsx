@@ -23,9 +23,9 @@ const Button = styled.button`
   }
 `
 //로그인 유효성 통과 전
-function LoginButton({children}) {
+function LoginButton({children, requestLogin}) {
   return (
-    <Button active>{children}</Button>
+    <Button active onClick={requestLogin}>{children}</Button>
   )
 }
 
@@ -44,9 +44,9 @@ function GoSignupButton({children, handleGoSignup}) {
 }
 
 // 회원가입 작성 중
-function SignupButton({children}) {
+function SignupButton({children, requestRegister}) {
   return (
-    <Button style={{"marginTop":"55px"}} active>{children}</Button>
+    <Button style={{"marginTop":"55px"}} active onClick={requestRegister}>{children}</Button>
   )
 }
 

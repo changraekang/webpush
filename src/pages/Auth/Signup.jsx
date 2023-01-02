@@ -4,7 +4,7 @@ import {ACTIVE_INPUT_BORDER_COLOR,AUTH_TITLE_COLOR,AUTH_MESSAGE_COLOR,AUTH_LABEL
 import {SAMLL_INPUT_SIZE} from '../../constants/fontSize';
 import logo from '../../assets/images/logo.png';
 import {CertificationButton,UnCertificationButton,SignupButton,BeforeSignupButton,ActiveTokenButton,InactiveTokenButton} from "../../components/buttons/AuthButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import SignupAgreement from '../../components/agreement/SignupAgreement'
 import { instanceAxios } from "../../api/axios";
@@ -126,7 +126,7 @@ export default function Signup() {
 
   const [inputs, setInputs] = useState({
     id : '', 
-    email: '',
+    // email: '',
     password:'',
     confirmPassword:'',
     name:'',
@@ -188,15 +188,33 @@ export default function Signup() {
   }
 
   // 로그인 data
-  // const loginData = {
-  //   "company": company,
-  //   "confirmPassword": confirmPassword,
-  //   "email": `${id}@${email}`,
-  //   "name": name,
-  //   "password": password,
-  //   "phone": phone,
-  //   "token": token
-  // }
+  const registerData = {
+    "company": company,
+    "confirmPassword": confirmPassword,
+    "email": `${id}@${email}`,
+    "name": name,
+    "password": password,
+    "phone": phone,
+    "token": token
+  }
+  // 로그인 요청
+  const requestRegister= async (e) => {
+    e.preventDefault();
+    try{
+      const response = await instanceAxios.post('/auth/register', registerData);
+      if(response.status === 200) {
+        navigate('/', {
+          state : {
+            "token" : token
+          }
+        });
+        console.log("로그인 성공🎉");
+      }
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <Section>
@@ -330,7 +348,14 @@ export default function Signup() {
             </InputAlign>
 
             <SignupAgreement />
-            <BeforeSignupButton type="submit">회원가입</BeforeSignupButton>
+            {(!id || !email || !password || !confirmPassword || !name || !phone || !company || !token) 
+            && 
+            <BeforeSignupButton type="submit" >회원가입</BeforeSignupButton>
+            }
+            {(id && email && password && confirmPassword && name && phone && company && token) 
+            && 
+            <SignupButton type="submit" requestRegister={requestRegister}>회원가입</SignupButton>
+            }
           </form>
         </WrapContents>
       </AuthBox>  
