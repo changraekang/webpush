@@ -44,9 +44,9 @@ function GoSignupButton({children, handleGoSignup}) {
 }
 
 // 회원가입 작성 중
-function SignupButton({children}) {
+function SignupButton({children, requestRegister}) {
   return (
-    <Button style={{"marginTop":"55px"}} active>{children}</Button>
+    <Button style={{"marginTop":"55px"}} active onClick={requestRegister}>{children}</Button>
   )
 }
 
