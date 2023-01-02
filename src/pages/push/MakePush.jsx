@@ -21,6 +21,7 @@ import { DemoBox, DemoWrapBox } from "../../components/containers/push/DemoBox";
 import {
   ActivePushButton,
   InactivePushButton,
+  RegisterImageButton,
 } from "../../components/buttons/PushButtons";
 const TitleWrapper = styled.div`
   width: 100%;
@@ -56,13 +57,6 @@ const Section = styled.section`
 const DemoSection = styled.section`
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-left: 10px;
-`;
-const DemoShowSection = styled.section`
-  display: flex;
-  justify-content: flex-end;
   align-items: flex-start;
   flex-direction: column;
   margin-left: 10px;
@@ -131,6 +125,16 @@ const Input = styled.input`
   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
   color: ${MAIN_FONT_COLOR};
 `;
+const ImageInput = styled.input`
+  width: 100%;
+  padding: 16px;
+  margin-top: 8px;
+  margin-left: 20px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  color: ${MAIN_FONT_COLOR};
+`;
 const InputArea = styled.input`
   width: 100%;
   padding: 16px;
@@ -157,6 +161,12 @@ const RadioLi = styled.li`
   gap: 4px;
 `;
 const SubMessage = styled.p`
+  color: ${MAIN_SUBTITLE_FONT_COLOR};
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 60px;
+`;
+const LinkMessage = styled.p`
   color: ${MAIN_SUBTITLE_FONT_COLOR};
   text-align: center;
 `;
@@ -323,13 +333,14 @@ export default function MakePush() {
               </WrapMessage>
               <WrapMessage>
                 <SubTitle>이미지</SubTitle>
-                <Input
+                <ImageInput
                   type="text"
-                  placeholder="이메일을 입력하세요"
+                  placeholder="이미지를 등록하세요"
                   name="image"
                   readOnly={true}
                   value={image}
-                ></Input>
+                ></ImageInput>
+                <RegisterImageButton>이미지 등록</RegisterImageButton>
               </WrapMessage>
             </PushBox>
             <PushBox>
@@ -362,7 +373,7 @@ export default function MakePush() {
                   <DemoSection>
                     <SubDemoTitle>{inputs.title}</SubDemoTitle>
                     <SubMessage>{inputs.content}</SubMessage>
-                    <SubMessage>{inputs.link}</SubMessage>
+                    <LinkMessage>{inputs.link}</LinkMessage>
                   </DemoSection>
                 </DemoBox>
               </DemoWrapperBox>
