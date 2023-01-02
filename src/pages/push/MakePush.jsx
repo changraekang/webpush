@@ -117,7 +117,7 @@ const DemoWrapperBox = styled.div`
   height: 383px;
   left: 32px;
   top: 77px;
-
+  padding-right: 50px;
   background: ${MAIN_DEMOBOX_COLOR};
   border-radius: 16px;
 `;
