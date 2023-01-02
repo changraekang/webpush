@@ -141,7 +141,7 @@ export default function Login() {
       setBrowserName("PC");
     }
     console.log("브라우저 이름 : ", browserName);
-  }, [browserName]);
+  }, []);
 
   const loginData = {
     deviceInfo: {
