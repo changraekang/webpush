@@ -267,6 +267,14 @@ export default function MakePush() {
     if (isDirectCheck) {
       inputs.date = thisMonth + " " + thisClock;
     }
+    if (inputs.date.slice(0, 10) === thisMonth) {
+      if (inputs.date.slice(11, 16) < thisClock) {
+        setInputs({
+          date: ReserveMin,
+        });
+        return alert("현재시간보다 빠르게 설정 할 수 없습니다.");
+      }
+    }
     console.log(inputs, "제출");
   };
   return (
