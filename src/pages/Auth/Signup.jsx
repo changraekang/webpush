@@ -10,6 +10,7 @@ import {
   INACTIVE_INPUT_FONT_COLOR,
   ACTIVE_INPUT_COLOR,
   EMAIL_OPTION_BORDER_COLOR,
+  AUTH_WARNING_COLOR,
 } from "../../constants/color";
 import { SAMLL_INPUT_SIZE } from "../../constants/fontSize";
 import logo from "../../assets/images/logo.png";
@@ -112,6 +113,10 @@ const Label = styled.label`
   color: ${AUTH_LABEL_COLOR};
 `;
 
+const LabelWarning = styled.label`
+  color: ${AUTH_WARNING_COLOR};
+`;
+
 const EmailInput = styled.input`
   width: 100%;
   padding: 16px;
@@ -156,6 +161,10 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [writeEmail, setWriteEmail] = useState("");
   const [isWriteEmail, setIsWriteEmail] = useState(false);
+  const [emailVaildation, setEmailVaildation] = useState(true);
+  const [passwordVaildation, setPasswordVaildation] = useState(true);
+  const [conPasswdVaildation, setConPasswdVaildation] = useState(true);
+  const [phoneVaildation, setPhoneVaildation] = useState(true);
   const handleOpenEmail = () => {
     !isOpenEmail ? setIsOpenEmail(true) : setIsOpenEmail(false);
   };
@@ -176,11 +185,24 @@ export default function Signup() {
   const handleInputValues = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
+    if (e.target.name === "password") {
+      // 영문 숫자 특수문자 1개씩 +  8-25글자 정규식
+      let re = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+      console.log(re.test(e.target.value));
+      setPasswordVaildation(re.test(e.target.value));
+    } else if (e.target.name === "confirmPassword") {
+      if (e.target.value === password) {
+        setConPasswdVaildation(true);
+      } else {
+        setConPasswdVaildation(false);
+      }
+    } else if (e.target.name === "phone") {
+      console.log("번호");
+    }
     setInputs({
       ...inputs,
       [name]: value,
     });
-    console.log(inputs);
   };
 
   const handleEmail = (e) => {
@@ -191,13 +213,16 @@ export default function Signup() {
     }
     setEmail(e.target.value);
   };
+  // 이메일 직접 쓰기
   const handleWriteEmail = (e) => {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let result = re.test(e.target.value);
-    console.log(result);
     e.preventDefault();
-    setWriteEmail(e.target.value);
+    // ***.com 정규식
+    const re =
+      /((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let result = re.test(e.target.value);
+    setEmailVaildation(result);
+    console.log(emailVaildation);
+    setEmail(e.target.value);
   };
 
   // 토큰 요청
@@ -311,19 +336,29 @@ export default function Signup() {
     return (
       <>
         <InputAlign>
-          <InputWriteEmail
+          <Input
             first
             type="text"
             placeholder="아이디"
             id="email"
-            value={writeEmail}
+            value={id}
+            name="id"
+            onChange={handleInputValues}
+          />
+          <span>@</span>
+
+          <EmailInput
+            type="text"
+            placeholder="이메일 선택"
             onChange={handleWriteEmail}
+            value={email}
+            name="email"
           />
 
-          {(!id || !email) && (
+          {(!id || !email || !emailVaildation) && (
             <UnCertificationButton>확인</UnCertificationButton>
           )}
-          {id && email && (
+          {id && email && emailVaildation && (
             <CertificationButton requestToken={requestToken}>
               확인
             </CertificationButton>
@@ -380,7 +415,7 @@ export default function Signup() {
       console.error(err);
     }
   };
-
+  // 컴포넌트 시작
   return (
     <Section>
       <h1 className="ir">회원가입</h1>
@@ -392,10 +427,20 @@ export default function Signup() {
         </WrapLogo>
         <WrapContents>
           <form action="post">
-            <Label htmlFor="email">이메일</Label>
+            <Label htmlFor="email">이메일 </Label>
+            {!emailVaildation && (
+              <LabelWarning htmlFor="email">
+                이메일 형식을 맞춰주세요
+              </LabelWarning>
+            )}
             {!isWriteEmail && renderSelectEmail()}
             {isWriteEmail && renderWriteEmail()}
-            <Label htmlFor="password">비밀번호</Label>
+            <Label htmlFor="password">비밀번호 </Label>
+            {!passwordVaildation && (
+              <LabelWarning htmlFor="email">
+                비밀번호 형식을 맞춰주세요
+              </LabelWarning>
+            )}
             <InputAlign>
               <Input
                 type="password"
@@ -407,7 +452,12 @@ export default function Signup() {
               />
             </InputAlign>
 
-            <Label htmlFor="confirmPassword">비밀번호 확인</Label>
+            <Label htmlFor="confirmPassword">비밀번호 확인 </Label>
+            {!conPasswdVaildation && (
+              <LabelWarning htmlFor="email">
+                입력한 비밀번호 같은 비밀번호를 입력하세요
+              </LabelWarning>
+            )}
             <InputAlign>
               <Input
                 type="password"
