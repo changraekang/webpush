@@ -149,6 +149,7 @@ export default function Login() {
   // 로그인 요청
   const requestLogin = async (e) => {
     e.preventDefault();
+    console.log("login", loginData);
     try {
       const response = await instanceAxios.post("/auth/login", loginData);
       if (response.status === 200) {
