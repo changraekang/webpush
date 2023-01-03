@@ -363,6 +363,7 @@ export default function MakePush() {
                 </RadioLi>
               </RadioList>
             </PushBox>
+            {/**
             {isMobileCheck || isWebCheck ? (
               <PushBox>
                 <Title>02.메시지 유형</Title>
@@ -397,6 +398,7 @@ export default function MakePush() {
                 </RadioList>
               </PushBox>
             ) : null}
+            */}
             <PushBox>
               <Title>03.메시지 내용</Title>
               <WrapMessage>
