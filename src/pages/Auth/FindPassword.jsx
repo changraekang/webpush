@@ -11,6 +11,7 @@ import {
   INACTIVE_INPUT_BORDER_COLOR,
   ACTIVE_INPUT_BORDER_COLOR,
   AUTH_WARNING_COLOR,
+  AUTH_MAIN_COLOR,
 } from "../../constants/color";
 import { useState } from "react";
 import { instanceAxios } from "../../api/axios";
@@ -22,7 +23,7 @@ const Section = styled.section`
   width: 100%;
   height: 100vh;
   font-family: "Pretendard-Regular";
-  background-color: ${MAIN_BACKGROUND_COLOR};
+  background: ${AUTH_MAIN_COLOR};
 `;
 
 const Title = styled.h2`
