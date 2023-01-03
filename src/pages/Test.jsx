@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import {
   ACTIVE_BUTTON_COLOR,
+  INACTIVE_INPUT_BORDER_COLOR,
   MAIN_COLOR,
+  MAIN_FONT_COLOR,
   NAV_MY_MENU_COLOR,
   NAV_MY_MENU_LINE_COLOR,
 } from "../constants/color";
@@ -22,6 +24,15 @@ const TestWapper = styled.div`
   width: 155px;
   flex-direction: column;
   justify-content: space-around;
+  flex-wrap: wrap;
+`;
+const TestInputWapper = styled.div`
+  display: flex;
+  width: 250px;
+  height: 250px;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: black;
   flex-wrap: wrap;
 `;
 const TestButtonWapper = styled.div`
@@ -95,6 +106,15 @@ const MyButton = styled.button`
   }
 `;
 
+const Input = styled.input`
+  width: 280px;
+  padding: 16px;
+  margin-top: 8px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  color: ${MAIN_FONT_COLOR};
+`;
 const Test = () => {
   const [openAuthMenu, setOpenAuthMenu] = useState(true);
   const [openMemberMenu, setOpenMemberMenu] = useState(true);
@@ -105,12 +125,16 @@ const Test = () => {
   const [success, setSucces] = useState([]);
   const [title2, setTitle] = useState("");
   const [path2, setPath] = useState("");
+  const [email, setEmail] = useState("");
   const handleOpenAuthMenu = () => {
     setOpenCategoryMenu(true);
     setOpenMemberMenu(true);
     setOpenMessageMenu(true);
     setOpenProjectMenu(true);
     !openAuthMenu ? setOpenAuthMenu(true) : setOpenAuthMenu(false);
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
   };
   const handleOpenMemberMenu = () => {
     setOpenCategoryMenu(true);
@@ -169,7 +193,10 @@ const Test = () => {
         let suc = JSON.stringify(response.data);
         setSucces(suc);
       } else {
-        const response = await instanceAxios.get(`/auth/${title}`, data);
+        const response = await instanceAxios.get(
+          `/auth/${title}${email}`,
+          data
+        );
         console.log(response, "응답");
         let suc = JSON.stringify(response.data);
         setSucces(suc);
@@ -287,6 +314,14 @@ const Test = () => {
           <MyButton onClick={handleOpenMemberMenu}>Member</MyButton>
           <MyButton onClick={handleOpenProjectMenu}>Project</MyButton>
           <MyButton onClick={handleOpenMessageMenu}>Mesaage</MyButton>
+        </TopWapper>
+        <TopWapper>
+          <MyButton>입력</MyButton>
+          <Input
+            onChange={handleEmail}
+            value={email}
+            placeholder="email token시 입력"
+          ></Input>
         </TopWapper>
         {openAuthMenu
           ? null

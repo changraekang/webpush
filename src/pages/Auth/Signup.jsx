@@ -201,6 +201,9 @@ export default function Signup() {
       let re = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
       console.log(re.test(e.target.value));
       setPasswordVaildation(re.test(e.target.value));
+      if (conPasswdVaildation) {
+        setConPasswdVaildation(false);
+      }
     } else if (e.target.name === "confirmPassword") {
       if (e.target.value === password) {
         setConPasswdVaildation(true);
@@ -532,6 +535,8 @@ export default function Signup() {
               !name ||
               !phone ||
               !company ||
+              !conPasswdVaildation ||
+              !passwordVaildation ||
               !token) && (
               <BeforeSignupButton type="submit">회원가입</BeforeSignupButton>
             )}
@@ -542,7 +547,6 @@ export default function Signup() {
               passwordVaildation &&
               conPasswdVaildation &&
               name &&
-              phoneVaildation &&
               company &&
               token && (
                 <SignupButton type="submit" requestRegister={requestRegister}>
