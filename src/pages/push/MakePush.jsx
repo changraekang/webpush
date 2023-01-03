@@ -325,7 +325,11 @@ export default function MakePush() {
         }
       }
     }
-    inputs.date = submitDate;
+    if (isReserveCheck && submitDate) {
+      inputs.date = submitDate;
+    } else {
+      inputs.date = ReserveMin;
+    }
     inputs.image = previewImg;
     console.log(inputs, "제출");
   };
@@ -400,7 +404,7 @@ export default function MakePush() {
             ) : null}
             */}
             <PushBox>
-              <Title>03.메시지 내용</Title>
+              <Title>02.메시지 내용</Title>
               <WrapMessage>
                 <SubTitle>타이틀</SubTitle>
                 <Input
@@ -453,7 +457,7 @@ export default function MakePush() {
               </WrapMessage>
             </PushBox>
             <PushBox>
-              <Title>04.발송 유형</Title>
+              <Title>03.발송 유형</Title>
               <RadioList>
                 <RadioLi onClick={handleDirectCheckRadio}>
                   {!isDirectCheck && (
