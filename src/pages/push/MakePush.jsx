@@ -190,11 +190,22 @@ const ReserveWrapper = styled.div`
   justify-content: flex-start;
 `;
 export default function MakePush() {
-  const offset = 1000 * 60 * 60 * 9;
-  const koreaNow = new Date(new Date().getTime() + offset);
   const [thisClock, setThisClock] = useState("");
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
+  const [timer, setTimer] = useState(1);
+  const [submitDate, setSubmitDate] = useState(ReserveMin);
+  const getClock = () => {
+    const offset = 1000 * 60 * 60 * 9;
+    const koreaNow = new Date(new Date().getTime() + offset);
+    setReserveMin(koreaNow.toISOString().slice(0, 16));
+    setThisClock(koreaNow.toISOString().slice(11, 16));
+    setThisMonth(koreaNow.toISOString().slice(0, 10));
+  };
+  useEffect(() => {
+    getClock();
+    setInterval(getClock, 20000);
+  }, []);
 
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
@@ -215,12 +226,6 @@ export default function MakePush() {
     image: "",
     date: "",
   });
-
-  useEffect(() => {
-    setReserveMin(koreaNow.toISOString().slice(0, 16));
-    setThisMonth(koreaNow.toISOString().slice(0, 10));
-    setThisClock(koreaNow.toISOString().slice(11, 16));
-  }, [inputs]);
 
   // 이미지 파일 관리
   const [previewImg, setPreviewImg] = useState(null);
@@ -283,17 +288,18 @@ export default function MakePush() {
   // 메세지 입력
   const { web, mobile, ads, info, etc, title, content, link, image, date } =
     inputs;
-
-  const handleInputValues = (e) => {
-    e.preventDefault();
-    if (e.target.name === "date") {
+  const handleInputDates = (e) => {
+    if (e.target.value.slice(0, 10) === thisMonth) {
       if (e.target.value.slice(11, 16) < thisClock) {
-        setInputs({
-          date: ReserveMin,
-        });
+        setSubmitDate(ReserveMin);
         return alert("현재시간보다 빠르게 설정 할 수 없습니다.");
       }
     }
+    setSubmitDate(e.target.value);
+  };
+  const handleInputValues = (e) => {
+    e.preventDefault();
+
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -312,15 +318,14 @@ export default function MakePush() {
       inputs.date = thisMonth + " " + thisClock;
     }
     if (isReserveCheck) {
-      if (inputs.date.slice(0, 10) === thisMonth) {
-        if (inputs.date.slice(11, 16) < thisClock) {
-          setInputs({
-            date: ReserveMin,
-          });
+      if (submitDate.slice(0, 10) === thisMonth) {
+        if (submitDate.slice(11, 16) < thisClock) {
+          setSubmitDate(ReserveMin);
           return alert("현재시간보다 빠르게 설정 할 수 없습니다.");
         }
       }
     }
+    inputs.date = submitDate;
     inputs.image = previewImg;
     console.log(inputs, "제출");
   };
@@ -358,38 +363,40 @@ export default function MakePush() {
                 </RadioLi>
               </RadioList>
             </PushBox>
-            <PushBox>
-              <Title>02.메시지 유형</Title>
-              <RadioList>
-                <RadioLi onClick={handleAdsCheckRadio}>
-                  {!isAdsCheck && (
-                    <img src={inActiveCheck} alt="광고성 체크 아이콘" />
-                  )}
-                  {isAdsCheck && (
-                    <img src={activeCheck} alt="웹푸시 체크 아이콘" />
-                  )}
-                  광고성
-                </RadioLi>
-                <RadioLi onClick={handleInfoCheckRadio}>
-                  {!isInfoCheck && (
-                    <img src={inActiveCheck} alt="정보성 체크 아이콘" />
-                  )}
-                  {isInfoCheck && (
-                    <img src={activeCheck} alt="기타 체크 아이콘" />
-                  )}
-                  정보성
-                </RadioLi>
-                <RadioLi onClick={handleEtcCheckRadio}>
-                  {!isEtcCheck && (
-                    <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
-                  )}
-                  {isEtcCheck && (
-                    <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
-                  )}
-                  기타
-                </RadioLi>
-              </RadioList>
-            </PushBox>
+            {isMobileCheck || isWebCheck ? (
+              <PushBox>
+                <Title>02.메시지 유형</Title>
+                <RadioList>
+                  <RadioLi onClick={handleAdsCheckRadio}>
+                    {!isAdsCheck && (
+                      <img src={inActiveCheck} alt="광고성 체크 아이콘" />
+                    )}
+                    {isAdsCheck && (
+                      <img src={activeCheck} alt="웹푸시 체크 아이콘" />
+                    )}
+                    광고성
+                  </RadioLi>
+                  <RadioLi onClick={handleInfoCheckRadio}>
+                    {!isInfoCheck && (
+                      <img src={inActiveCheck} alt="정보성 체크 아이콘" />
+                    )}
+                    {isInfoCheck && (
+                      <img src={activeCheck} alt="기타 체크 아이콘" />
+                    )}
+                    정보성
+                  </RadioLi>
+                  <RadioLi onClick={handleEtcCheckRadio}>
+                    {!isEtcCheck && (
+                      <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
+                    )}
+                    {isEtcCheck && (
+                      <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
+                    )}
+                    기타
+                  </RadioLi>
+                </RadioList>
+              </PushBox>
+            ) : null}
             <PushBox>
               <Title>03.메시지 내용</Title>
               <WrapMessage>
@@ -468,9 +475,8 @@ export default function MakePush() {
                   {isReserveCheck && (
                     <InputDate
                       type="datetime-local"
-                      name="date"
-                      value={date}
-                      onChange={handleInputValues}
+                      value={submitDate ? submitDate : ReserveMin}
+                      onChange={handleInputDates}
                       min={ReserveMin}
                     ></InputDate>
                   )}
