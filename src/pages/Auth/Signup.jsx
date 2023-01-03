@@ -152,7 +152,7 @@ const EmailOptions = styled.li`
   border-bottom: ${(props) =>
     props.last ? "none" : `1px solid ${EMAIL_OPTION_BORDER_COLOR}`};
 `;
-//--------------로그인 페이지--------------------------
+//--------------회원가입 페이지--------------------------
 export default function Signup() {
   const navigate = useNavigate();
   const emailList = ["naver.com", "hanmail.net", "kakao.com", "gmail.com"];
