@@ -298,22 +298,34 @@ export default function MakePush() {
     setSubmitDate(e.target.value);
   };
   const handleInputValues = (e) => {
-    e.preventDefault();
-
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-      web: isWebCheck,
-      mobile: isMobileCheck,
-      ads: isAdsCheck,
-      info: isInfoCheck,
-      etc: isEtcCheck,
-    });
+    if (isMobileCheck || isWebCheck) {
+      e.preventDefault();
+      const { name, value } = e.target;
+      setInputs({
+        ...inputs,
+        [name]: value,
+        web: isWebCheck,
+        mobile: isMobileCheck,
+        ads: isAdsCheck,
+        info: isInfoCheck,
+        etc: isEtcCheck,
+      });
+    } else {
+      alert("Please select Push Type");
+    }
   };
 
   // 제출
   const onClickSubmit = () => {
+    if (!isMobileCheck && !isWebCheck) {
+      return alert("Please select Push Type");
+    }
+    if (!title || !content || !link) {
+      return alert("Please type DM content");
+    }
+    if (!isDirectCheck && !isReserveCheck) {
+      return alert("Please select publish type");
+    }
     if (isDirectCheck) {
       inputs.date = thisMonth + " " + thisClock;
     }
@@ -429,7 +441,7 @@ export default function MakePush() {
                 <SubTitle>링크</SubTitle>
                 <Input
                   type="text"
-                  placeholder="연결할 주소를 입력해주세요"
+                  placeholder="연결할 주소를 입력해주세요 ex.(www.example.com)"
                   value={link}
                   name="link"
                   onChange={handleInputValues}
@@ -509,12 +521,22 @@ export default function MakePush() {
           </DemoSection>
         </SectionWrapper>
         <ButtonWrapper>
-          {content && (
-            <ActivePushButton handleSubmit={onClickSubmit}>
-              발송
-            </ActivePushButton>
+          {content &&
+            title &&
+            link &&
+            (isMobileCheck || isWebCheck) &&
+            (isDirectCheck || isReserveCheck) && (
+              <ActivePushButton handleSubmit={onClickSubmit}>
+                발송
+              </ActivePushButton>
+            )}
+          {(!content ||
+            !title ||
+            !link ||
+            (!isMobileCheck && !isWebCheck) ||
+            (!isDirectCheck && !isReserveCheck)) && (
+            <InactivePushButton>발송</InactivePushButton>
           )}
-          {!content && <InactivePushButton>발송</InactivePushButton>}
         </ButtonWrapper>
       </PageWrapper>
     </Layout>
