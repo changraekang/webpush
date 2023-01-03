@@ -159,7 +159,7 @@ export default function Signup() {
   const [isOpenEmail, setIsOpenEmail] = useState(false);
   const [isOpenTokenInput, setIsOpenTokenInput] = useState(false);
   const [email, setEmail] = useState("");
-  const [writeEmail, setWriteEmail] = useState("");
+  const [phoneWrite, setPhoneWrite] = useState("");
   const [isWriteEmail, setIsWriteEmail] = useState(false);
   const [emailVaildation, setEmailVaildation] = useState(true);
   const [passwordVaildation, setPasswordVaildation] = useState(true);
@@ -168,7 +168,6 @@ export default function Signup() {
   const handleOpenEmail = () => {
     !isOpenEmail ? setIsOpenEmail(true) : setIsOpenEmail(false);
   };
-
   const [inputs, setInputs] = useState({
     id: "",
     // email: '',
@@ -179,7 +178,19 @@ export default function Signup() {
     company: "",
     token: "",
   });
-
+  useEffect(() => {
+    if (phoneWrite.length === 10) {
+      setPhoneWrite(phoneWrite.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
+    }
+    if (phoneWrite.length === 13) {
+      setPhoneWrite(
+        phoneWrite
+          .replace(/-/g, "")
+          .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+      );
+    }
+    console.log("하이픈", phoneWrite);
+  }, [phoneWrite]);
   const { id, token, password, confirmPassword, name, phone, company } = inputs;
 
   const handleInputValues = (e) => {
@@ -197,7 +208,15 @@ export default function Signup() {
         setConPasswdVaildation(false);
       }
     } else if (e.target.name === "phone") {
-      console.log("번호");
+      const regex = /^[0-9\b -]{0,13}$/;
+      console.log(e.target.value);
+      if (regex.test(e.target.value)) {
+        console.log(e.target.value, "통과");
+        setPhoneWrite(e.target.value);
+        setPhoneVaildation(true);
+      } else {
+        return setPhoneVaildation(false);
+      }
     }
     setInputs({
       ...inputs,
@@ -394,12 +413,13 @@ export default function Signup() {
     email: `${id}@${email}`,
     name: name,
     password: password,
-    phone: phone,
+    phone: phoneWrite,
     token: token,
   };
   // 로그인 요청
   const requestRegister = async (e) => {
     e.preventDefault();
+    console.log(registerData);
     try {
       const response = await instanceAxios.post("/auth/register", registerData);
       if (response.status === 200) {
@@ -480,14 +500,13 @@ export default function Signup() {
                 onChange={handleInputValues}
               />
             </InputAlign>
-
             <Label htmlFor="phone">휴대폰 번호</Label>
             <InputAlign>
               <Input
                 type="text"
                 id="phone"
                 placeholder="휴대폰 번호를 입력해주세요."
-                value={phone}
+                value={phoneWrite}
                 name="phone"
                 onChange={handleInputValues}
               />
@@ -519,9 +538,11 @@ export default function Signup() {
             {id &&
               email &&
               password &&
-              confirmPassword &&
-              name &&
               phone &&
+              passwordVaildation &&
+              conPasswdVaildation &&
+              name &&
+              phoneVaildation &&
               company &&
               token && (
                 <SignupButton type="submit" requestRegister={requestRegister}>
