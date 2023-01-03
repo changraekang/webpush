@@ -291,6 +291,7 @@ export default function Signup() {
             id="email"
             value={id}
             name="id"
+            maxLength={40}
             onChange={handleInputValues}
           />
           <span>@</span>
@@ -500,6 +501,7 @@ export default function Signup() {
                 placeholder="이름(본인 성명)을 입력해주세요."
                 value={name}
                 name="name"
+                maxLength={20}
                 onChange={handleInputValues}
               />
             </InputAlign>
