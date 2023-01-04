@@ -43,7 +43,7 @@ function ActiveFindPasswordButton({ children, requestFind }) {
 }
 
 function InactiveFindPasswordButton({ children }) {
-  return <Button inactive>{children}</Button>;
+  return <Button inactive disabled>{children}</Button>;
 }
 
 // 링크 발송 후 로그인 하러 가기 
@@ -55,6 +55,19 @@ function GoLoginPage({ children, handleGoLogin }) {
   );
 }
 
+// 비밀번호 변경하기 버튼
+function ActiveSetNewasswordButton({ children }) {
+  return (
+    <Button active>
+      {children}
+    </Button>
+  );
+}
+
+function InactiveSetNewPasswordButton({ children }) {
+  return <Button inactive disabled>{children}</Button>;
+}
+
 
 // 이메일 찾기
 function ActiveFindEmailButton({ children }) {
@@ -62,7 +75,7 @@ function ActiveFindEmailButton({ children }) {
 }
 
 function InactiveFindEmailButton({ children }) {
-  return <Button inactive>{children}</Button>;
+  return <Button inactive disabled>{children}</Button>;
 }
 
 export {
@@ -70,5 +83,7 @@ export {
   InactiveFindPasswordButton,
   ActiveFindEmailButton,
   InactiveFindEmailButton,
-  GoLoginPage
+  GoLoginPage,
+  ActiveSetNewasswordButton,
+  InactiveSetNewPasswordButton
 };

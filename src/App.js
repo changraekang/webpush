@@ -13,6 +13,7 @@ import Login from "./pages/Auth/Login";
 import MakePush from "./pages/push/MakePush";
 import FindEmail from "./pages/Auth/FindEmail"
 import FindPassword from "./pages/Auth/FindPassword";
+import SetNewPassword from "./pages/Auth/SetNewPassword";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route  path="/signup" element={<Signup />} />
           <Route  path="/findEmail" element={<FindEmail />} />
           <Route  path="/findPassword" element={<FindPassword />} />
+          <Route  path="/setNewPassword" element={<SetNewPassword />} />
           <Route  path="/makePush" element={<MakePush />} />
           {/* 에러페이지 */}
           <Route  path="/test" element={<Test />} />
