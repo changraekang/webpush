@@ -33,7 +33,7 @@ const Button = styled.button`
   }
 `;
 
-// 비밀번호 찾기
+// 비밀번호 찾기(링크 발송 버튼)
 function ActiveFindPasswordButton({ children, requestFind }) {
   return (
     <Button active onClick={requestFind}>
@@ -45,6 +45,16 @@ function ActiveFindPasswordButton({ children, requestFind }) {
 function InactiveFindPasswordButton({ children }) {
   return <Button inactive>{children}</Button>;
 }
+
+// 링크 발송 후 로그인 하러 가기 
+function GoLoginPage({ children, handleGoLogin }) {
+  return (
+    <Button active onClick={handleGoLogin}>
+      {children}
+    </Button>
+  );
+}
+
 
 // 이메일 찾기
 function ActiveFindEmailButton({ children }) {
@@ -60,4 +70,5 @@ export {
   InactiveFindPasswordButton,
   ActiveFindEmailButton,
   InactiveFindEmailButton,
+  GoLoginPage
 };
