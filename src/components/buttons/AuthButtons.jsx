@@ -84,7 +84,6 @@ function CertificationButton({ children, requestToken }) {
       onClick={requestToken}
       certificate
       active
-      style={{ width: "190px" }}
     >
       {children}
     </Button>
@@ -94,7 +93,7 @@ function CertificationButton({ children, requestToken }) {
 // 이메일 비인증
 function UnCertificationButton({ children }) {
   return (
-    <Button disabled certificate inactive style={{ width: "190px" }}>
+    <Button disabled certificate inactive>
       {children}
     </Button>
   );

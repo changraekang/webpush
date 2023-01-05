@@ -1,6 +1,6 @@
 //메인
 export const MAIN_COLOR = "#68C2F4";
-export const MAIN_BACKGROUND_COLOR = "#E9F1F5";
+export const MAIN_BACKGROUND_COLOR = "linear-gradient(133.78deg, #88EAFF 8.16%, #98A2FF 74.57%);";
 export const MAIN_SUBTITLE_FONT_COLOR = "#AFAFAF";
 export const MAIN_FONT_COLOR = "#000";
 
@@ -39,8 +39,8 @@ export const INACTIVE_INPUT_BORDER_COLOR = "#AFAFAF";
 export const EMAIL_OPTION_BORDER_COLOR = "#68C2F4";
 
 export const AUTH_TITLE_COLOR = "#000";
-export const AUTH_MESSAGE_COLOR = "#333";
-export const AUTH_LABEL_COLOR = "#333";
+export const AUTH_MESSAGE_COLOR = "#262626";
+export const AUTH_LABEL_COLOR = "#000000";
 export const AUTH_MAIN_COLOR =
   "linear-gradient(133.78deg, #88eaff 8.16%, #98a2ff 74.57%)";
-export const AUTH_WARNING_COLOR = "#ff0000";
+export const AUTH_WARNING_COLOR = "#E82A2A";
