@@ -279,6 +279,7 @@ export default function Signup() {
       console.error(err);
     }
   };
+
   // 이메일 셀렉트
   const renderSelectEmail = () => {
     return (
@@ -296,7 +297,8 @@ export default function Signup() {
           />
           <span>@</span>
 
-          <EmailInput
+          {!isWriteEmail && 
+            <EmailInput
             type="text"
             placeholder="이메일 선택"
             readOnly
@@ -304,7 +306,17 @@ export default function Signup() {
             value={email}
             name="email"
           />
-
+          }
+          {isWriteEmail && 
+            <EmailInput
+            type="text"
+            placeholder="이메일 선택"
+            onChange={handleWriteEmail}
+            value={email}
+            name="email"
+            />
+          }
+          
           {isOpenEmail && (
             <EmailList>
               {emailList.map((item, index) => (
@@ -322,66 +334,10 @@ export default function Signup() {
             </EmailList>
           )}
 
-          {(!id || !email) && (
-            <UnCertificationButton>확인</UnCertificationButton>
-          )}
-          {id && email && (
-            <CertificationButton requestToken={requestToken}>
-              확인
-            </CertificationButton>
-          )}
-        </InputAlign>
-        {isOpenTokenInput && (
-          <>
-            {/* <Label htmlFor="password">인증 번호 입력</Label> */}
-            <InputAlign>
-              <Input
-                type="text"
-                placeholder="인증번호를 적어주세요."
-                name="token"
-                onChange={handleInputValues}
-                value={token}
-              />
-              {token && (
-                <ActiveTokenButton requestCompleteToken={requestCompleteToken}>
-                  인증하기
-                </ActiveTokenButton>
-              )}
-              {!token && <InactiveTokenButton>인증하기</InactiveTokenButton>}
-            </InputAlign>
-          </>
-        )}
-      </>
-    );
-  };
-  // 이메일 직접쓰기
-  const renderWriteEmail = () => {
-    return (
-      <>
-        <InputAlign>
-          <Input
-            first
-            type="text"
-            placeholder="아이디"
-            id="email"
-            value={id}
-            name="id"
-            onChange={handleInputValues}
-          />
-          <span>@</span>
-
-          <EmailInput
-            type="text"
-            placeholder="이메일 선택"
-            onChange={handleWriteEmail}
-            value={email}
-            name="email"
-          />
-
           {(!id || !email || !emailVaildation) && (
             <UnCertificationButton>확인</UnCertificationButton>
           )}
-          {id && email && emailVaildation && (
+          {(id && email && emailVaildation) &&(
             <CertificationButton requestToken={requestToken}>
               확인
             </CertificationButton>
@@ -410,6 +366,7 @@ export default function Signup() {
       </>
     );
   };
+  
   // 로그인 data
   const registerData = {
     company: company,
@@ -457,8 +414,8 @@ export default function Signup() {
                 이메일 형식을 맞춰주세요
               </LabelWarning>
             )}
-            {!isWriteEmail && renderSelectEmail()}
-            {isWriteEmail && renderWriteEmail()}
+            {/* 이메일 종류 선택하기 */}
+            {renderSelectEmail()}
             <Label htmlFor="password">비밀번호 </Label>
             {!passwordVaildation && (
               <LabelWarning htmlFor="email">
