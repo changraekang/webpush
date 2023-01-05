@@ -12,6 +12,7 @@ import {
 import {
   BUTTON_SIZE,
   CERTIFICATION_BUTTON_SIZE,
+  TOKEN_BUTTON_SIZE
 } from "../../constants/fontSize";
 
 const Button = styled.button`
@@ -22,7 +23,9 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 32px;
   font-size: ${(props) =>
-    props.certificate ? `${CERTIFICATION_BUTTON_SIZE}` : `${BUTTON_SIZE}`};
+    props.certificate ? `${CERTIFICATION_BUTTON_SIZE}` : null};
+  font-size: ${(props) =>
+    props.token ? `${TOKEN_BUTTON_SIZE}` : null};
   background: ${(props) => (props.normal ? `${NORMAL_BUTTON_COLOR}` : null)};
   background: ${(props) => (props.active ? `${ACTIVE_BUTTON_COLOR}` : null)};
   background: ${(props) =>
@@ -86,9 +89,9 @@ function SignupButton({ children, requestRegister }) {
       <Button
         type="submit"
         onClick={requestCompleteToken}
-        certificate
+        token
         active
-        style={{ width: "105px" }}
+        style={{width:"100px"}}
       >
         {children}
       </Button>
@@ -98,7 +101,7 @@ function SignupButton({ children, requestRegister }) {
   // 토큰 넣기 전
   function InactiveTokenButton({ children }) {
     return (
-      <Button disabled certificate inactive style={{ width: "105px" }}>
+      <Button disabled token inactive style={{ width: "80px" }}>
         {children}
       </Button>
     );

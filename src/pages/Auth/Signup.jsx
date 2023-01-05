@@ -167,16 +167,27 @@ const EmailOptions = styled.li`
     props.last ? "none" : `1px solid ${EMAIL_OPTION_BORDER_COLOR}`};
 `;
 
-const WrapCertificationBtn = styled.div`
+const WrapCertificateToken = styled.div`
   width: 380px;
   margin: 0 0 12px 140px;
 `
+
+const WrapWriteToken = styled.div`
+  background: #F0F0F0;
+  padding: 16px;
+`
+const TokenMsg = styled.p`
+  font-size: 14px;
+  margin-bottom: 8px;
+`
+
+
 //--------------회원가입 페이지--------------------------
 export default function Signup() {
   const navigate = useNavigate();
   const emailList = ["naver.com", "hanmail.net", "kakao.com", "gmail.com"];
   const [isOpenEmail, setIsOpenEmail] = useState(false);
-  const [isOpenTokenInput, setIsOpenTokenInput] = useState(false);
+  const [isOpenTokenBox, setIsOpenTokenBox] = useState(false);
   const [email, setEmail] = useState("");
   const [phoneWrite, setPhoneWrite] = useState("");
   const [isWriteEmail, setIsWriteEmail] = useState(false);
@@ -277,7 +288,7 @@ export default function Signup() {
       });
       if (response.status === 200) {
         alert(response.data.data);
-        setIsOpenTokenInput(true);
+        setIsOpenTokenBox(true);
       }
       console.log(response);
     } catch (err) {
@@ -359,8 +370,8 @@ export default function Signup() {
             </EmailList>
           )}
         </InputAlign>
-{/*         
-        <WrapCertificationBtn>
+  
+        <WrapCertificateToken>
           {(!id || !email || !emailVaildation) && (
             <UnCertificationButton>이메일 인증하기</UnCertificationButton>
           )}
@@ -369,25 +380,25 @@ export default function Signup() {
               이메일 인증하기
             </CertificationButton>
           )}
-        </WrapCertificationBtn> */}
 
-        {isOpenTokenInput && (
-          <InputAlign>
-            <Input
-              type="text"
-              placeholder="인증번호를 적어주세요."
-              name="token"
-              onChange={handleInputValues}
-              value={token}
-            />
-            {token && (
-              <ActiveTokenButton requestCompleteToken={requestCompleteToken}>
-                인증하기
-              </ActiveTokenButton>
-            )}
-            {!token && <InactiveTokenButton>인증하기</InactiveTokenButton>}
-          </InputAlign>
-        )}
+          {isOpenTokenBox && (
+            <WrapWriteToken>
+              <TokenMsg>이메일로 전송된 인증번호를 입력해주세요.</TokenMsg>
+              <InputAlign style={{gap:"8px"}}>
+                <Input 
+                  type="text"
+                  placeholder="인증번호를 적어주세요."
+                  name="token"
+                  onChange={handleInputValues}
+                  value={token}
+                />
+                <ActiveTokenButton requestCompleteToken={requestCompleteToken}>
+                  인증하기
+                </ActiveTokenButton>
+              </InputAlign>
+            </WrapWriteToken>
+          )}
+        </WrapCertificateToken>
       </>
     );
   };
