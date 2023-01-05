@@ -21,13 +21,14 @@ export const SIDE_NAV_COLOR = "#0A1B35 ";
 export const SIDE_NAV_SELECT_COLOR = "#E8C7FF";
 
 // 버튼 배경 및 폰트
-export const ACTIVE_BUTTON_COLOR = "#68C2F4";
+export const ACTIVE_BUTTON_COLOR = "#7124D3";
 export const ACTIVE_BUTTON_FONT_COLOR = "#FFF";
-export const INACTIVE_BUTTON_COLOR = "#E4E4E4";
-export const INACTIVE_BUTTON_FONT_COLOR = "#FFFFFF";
+export const INACTIVE_BUTTON_COLOR = "#F0F0F0";
+export const INACTIVE_BUTTON_BORDER_COLOR = "#BFBFBF";
+export const INACTIVE_BUTTON_FONT_COLOR = "#BFBFBF";
 export const NORMAL_BUTTON_COLOR = "#FFFFFF";
-export const NORMAL_BUTTON_FONT_COLOR = "#68C2F4";
-export const NORMAL_BUTTON_BORDER_COLOR = "#68C2F4";
+export const NORMAL_BUTTON_FONT_COLOR = "#7124D3";
+export const NORMAL_BUTTON_BORDER_COLOR = "#7124D3";
 
 // 회원가입, 로그인 , 비밀번호 찾기, 이메일 찾기 INPUT
 export const ACTIVE_INPUT_COLOR = "#FFF";

@@ -7,6 +7,7 @@ import {
   NORMAL_BUTTON_COLOR,
   NORMAL_BUTTON_FONT_COLOR,
   NORMAL_BUTTON_BORDER_COLOR,
+  INACTIVE_BUTTON_BORDER_COLOR
 } from "../../constants/color";
 import {
   BUTTON_SIZE,
@@ -17,9 +18,9 @@ const Button = styled.button`
   display: block;
   border: none;
   width: 100%;
-  padding: 16px;
+  padding: ${(props) => (props.certificate ? "10px" :" 12px")};
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 32px;
   font-size: ${(props) =>
     props.certificate ? `${CERTIFICATION_BUTTON_SIZE}` : `${BUTTON_SIZE}`};
   background: ${(props) => (props.normal ? `${NORMAL_BUTTON_COLOR}` : null)};
@@ -32,6 +33,8 @@ const Button = styled.button`
     props.inactive ? `${INACTIVE_BUTTON_FONT_COLOR}` : null};
   border: 1px solid
     ${(props) => (props.normal ? `${NORMAL_BUTTON_BORDER_COLOR}` : "none")};
+  border: 1px solid
+    ${(props) => (props.inactive ? `${INACTIVE_BUTTON_BORDER_COLOR}` : "none")};
 
   &:hover {
   }
@@ -61,7 +64,7 @@ function SignupButton({ children, requestRegister }) {
       <Button
         onClick={requestToken}
         certificate
-        active
+        normal
       >
         {children}
       </Button>

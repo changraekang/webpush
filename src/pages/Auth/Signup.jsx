@@ -66,7 +66,7 @@ const Message = styled.p`
 `;
 
 const WrapContents = styled.div`
-  width: 437px;
+  width: 520px;
 `;
 
 const InputAlign = styled.div`
@@ -81,12 +81,13 @@ const InputAlign = styled.div`
 const SubInputAlign = styled.div`
   display: flex;
   width: 380px;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
 `
 
 const Input = styled.input`
-  width: 100%;
-  width: ${(props) => (props.first ? "130px" : "100%")};
+  width: ${(props) => (props.first ? "130px" : "380px")};
   padding: 16px;
   box-sizing: border-box;
   border-radius: 8px;
@@ -120,8 +121,10 @@ const Input = styled.input`
 // `;
 
 const Label = styled.label`
-  width: 140px;
+  /* width: 140px; */
   color: ${AUTH_LABEL_COLOR};
+  display: inline-block;
+  width: 140px
 `;
 
 const LabelWarning = styled.label`
@@ -145,8 +148,8 @@ const EmailList = styled.ul`
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 176px;
-  right: 95px;
+  width: 213px;
+  right: 0;
   top: 55px;
   font-size: ${SAMLL_INPUT_SIZE};
   background-color: ${ACTIVE_INPUT_COLOR};
@@ -163,6 +166,11 @@ const EmailOptions = styled.li`
   border-bottom: ${(props) =>
     props.last ? "none" : `1px solid ${EMAIL_OPTION_BORDER_COLOR}`};
 `;
+
+const WrapCertificationBtn = styled.div`
+  width: 380px;
+  margin: 0 0 12px 140px;
+`
 //--------------회원가입 페이지--------------------------
 export default function Signup() {
   const navigate = useNavigate();
@@ -299,7 +307,7 @@ export default function Signup() {
     return (
       <>
         <InputAlign>
-          <Label htmlFor="email">이메일 </Label>
+          <Label htmlFor="email" first>이메일 </Label>
           <SubInputAlign>
             <Input
               first
@@ -351,15 +359,17 @@ export default function Signup() {
             </EmailList>
           )}
         </InputAlign>
-
-        {(!id || !email || !emailVaildation) && (
-          <UnCertificationButton>확인</UnCertificationButton>
-        )}
-        {(id && email && emailVaildation) &&(
-          <CertificationButton requestToken={requestToken}>
-            확인
-          </CertificationButton>
-        )}
+{/*         
+        <WrapCertificationBtn>
+          {(!id || !email || !emailVaildation) && (
+            <UnCertificationButton>이메일 인증하기</UnCertificationButton>
+          )}
+          {(id && email && emailVaildation) &&(
+            <CertificationButton requestToken={requestToken}>
+              이메일 인증하기
+            </CertificationButton>
+          )}
+        </WrapCertificationBtn> */}
 
         {isOpenTokenInput && (
           <InputAlign>
