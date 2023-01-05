@@ -327,6 +327,24 @@ export default function Signup() {
       console.error(err);
     }
   };
+  
+  const handleNotFillForm = () => {
+    if(!id) {
+      idRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    } else if(!email) {
+      emailRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    } else if(!password) {
+      passwordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    } else if(!confirmPassword) {
+      conPasswordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    } else if(!name) {
+      nameRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    } else if(!phone) {
+      phoneRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    } else if(!company) {
+      compoanyRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    }
+  }
 
   // 이메일 셀렉트
   const renderSelectEmail = () => {
@@ -344,6 +362,7 @@ export default function Signup() {
               name="id"
               maxLength={40}
               onChange={handleInputValues}
+              ref={idRef}
             />
             <span>@</span>
 
@@ -355,6 +374,7 @@ export default function Signup() {
               onClick={handleOpenEmail}
               value={email}
               name="email"
+              ref={emailRef}
             />
             }
             {isWriteEmail && 
@@ -364,6 +384,7 @@ export default function Signup() {
               onChange={handleWriteEmail}
               value={email}
               name="email"
+              ref={emailRef}
               />
             }
           </SubInputAlign>
@@ -561,7 +582,7 @@ export default function Signup() {
               !conPasswdVaildation ||
               !passwordVaildation ||
               !token) && (
-              <BeforeSignupButton type="submit">회원가입</BeforeSignupButton>
+              <BeforeSignupButton type="submit" onClick={handleNotFillForm}>회원가입</BeforeSignupButton>
             )} 
 
             {/* 
