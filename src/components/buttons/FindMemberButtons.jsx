@@ -16,7 +16,7 @@ const Button = styled.button`
   width: 100%;
   padding: 16px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 32px;
   margin-top: 40px;
   background: ${(props) => (props.normal ? `${NORMAL_BUTTON_COLOR}` : null)};
   background: ${(props) => (props.active ? `${ACTIVE_BUTTON_COLOR}` : null)};
@@ -43,10 +43,14 @@ function ActiveFindPasswordButton({ children, requestFind }) {
 }
 
 function InactiveFindPasswordButton({ children }) {
-  return <Button inactive disabled>{children}</Button>;
+  return (
+    <Button inactive disabled>
+      {children}
+    </Button>
+  );
 }
 
-// 링크 발송 후 로그인 하러 가기 
+// 링크 발송 후 로그인 하러 가기
 function GoLoginPage({ children, handleGoLogin }) {
   return (
     <Button active onClick={handleGoLogin}>
@@ -57,25 +61,32 @@ function GoLoginPage({ children, handleGoLogin }) {
 
 // 비밀번호 변경하기 버튼
 function ActiveSetNewasswordButton({ children }) {
+  return <Button active>{children}</Button>;
+}
+
+function InactiveSetNewPasswordButton({ children }) {
   return (
-    <Button active>
+    <Button inactive disabled>
       {children}
     </Button>
   );
 }
 
-function InactiveSetNewPasswordButton({ children }) {
-  return <Button inactive disabled>{children}</Button>;
-}
-
-
 // 이메일 찾기
-function ActiveFindEmailButton({ children }) {
-  return <Button active>{children}</Button>;
+function ActiveFindEmailButton({ children, phoneSubmit }) {
+  return (
+    <Button active onClick={phoneSubmit}>
+      {children}
+    </Button>
+  );
 }
 
 function InactiveFindEmailButton({ children }) {
-  return <Button inactive disabled>{children}</Button>;
+  return (
+    <Button inactive disabled>
+      {children}
+    </Button>
+  );
 }
 
 export {
@@ -85,5 +96,5 @@ export {
   InactiveFindEmailButton,
   GoLoginPage,
   ActiveSetNewasswordButton,
-  InactiveSetNewPasswordButton
+  InactiveSetNewPasswordButton,
 };
