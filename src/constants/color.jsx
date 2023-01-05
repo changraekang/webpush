@@ -37,7 +37,7 @@ export const ACTIVE_INPUT_BORDER_COLOR = "#68C2F4";
 export const INACTIVE_INPUT_COLOR = "#FFF";
 export const INACTIVE_INPUT_FONT_COLOR = "#AFAFAF";
 export const INACTIVE_INPUT_BORDER_COLOR = "#AFAFAF";
-export const EMAIL_OPTION_BORDER_COLOR = "#68C2F4";
+export const EMAIL_OPTION_BORDER_COLOR = "#BFBFBF";
 
 export const AUTH_TITLE_COLOR = "#000";
 export const AUTH_MESSAGE_COLOR = "#262626";

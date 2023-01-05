@@ -55,7 +55,7 @@ function SignupButton({ children, requestRegister }) {
   // 회원 가입 완료
   function BeforeSignupButton({ children }) {
     return (
-      <Button style={{ marginTop: "55px" }} disabled inactive>
+      <Button style={{ marginTop: "55px" }} disabled active>
         {children}
       </Button>
     );
