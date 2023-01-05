@@ -21,7 +21,7 @@ import {
   BeforeSignupButton,
   ActiveTokenButton,
   InactiveTokenButton,
-} from "../../components/buttons/AuthButtons";
+} from "../../components/buttons/SignupButtons";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import SignupAgreement from "../../components/agreement/SignupAgreement";
