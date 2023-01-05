@@ -14,6 +14,8 @@ import MakePush from "./pages/push/MakePush";
 import FindEmail from "./pages/Auth/FindEmail";
 import FindPassword from "./pages/Auth/FindPassword";
 import SetNewPassword from "./pages/Auth/setNewPassword";
+import ResultFindEmail from "./pages/Auth/ResultFindEmail";
+import NotFoundEmail from "./pages/Auth/NotFoundEmail";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/findEmail" element={<FindEmail />} />
+          <Route path="/resultEmail/:id" element={<ResultFindEmail />} />
+          <Route path="/notFoundemail" element={<NotFoundEmail />} />
           <Route path="/findPassword" element={<FindPassword />} />
           <Route path="/setNewPassword" element={<SetNewPassword />} />
           <Route path="/makePush" element={<MakePush />} />

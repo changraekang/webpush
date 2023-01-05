@@ -14,6 +14,7 @@ import {
 import mainImage from "../../assets/images/mainpage.png";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Section = styled.section`
   display: flex;
@@ -82,6 +83,7 @@ const InputStyle = styled.input`
 
 export default function FindPassword() {
   const [phone, setPhone] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     if (phone.length === 10) {
       setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
@@ -99,6 +101,11 @@ export default function FindPassword() {
     }
   };
   const SubmitPhone = () => {
+    if (phone === "1234") {
+      navigate("/resultEmail/test***");
+    } else {
+      navigate("/notFoundemail");
+    }
     console.log(phone);
   };
   return (

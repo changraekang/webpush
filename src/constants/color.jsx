@@ -41,7 +41,7 @@ export const INACTIVE_INPUT_BORDER_COLOR = "#AFAFAF";
 export const EMAIL_OPTION_BORDER_COLOR = "#68C2F4";
 
 export const AUTH_TITLE_COLOR = "#000";
-export const AUTH_MESSAGE_COLOR = "#333";
+export const AUTH_MESSAGE_COLOR = "#595959";
 export const AUTH_LABEL_COLOR = "#333";
 export const AUTH_MAIN_COLOR =
   "linear-gradient(133.78deg, #88eaff 8.16%, #98a2ff 74.57%)";
