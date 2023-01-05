@@ -201,13 +201,7 @@ export default function Signup() {
   const [passwordVaildation, setPasswordVaildation] = useState(true);
   const [conPasswdVaildation, setConPasswdVaildation] = useState(true);
   const [phoneVaildation, setPhoneVaildation] = useState(true);
-  const idRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const conPasswordRef = useRef();
-  const nameRef = useRef();
-  const phoneRef = useRef();
-  const compoanyRef = useRef();
+  const [agreement, setAgreement] = useState(false);
 
   const handleOpenEmail = () => {
     !isOpenEmail ? setIsOpenEmail(true) : setIsOpenEmail(false);
@@ -327,24 +321,6 @@ export default function Signup() {
     }
   };
 
-  const handleNotFillForm = () => {
-    if (!id) {
-      idRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    } else if (!email) {
-      emailRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    } else if (!password) {
-      passwordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    } else if (!confirmPassword) {
-      conPasswordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    } else if (!name) {
-      nameRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    } else if (!phone) {
-      phoneRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    } else if (!company) {
-      compoanyRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
-    }
-  };
-
   // 이메일 셀렉트
   const renderSelectEmail = () => {
     return (
@@ -363,7 +339,6 @@ export default function Signup() {
               name="id"
               maxLength={40}
               onChange={handleInputValues}
-              ref={idRef}
             />
             <span>@</span>
 
@@ -375,7 +350,6 @@ export default function Signup() {
                 onClick={handleOpenEmail}
                 value={email}
                 name="email"
-                ref={emailRef}
               />
             )}
             {isWriteEmail && (
@@ -385,7 +359,6 @@ export default function Signup() {
                 onChange={handleWriteEmail}
                 value={email}
                 name="email"
-                ref={emailRef}
               />
             )}
           </SubInputAlign>
@@ -584,7 +557,7 @@ export default function Signup() {
               </WrapRightItems>
             </InputAlign>
 
-            <SignupAgreement />
+            <SignupAgreement setAgree={setAgreement} />
             {(!id ||
               !email ||
               !password ||
@@ -594,7 +567,8 @@ export default function Signup() {
               !company ||
               !conPasswdVaildation ||
               !passwordVaildation ||
-              !token) && <BeforeSignupButton>회원가입</BeforeSignupButton>}
+              !token ||
+              !agreement) && <BeforeSignupButton>회원가입</BeforeSignupButton>}
 
             {id &&
               email &&
@@ -605,7 +579,8 @@ export default function Signup() {
               company &&
               conPasswdVaildation &&
               passwordVaildation &&
-              token && (
+              token &&
+              agreement && (
                 <SignupButton type="submit" requestRegister={requestRegister}>
                   회원가입
                 </SignupButton>
