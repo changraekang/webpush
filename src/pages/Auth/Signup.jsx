@@ -26,7 +26,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import SignupAgreement from "../../components/agreement/SignupAgreement";
 import { instanceAxios } from "../../api/axios";
-import warning from '../../assets/images/warning.png'
+import warning from "../../assets/images/warning.png";
 
 const Section = styled.section`
   display: flex;
@@ -42,16 +42,16 @@ const WrapTitle = styled.div`
   text-align: center;
   margin-bottom: 64px;
   position: relative;
-  
+
   &::after {
     position: absolute;
     display: block;
-    content: '';
+    content: "";
     bottom: -32px;
     left: 0;
     width: 100%;
     height: 1px;
-    background: #8C8C8C ;
+    background: #8c8c8c;
   }
 `;
 
@@ -85,7 +85,7 @@ const SubInputAlign = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-`
+`;
 
 const Input = styled.input`
   width: ${(props) => (props.first ? "130px" : "100%")};
@@ -121,7 +121,7 @@ const Label = styled.label`
   /* width: 140px; */
   color: ${AUTH_LABEL_COLOR};
   display: inline-block;
-  width: 140px
+  width: 140px;
 `;
 
 const LabelWarning = styled.span`
@@ -163,32 +163,31 @@ const EmailOptions = styled.li`
     props.last ? "none" : `1px solid ${EMAIL_OPTION_BORDER_COLOR}`};
 `;
 
-const WrapRightItems= styled.div`
+const WrapRightItems = styled.div`
   width: 380px;
-  margin: ${(props) =>
-    props.first ? "0 0 12px 140px" : "0"};
-`
+  margin: ${(props) => (props.first ? "0 0 12px 140px" : "0")};
+`;
 
 const WrapWriteToken = styled.div`
-  background: #F0F0F0;
+  background: #f0f0f0;
   padding: 16px;
   margin-top: 12px;
-`
+`;
 const TokenMsg = styled.p`
   font-size: 14px;
   margin-bottom: 8px;
-`
+`;
 
 const WrapReSendLink = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const ResendBtn = styled.button`
   font-size: 14px;
-  color: #434343; 
-`
- 
+  color: #434343;
+`;
+
 //--------------회원가입 페이지--------------------------
 export default function Signup() {
   const navigate = useNavigate();
@@ -225,7 +224,7 @@ export default function Signup() {
   });
 
   const { id, token, password, confirmPassword, name, phone, company } = inputs;
-  
+
   useEffect(() => {
     if (phoneWrite.length === 10) {
       setPhoneWrite(phoneWrite.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
@@ -327,31 +326,33 @@ export default function Signup() {
       console.error(err);
     }
   };
-  
+
   const handleNotFillForm = () => {
-    if(!id) {
-      idRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
-    } else if(!email) {
-      emailRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
-    } else if(!password) {
-      passwordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
-    } else if(!confirmPassword) {
-      conPasswordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
-    } else if(!name) {
-      nameRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
-    } else if(!phone) {
-      phoneRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
-    } else if(!company) {
-      compoanyRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`
+    if (!id) {
+      idRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
+    } else if (!email) {
+      emailRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
+    } else if (!password) {
+      passwordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
+    } else if (!confirmPassword) {
+      conPasswordRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
+    } else if (!name) {
+      nameRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
+    } else if (!phone) {
+      phoneRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
+    } else if (!company) {
+      compoanyRef.current.style = `border: 1px solid ${AUTH_WARNING_COLOR}`;
     }
-  }
+  };
 
   // 이메일 셀렉트
   const renderSelectEmail = () => {
     return (
       <>
         <InputAlign>
-          <Label htmlFor="email" first>이메일 </Label>
+          <Label htmlFor="email" first>
+            이메일{" "}
+          </Label>
           <SubInputAlign>
             <Input
               first
@@ -366,29 +367,29 @@ export default function Signup() {
             />
             <span>@</span>
 
-            {!isWriteEmail && 
+            {!isWriteEmail && (
               <EmailInput
-              type="text"
-              placeholder="이메일 선택"
-              readOnly
-              onClick={handleOpenEmail}
-              value={email}
-              name="email"
-              ref={emailRef}
-            />
-            }
-            {isWriteEmail && 
-              <EmailInput
-              type="text"
-              placeholder="이메일 선택"
-              onChange={handleWriteEmail}
-              value={email}
-              name="email"
-              ref={emailRef}
+                type="text"
+                placeholder="이메일 선택"
+                readOnly
+                onClick={handleOpenEmail}
+                value={email}
+                name="email"
+                ref={emailRef}
               />
-            }
+            )}
+            {isWriteEmail && (
+              <EmailInput
+                type="text"
+                placeholder="이메일 선택"
+                onChange={handleWriteEmail}
+                value={email}
+                name="email"
+                ref={emailRef}
+              />
+            )}
           </SubInputAlign>
-          
+
           {isOpenEmail && (
             <EmailList>
               {emailList.map((item, index) => (
@@ -406,12 +407,12 @@ export default function Signup() {
             </EmailList>
           )}
         </InputAlign>
-  
+
         <WrapRightItems first>
           {(!id || !email || !emailVaildation) && (
             <UnCertificationButton>이메일 인증하기</UnCertificationButton>
           )}
-          {(id && email && emailVaildation) &&(
+          {id && email && emailVaildation && (
             <CertificationButton requestToken={requestToken}>
               이메일 인증하기
             </CertificationButton>
@@ -420,8 +421,8 @@ export default function Signup() {
           {isOpenTokenBox && (
             <WrapWriteToken>
               <TokenMsg>이메일로 전송된 인증번호를 입력해주세요.</TokenMsg>
-              <InputAlign style={{gap:"8px"}}>
-                <Input 
+              <InputAlign style={{ gap: "8px" }}>
+                <Input
                   type="text"
                   placeholder="인증번호를 적어주세요."
                   name="token"
@@ -434,7 +435,9 @@ export default function Signup() {
               </InputAlign>
               <WrapReSendLink>
                 <img src={warning} alt="" />
-                <ResendBtn onClick={requestToken}>인증번호 재발송하기</ResendBtn>
+                <ResendBtn onClick={requestToken}>
+                  인증번호 재발송하기
+                </ResendBtn>
               </WrapReSendLink>
             </WrapWriteToken>
           )}
@@ -442,7 +445,7 @@ export default function Signup() {
       </>
     );
   };
-  
+
   // 로그인 data
   const registerData = {
     company: company,
@@ -501,12 +504,17 @@ export default function Signup() {
                   value={password}
                   name="password"
                   onChange={handleInputValues}
-                  />
-                  {!passwordVaildation && (
-                    <LabelWarning htmlFor="email">
-                      비밀번호는 영문/숫자/특문을 포함한 8자이상 입력해주세요.
-                    </LabelWarning>
-                  )}
+                  style={{
+                    border: !passwordVaildation
+                      ? `1px solid ${AUTH_WARNING_COLOR}`
+                      : null,
+                  }}
+                />
+                {!passwordVaildation && (
+                  <LabelWarning htmlFor="email">
+                    비밀번호는 영문/숫자/특문을 포함한 8자이상 입력해주세요.
+                  </LabelWarning>
+                )}
               </WrapRightItems>
             </InputAlign>
 
@@ -520,12 +528,17 @@ export default function Signup() {
                   value={confirmPassword}
                   name="confirmPassword"
                   onChange={handleInputValues}
-                  />
-                  {!conPasswdVaildation && (
-                    <LabelWarning htmlFor="email">
-                      비밀번호가 일치하지 않습니다. 
-                    </LabelWarning>
-                  )}
+                  style={{
+                    border: !conPasswdVaildation
+                      ? `1px solid ${AUTH_WARNING_COLOR}`
+                      : null,
+                  }}
+                />
+                {!conPasswdVaildation && (
+                  <LabelWarning htmlFor="email">
+                    비밀번호가 일치하지 않습니다.
+                  </LabelWarning>
+                )}
               </WrapRightItems>
             </InputAlign>
 
@@ -581,12 +594,9 @@ export default function Signup() {
               !company ||
               !conPasswdVaildation ||
               !passwordVaildation ||
-              !token) && (
-              <BeforeSignupButton type="submit" onClick={handleNotFillForm}>회원가입</BeforeSignupButton>
-            )} 
+              !token) && <BeforeSignupButton>회원가입</BeforeSignupButton>}
 
-            {/* 
-            {(id &&
+            {id &&
               email &&
               password &&
               confirmPassword &&
@@ -595,12 +605,11 @@ export default function Signup() {
               company &&
               conPasswdVaildation &&
               passwordVaildation &&
-              token) && (
+              token && (
                 <SignupButton type="submit" requestRegister={requestRegister}>
                   회원가입
                 </SignupButton>
-            )} 
-            */}
+              )}
           </form>
         </WrapContents>
       </AuthBox>

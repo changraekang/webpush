@@ -32,7 +32,7 @@ const Button = styled.button`
     props.inactive ? `${INACTIVE_BUTTON_FONT_COLOR}` : null};
   border: 1px solid
     ${(props) => (props.normal ? `${NORMAL_BUTTON_BORDER_COLOR}` : "none")};
-
+  cursor: ${(props) => (props.inactive ? `default` : null)};
   &:hover {
   }
 `;
@@ -47,7 +47,11 @@ function LoginButton({ children, requestLogin }) {
 
 // 로그인 유효성 검사 통과 후
 function BeforeLoginButton({ children }) {
-  return <Button inactive>{children}</Button>;
+  return (
+    <Button disabled inactive>
+      {children}
+    </Button>
+  );
 }
 
 // 로그인 -> 회원가입
@@ -59,9 +63,4 @@ function GoSignupButton({ children, handleGoSignup }) {
   );
 }
 
-
-export {
-  LoginButton,
-  BeforeLoginButton,
-  GoSignupButton
-};
+export { LoginButton, BeforeLoginButton, GoSignupButton };
