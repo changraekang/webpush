@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AuthBox from "../../components/containers/auth/AuthBox";
+import {LoginBox} from "../../components/containers/auth/AuthBox";
 import {
   MAIN_BACKGROUND_COLOR,
   AUTH_LABEL_COLOR,
@@ -233,7 +233,7 @@ export default function Login() {
 
       <InputSection>
         <h1 className="ir">회원가입</h1>
-        <AuthBox>
+        <LoginBox>
           <WrapLogo>
             <>Welcome to</>
             <Logo src={logo} alt="메인로고" />
@@ -295,7 +295,7 @@ export default function Login() {
               </GoSignupButton>
             </ButtonWrap>
           </WrapContents>
-        </AuthBox>
+        </LoginBox>
       </InputSection>
     </Section>
   );

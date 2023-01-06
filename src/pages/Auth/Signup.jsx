@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AuthBox from "../../components/containers/auth/AuthBox";
+import {SignupBox} from "../../components/containers/auth/AuthBox";
 import {
   ACTIVE_INPUT_BORDER_COLOR,
   AUTH_TITLE_COLOR,
@@ -22,7 +22,7 @@ import {
   ActiveTokenButton,
   InactiveTokenButton,
 } from "../../components/buttons/SignupButtons";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import SignupAgreement from "../../components/agreement/SignupAgreement";
 import { instanceAxios } from "../../api/axios";
@@ -202,6 +202,25 @@ export default function Signup() {
   const [conPasswdVaildation, setConPasswdVaildation] = useState(true);
   const [phoneVaildation, setPhoneVaildation] = useState(true);
   const [agreement, setAgreement] = useState(false);
+  const [minutes, setMinutes] = useState(parseInt(3));
+  const [seconds, setSeconds] = useState(parseInt(0));
+
+  // useEffect(() => {
+  // const countdown = setInterval(() => {
+  //   if (parseInt(seconds) > 0) {
+  //     setSeconds(parseInt(seconds) - 1);
+  //   }
+  //   if (parseInt(seconds) === 0) {
+  //     if (parseInt(minutes) === 0) {
+  //         clearInterval(countdown);
+  //     } else {
+  //       setMinutes(parseInt(minutes) - 1);
+  //       setSeconds(59);
+  //     }
+  //   }
+  // }, 1000);
+  // return () => clearInterval(countdown);
+  // }, [minutes, seconds]);
 
   const handleOpenEmail = () => {
     !isOpenEmail ? setIsOpenEmail(true) : setIsOpenEmail(false);
@@ -287,6 +306,8 @@ export default function Signup() {
     setEmail(e.target.value);
   };
 
+
+
   // 토큰 요청
   const requestToken = async (e) => {
     e.preventDefault();
@@ -297,6 +318,7 @@ export default function Signup() {
       if (response.status === 200) {
         alert(response.data.data);
         setIsOpenTokenBox(true);
+        // TIMER();
       }
       console.log(response);
     } catch (err) {
@@ -402,6 +424,7 @@ export default function Signup() {
                   onChange={handleInputValues}
                   value={token}
                 />
+                <span>{minutes + " : " + seconds}</span>
                 <ActiveTokenButton requestCompleteToken={requestCompleteToken}>
                   인증하기
                 </ActiveTokenButton>
@@ -453,7 +476,7 @@ export default function Signup() {
   return (
     <Section>
       <h1 className="ir">회원가입</h1>
-      <AuthBox>
+      <SignupBox>
         <WrapTitle>
           <Title>회원 가입</Title>
           <Message>DMPUSH와 함께 마케팅에 날개를 달아보세요!</Message>
@@ -587,7 +610,7 @@ export default function Signup() {
               )}
           </form>
         </WrapContents>
-      </AuthBox>
+      </SignupBox>
     </Section>
   );
 }
