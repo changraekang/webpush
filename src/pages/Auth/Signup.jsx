@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {SignupBox} from "../../components/containers/auth/AuthBox";
+import { SignupBox } from "../../components/containers/auth/AuthBox";
 import {
   ACTIVE_INPUT_BORDER_COLOR,
   AUTH_TITLE_COLOR,
@@ -257,7 +257,6 @@ export default function Signup() {
     if (e.target.name === "password") {
       // 영문 숫자 특수문자 1개씩 +  8-25글자 정규식
       let re = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-      console.log(re.test(e.target.value));
       setPasswordVaildation(re.test(e.target.value));
       if (conPasswdVaildation) {
         setConPasswdVaildation(false);
@@ -272,7 +271,6 @@ export default function Signup() {
       const regex = /^[0-9\b -]{0,13}$/;
       console.log(e.target.value);
       if (regex.test(e.target.value)) {
-        console.log(e.target.value, "통과");
         setPhoneWrite(e.target.value);
         setPhoneVaildation(true);
       } else {
@@ -304,8 +302,6 @@ export default function Signup() {
     console.log(emailVaildation);
     setEmail(e.target.value);
   };
-
-
 
   // 토큰 요청
   const requestToken = async (e) => {
