@@ -38,6 +38,7 @@ export default function SignupAgreement(props) {
   const [marketing, setMarketing] = useState(false);
   const [allAgreement, setAllAgreement] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
   const handleOver14age = () => {
     !over14age ? setOver14age(true) : setOver14age(false);
   };
@@ -54,12 +55,15 @@ export default function SignupAgreement(props) {
   };
   const openPersonal = () => {
     setOpenModal(true);
+    setModalContent("personal");
   };
   const openAgree = () => {
-    console.log("openAgree");
+    setOpenModal(true);
+    setModalContent("agreement");
   };
   const openMarketing = () => {
-    console.log("openMarketing");
+    setOpenModal(true);
+    setModalContent("marketing");
   };
   const handleAllMarket = () => {
     if (allAgreement === false) {
@@ -115,7 +119,6 @@ export default function SignupAgreement(props) {
           <label htmlFor="agreement1">만 14세 이상입니다.(필수)</label>
         </InputAlign>
         <PaperButton disabled>전문보기</PaperButton>
-        {openModal && <SignupArgeeModal setClose={setOpenModal} />}
       </Wrapper>
 
       <Wrapper agreement>
@@ -141,6 +144,9 @@ export default function SignupAgreement(props) {
           <label htmlFor="agreement4">DMPUSH 마케팅동의.(선택)</label>
         </InputAlign>
         <PaperButton onClick={openMarketing}>전문보기</PaperButton>
+        {openModal && (
+          <SignupArgeeModal setClose={setOpenModal} content={modalContent} />
+        )}
       </Wrapper>
     </>
   );

@@ -230,7 +230,6 @@ export default function Signup() {
           .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
       );
     }
-    console.log("하이픈", phoneWrite);
   }, [phoneWrite]);
 
   const handleInputValues = (e) => {
