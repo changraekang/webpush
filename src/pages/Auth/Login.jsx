@@ -94,17 +94,16 @@ const WrapContents = styled.div`
 `;
 const ButtonWrap = styled.div`
   width: 100%;
-  margin-top: 8px;
+  margin-top: 12px;
 `;
 
 const IDInputWrap = styled.div`
   width: 399px;
-  height: 82px;
 `;
 
 const PwdInputWrap = styled.div`
   width: 399px;
-  height: 82px;
+  margin-top: 20px;
 `;
 
 const Input = styled.input`
@@ -125,7 +124,7 @@ const Input = styled.input`
 
 const RadioList = styled.ul`
   display: flex;
-  margin: 0 0 32px;
+  margin: 24px 0 36px 0;
   justify-content: space-between;
   align-items: center;
   font-size: ${AUTH_RADIO_SIZE};
