@@ -15,6 +15,7 @@ import mainImage from "../../assets/images/mainpage.png";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { instanceAxios } from "../../api/axios";
 
 const Section = styled.section`
   display: flex;
@@ -85,8 +86,14 @@ const InputStyle = styled.input`
 `;
 
 export default function FindPassword() {
-  const [phone, setPhone] = useState("");
   const navigate = useNavigate();
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  
+  const handleNameInput = (e) => {
+    setName(e.target.value);
+  }
+
   useEffect(() => {
     if (phone.length === 10) {
       setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
@@ -97,12 +104,14 @@ export default function FindPassword() {
       );
     }
   }, [phone]);
-  const handleInput = (e) => {
+
+  const handleNumberInput = (e) => {
     const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       setPhone(e.target.value);
     }
   };
+
   const SubmitPhone = () => {
     if (phone === "1234") {
       navigate("/resultEmail/test***");
@@ -111,6 +120,24 @@ export default function FindPassword() {
     }
     console.log(phone);
   };
+
+  const requsetFindEmail = async(e) => {
+    e.preventDefault();
+    try {
+      const response = await instanceAxios.post('/auth/email', {
+        name : name,
+        phone : phone
+      });
+      console.log(response);
+      if(response.status === 200) {
+        navigate(`/resultEmail/${response.data.data}`);
+      } else {
+        navigate("/notFoundemail");
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Section>
       <ImageSection>
@@ -121,10 +148,19 @@ export default function FindPassword() {
         <FindMemberBox>
           <Title>이메일 찾기</Title>
           <SubMessage>회원가입 시 입력한 전화번호를 입력해주세요!</SubMessage>
-          <FormStyle>
+          <FormStyle onSubmit={requsetFindEmail}>
+            <div>
             <div>
               <InputStyle
-                onChange={handleInput}
+                onChange={handleNameInput}
+                value={name}
+                type="text"
+                id="name"
+                placeholder="성함을 입력해주세요."
+              />
+            </div>
+              <InputStyle
+                onChange={handleNumberInput}
                 value={phone}
                 type="text"
                 id="phone"
@@ -132,7 +168,7 @@ export default function FindPassword() {
               />
             </div>
             {phone && (
-              <ActiveFindEmailButton phoneSubmit={SubmitPhone}>
+              <ActiveFindEmailButton>
                 확인
               </ActiveFindEmailButton>
             )}

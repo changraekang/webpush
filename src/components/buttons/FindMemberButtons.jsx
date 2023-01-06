@@ -75,9 +75,9 @@ function InactiveSetNewPasswordButton({ children }) {
 }
 
 // 이메일 찾기
-function ActiveFindEmailButton({ children, phoneSubmit }) {
+function ActiveFindEmailButton({ children }) {
   return (
-    <Button active onClick={phoneSubmit}>
+    <Button active>
       {children}
     </Button>
   );
