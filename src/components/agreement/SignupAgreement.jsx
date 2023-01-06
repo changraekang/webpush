@@ -77,6 +77,10 @@ export default function SignupAgreement(props) {
         setPersonalagreement(true);
       }
     } else {
+      setAgreement(false);
+      setMarketing(false);
+      setOver14age(false);
+      setPersonalagreement(false);
       setAllAgreement(false);
     }
   };
