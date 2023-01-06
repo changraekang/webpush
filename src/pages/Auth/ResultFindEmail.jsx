@@ -114,7 +114,7 @@ export default function ResultFindEmail() {
           <BoxWrap>
             <Check src={checkImg} alt="체크표시"></Check>
             <Message>귀하의 이메일은</Message>
-            <Email>{params.id}@aigis.co.kr</Email>
+            <Email>{params.id}</Email>
             <Message>입니다!</Message>
           </BoxWrap>
           <ButtonWrap>

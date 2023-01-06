@@ -5,12 +5,6 @@ import {
   AUTH_MESSAGE_COLOR,
   AUTH_MAIN_COLOR,
 } from "../../constants/color";
-import { useEffect, useState } from "react";
-import {
-  ActiveFindPasswordButton,
-  ActiveSetNewasswordButton,
-  InactiveSetNewPasswordButton,
-} from "../../components/buttons/FindMemberButtons";
 import { instanceAxios } from "../../api/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import exclamationImg from "../../assets/images/Exclamation.png";
