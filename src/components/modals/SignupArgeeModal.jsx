@@ -5,6 +5,10 @@ import {
   MODAL_BACKGROUND_COLOR,
   MAIN_BOX_COLOR,
   MODAL_BOX_COLOR,
+  ACTIVE_BUTTON_COLOR,
+  ACTIVE_BUTTON_FONT_COLOR,
+  INACTIVE_INPUT_BORDER_COLOR,
+  INACTIVE_BUTTON_COLOR,
 } from "../../constants/color";
 
 const Wrapper = styled.div`
@@ -60,9 +64,13 @@ const Button = styled.div`
   align-items: center;
   width: 72px;
   height: 36px;
-  background: #ffffff;
-  border: 1px solid #7124d3;
+  background: ${INACTIVE_BUTTON_COLOR};
+  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
   border-radius: 32px;
+  &:hover {
+    background-color: ${ACTIVE_BUTTON_COLOR};
+    color: ${ACTIVE_BUTTON_FONT_COLOR};
+  }
 `;
 const SignupArgeeModal = (props) => {
   const handleClose = () => {
