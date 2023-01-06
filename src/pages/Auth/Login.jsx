@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AuthBox from "../../components/containers/auth/AuthBox";
+import {LoginBox} from "../../components/containers/auth/AuthBox";
 import {
   MAIN_BACKGROUND_COLOR,
   AUTH_LABEL_COLOR,
@@ -94,17 +94,16 @@ const WrapContents = styled.div`
 `;
 const ButtonWrap = styled.div`
   width: 100%;
-  margin-top: 8px;
+  margin-top: 12px;
 `;
 
 const IDInputWrap = styled.div`
   width: 399px;
-  height: 82px;
 `;
 
 const PwdInputWrap = styled.div`
   width: 399px;
-  height: 82px;
+  margin-top: 20px;
 `;
 
 const Input = styled.input`
@@ -125,7 +124,7 @@ const Input = styled.input`
 
 const RadioList = styled.ul`
   display: flex;
-  margin: 0 0 32px;
+  margin: 24px 0 36px 0;
   justify-content: space-between;
   align-items: center;
   font-size: ${AUTH_RADIO_SIZE};
@@ -233,7 +232,7 @@ export default function Login() {
 
       <InputSection>
         <h1 className="ir">회원가입</h1>
-        <AuthBox>
+        <LoginBox>
           <WrapLogo>
             <>Welcome to</>
             <Logo src={logo} alt="메인로고" />
@@ -295,7 +294,7 @@ export default function Login() {
               </GoSignupButton>
             </ButtonWrap>
           </WrapContents>
-        </AuthBox>
+        </LoginBox>
       </InputSection>
     </Section>
   );
