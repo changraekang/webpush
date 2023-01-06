@@ -3,6 +3,7 @@ import styled from "styled-components";
 import inActiveCheck from "../../assets/images/inactive-radio.png";
 import activeCheck from "../../assets/images/active-radio.png";
 import { MAIN_FONT_COLOR } from "../../constants/color";
+import SignupArgeeModal from "../modals/SignupArgeeModal";
 
 const DesingLine = styled.div`
   width: 100%;
@@ -16,18 +17,18 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 const InputAlign = styled.div`
-  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
 `;
-const PaperButton = styled.button`
+const PaperButton = styled.div`
   width: 60px;
   height: 30px;
   color: ${MAIN_FONT_COLOR};
   display: flex;
+  cursor: pointer;
   align-items: flex-start;
 `;
 export default function SignupAgreement(props) {
@@ -36,6 +37,7 @@ export default function SignupAgreement(props) {
   const [personalagreement, setPersonalagreement] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [allAgreement, setAllAgreement] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const handleOver14age = () => {
     !over14age ? setOver14age(true) : setOver14age(false);
   };
@@ -49,6 +51,15 @@ export default function SignupAgreement(props) {
   };
   const handleMarket = () => {
     !marketing ? setMarketing(true) : setMarketing(false);
+  };
+  const openPersonal = () => {
+    setOpenModal(true);
+  };
+  const openAgree = () => {
+    console.log("openAgree");
+  };
+  const openMarketing = () => {
+    console.log("openMarketing");
   };
   const handleAllMarket = () => {
     if (allAgreement === false) {
@@ -100,6 +111,7 @@ export default function SignupAgreement(props) {
           <label htmlFor="agreement1">만 14세 이상입니다.(필수)</label>
         </InputAlign>
         <PaperButton disabled>전문보기</PaperButton>
+        {openModal && <SignupArgeeModal setClose={setOpenModal} />}
       </Wrapper>
 
       <Wrapper agreement>
@@ -108,7 +120,7 @@ export default function SignupAgreement(props) {
           {personalagreement && <img src={activeCheck} alt="전체동의" />}
           <label htmlFor="agreement2">DMPUSH 개인정보동의.(필수)</label>
         </InputAlign>
-        <PaperButton disabled>전문보기</PaperButton>
+        <PaperButton onClick={openPersonal}>전문보기</PaperButton>
       </Wrapper>
       <Wrapper agreement>
         <InputAlign onClick={handleAgreement}>
@@ -116,7 +128,7 @@ export default function SignupAgreement(props) {
           {agreement && <img src={activeCheck} alt="전체동의" />}
           <label htmlFor="agreement3">DMPUSH 이용약관.(필수)</label>
         </InputAlign>
-        <PaperButton disabled>전문보기</PaperButton>
+        <PaperButton onClick={openAgree}>전문보기</PaperButton>
       </Wrapper>
       <Wrapper agreement>
         <InputAlign onClick={handleMarket}>
@@ -124,7 +136,7 @@ export default function SignupAgreement(props) {
           {marketing && <img src={activeCheck} alt="전체동의" />}
           <label htmlFor="agreement4">DMPUSH 마케팅동의.(선택)</label>
         </InputAlign>
-        <PaperButton disabled>전문보기</PaperButton>
+        <PaperButton onClick={openMarketing}>전문보기</PaperButton>
       </Wrapper>
     </>
   );

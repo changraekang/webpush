@@ -46,3 +46,8 @@ export const AUTH_LABEL_COLOR = "#000000";
 export const AUTH_MAIN_COLOR =
   "linear-gradient(133.78deg, #88eaff 8.16%, #98a2ff 74.57%)";
 export const AUTH_WARNING_COLOR = "#E82A2A";
+
+// 모달
+export const MODAL_BACKGROUND_COLOR =
+  "linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))";
+export const MODAL_BOX_COLOR = "#FAFAFA";
