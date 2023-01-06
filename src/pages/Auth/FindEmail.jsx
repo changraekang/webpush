@@ -112,15 +112,6 @@ export default function FindPassword() {
     }
   };
 
-  const SubmitPhone = () => {
-    if (phone === "1234") {
-      navigate("/resultEmail/test***");
-    } else {
-      navigate("/notFoundemail");
-    }
-    console.log(phone);
-  };
-
   const requsetFindEmail = async(e) => {
     e.preventDefault();
     try {
@@ -131,11 +122,10 @@ export default function FindPassword() {
       console.log(response);
       if(response.status === 200) {
         navigate(`/resultEmail/${response.data.data}`);
-      } else {
-        navigate("/notFoundemail");
-      }
+      } 
     } catch (err) {
       console.log(err)
+      navigate("/notFoundemail");
     }
   }
   return (
