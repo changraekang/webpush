@@ -2,15 +2,11 @@ import styled from "styled-components";
 import { LoginBox } from "../../components/containers/auth/AuthBox";
 import {
   MAIN_BACKGROUND_COLOR,
-  AUTH_LABEL_COLOR,
-  ACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_FONT_COLOR,
-  INACTIVE_INPUT_COLOR,
-  NORMAL_BUTTON_BORDER_COLOR,
-  NORMAL_BUTTON_COLOR,
-  NORMAL_BUTTON_FONT_COLOR,
-  MAIN_FONT_COLOR,
+  grey11,
+  primary4,
+  grey5,
+  grey6,
+  grey10,
 } from "../../constants/color";
 import logo from "../../assets/images/logo.png";
 import mainImage from "../../assets/images/mainpage.png";
@@ -51,6 +47,7 @@ const ImageSection = styled.section`
   /* padding: 186px 0; */
   background-image: ${MAIN_BACKGROUND_COLOR};
 `;
+
 const InputSection = styled.section`
   display: flex;
   justify-content: center;
@@ -72,8 +69,8 @@ const WrapLogo = styled.div`
   font-weight: 900;
   line-height: 48px;
   margin-bottom: 60px;
+  color: ${grey10};
   font-size: 40px;
-  color: ${MAIN_FONT_COLOR};
 `;
 
 const Logo = styled.img`
@@ -131,7 +128,7 @@ const WrapFindAuth = styled.div`
 
 const LinkStyle = styled(Link)`
   text-decoration: none;
-  color: ${AUTH_LABEL_COLOR};
+  color: ${grey11};
 `;
 
 //--------------로그인 페이지--------------------------

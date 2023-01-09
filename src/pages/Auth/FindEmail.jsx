@@ -5,11 +5,11 @@ import {
   InactiveFindEmailButton,
 } from "../../components/buttons/FindMemberButtons";
 import {
-  MAIN_BACKGROUND_COLOR,
-  AUTH_MESSAGE_COLOR,
-  AUTH_LABEL_COLOR,
-  INACTIVE_INPUT_BORDER_COLOR,
-  ACTIVE_INPUT_BORDER_COLOR,
+  MAIN_BACKGROUND_COLOR, 
+  grey9,
+  grey11,
+  grey5,
+  primary4,
 } from "../../constants/color";
 import mainImage from "../../assets/images/mainpage.png";
 
@@ -54,7 +54,7 @@ const Title = styled.h2`
 `;
 
 const SubMessage = styled.p`
-  color: ${AUTH_MESSAGE_COLOR};
+  color: ${grey9};
   font-weight: 400;
   line-height: 27px;
   text-align: center;
@@ -66,7 +66,7 @@ const FormStyle = styled.form`
 `;
 
 const LabelStyle = styled.label`
-  color: ${AUTH_LABEL_COLOR};
+  color: ${grey11};
 `;
 const MainImage = styled.img`
   width: 712px;
@@ -78,10 +78,10 @@ const InputStyle = styled.input`
   width: 100%;
   margin-top: 8px;
   box-sizing: border-box;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  border: 1px solid ${grey5};
 
   &:focus {
-    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
+    border: 1px solid ${primary4};
   }
 `;
 
