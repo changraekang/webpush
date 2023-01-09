@@ -1,67 +1,80 @@
-import logo from '../assets/images/logo.png';
-import mypageLogo from '../assets/images/mypage-logo.png';
-import styled from 'styled-components';
-import {grey6, grey1, primary4} from '../constants/color';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { instanceAxios } from '../api/axios';
-import {deviceDetect} from "react-device-detect";
-import { getCookie, setAccessTokenToCookie, setRefreshTokenToCookie } from '../cookie/controlCookie';
-import { logout } from '../cookie/controlCookie';
+import logo from "../assets/images/logo.png";
+import mypageLogo from "../assets/images/mypage-logo.png";
+import styled from "styled-components";
+import {
+  grey6,
+  grey1,
+  primary4,
+  primary5,
+  grey5,
+  grey10,
+} from "../constants/color";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { instanceAxios } from "../api/axios";
+import { deviceDetect } from "react-device-detect";
+import {
+  getCookie,
+  setAccessTokenToCookie,
+  setRefreshTokenToCookie,
+} from "../cookie/controlCookie";
+import { logout } from "../cookie/controlCookie";
 
 const Header = styled.header`
   display: flex;
-  font-family: 'Pretendard-Regular';
-`
+  font-family: "Pretendard-Regular";
+`;
 const Nav = styled.nav`
-  background: ${grey1};
-  color: ${grey1};
   padding: 40px;
   /* height: 100vh */
-`
+`;
 
 const MainLogo = styled.img`
   width: 152px;
   height: 44px;
-`
+`;
 
 const NavLi = styled.ul`
   margin-top: 61px;
-`
+`;
 
 const WrapRight = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   flex-grow: 1;
-`
+`;
 
 const TopHeader = styled.div`
   background: ${grey1};
   padding: 21px;
-`
+`;
 
 const LI = styled.li`
   margin-bottom: 32px;
-  `
-  
-const A = styled.a`
-color: ${grey1};
+`;
 
-&:hover {
-  color : ${grey1};
-}
-`
+const A = styled.a`
+  color: ${grey10};
+
+  &:hover {
+    color: ${grey10};
+  }
+`;
 
 const SubNav = styled.ul`
   margin: 0 0 20px 30px;
-`
+`;
 
 const SubLI = styled.li`
-  margin-bottom:20px;
-`
+  color: ${grey10};
+  margin-bottom: 20px;
+`;
+const LinkStyle = styled(Link)`
+  color: ${grey10};
+`;
 
 const MyButton = styled.button`
-position: relative;
+  position: relative;
   display: block;
   border: none;
   background: none;
@@ -73,13 +86,13 @@ position: relative;
   padding: 5px;
   cursor: pointer;
   font-weight: 900;
-  color:${grey1};
+  color: ${grey10};
   margin-right: 20px;
   &:hover {
-    background: ${primary4};
+    background: ${grey10};
     border-radius: 8px;
   }
-`
+`;
 
 const MyMenu = styled.ul`
   position: absolute;
@@ -88,28 +101,28 @@ const MyMenu = styled.ul`
   width: 105px;
   border-radius: 8px;
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
-  background-color: ${grey1};
+  background-color: ${grey10};
   text-align: center;
   padding: 16px;
 
   &::after {
     display: block;
-    content: '';
+    content: "";
     position: absolute;
     width: 80%;
     height: 2px;
-    background-color: ${grey6};
+    background-color: ${grey10};
     left: 15px;
     top: 55px;
   }
-`
+`;
 const MyMenuLi = styled.li`
   cursor: pointer;
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
-`
+`;
 //${(props) => (props.last ? "32px" : "16px")};
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
   const navigate = useNavigate();
   const [openNav, setOpenNav] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
@@ -117,32 +130,39 @@ export default function Layout({children}) {
   const [seconds, setSeconds] = useState(0);
 
   const handleOpenNav = () => {
-    !openNav ? setOpenNav(true) : setOpenNav(false)
-  }
+    !openNav ? setOpenNav(true) : setOpenNav(false);
+  };
 
   const handleOpenMyMenu = () => {
-    !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false)
-  }
+    !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false);
+  };
 
   const [browserName, setBrowserName] = useState("");
-  useEffect(()=> {
+  useEffect(() => {
     setBrowserName(deviceDetect().browserName.toUpperCase());
-    if(browserName === "CHOROME" || "SAFARI" || "EDGE" || "OPERA" || "FIREFOX" || "INTERNET EXPLORER") {
-     setBrowserName("PC");
-    } 
+    if (
+      browserName === "CHOROME" ||
+      "SAFARI" ||
+      "EDGE" ||
+      "OPERA" ||
+      "FIREFOX" ||
+      "INTERNET EXPLORER"
+    ) {
+      setBrowserName("PC");
+    }
     console.log("브라우저 이름 : ", browserName);
-  },[browserName]);
+  }, [browserName]);
 
   // refreshToken 재발급
-  const accessToken = getCookie('accessToken');
-  const refreshToken = getCookie('refreshToken');
+  const accessToken = getCookie("accessToken");
+  const refreshToken = getCookie("refreshToken");
   const logoutTimer = () => {
-    if(accessToken && refreshToken) {
+    if (accessToken && refreshToken) {
       logout();
-      alert('세션이 만료되었습니다.');
+      alert("세션이 만료되었습니다.");
       navigate("/");
     }
-  }  
+  };
 
   useEffect(() => {
     const countdown = setInterval(() => {
@@ -163,63 +183,64 @@ export default function Layout({children}) {
   }, [minutes, seconds]);
 
   const requestAccessToken = async (token) => {
-    try{
-      const response = await instanceAxios.post('/auth/refresh', {
-        "refreshToken" : token,
+    try {
+      const response = await instanceAxios.post("/auth/refresh", {
+        refreshToken: token,
       });
       const tokenType = response.data.tokenType;
       const headersToken = tokenType + response.data.accessToken;
       setAccessTokenToCookie(headersToken);
       setRefreshTokenToCookie(response.data.refreshToken);
-      instanceAxios.defaults.headers.common['Authorization'] = headersToken;
-      console.log(response,"토큰 초기화"); 
-    } catch (err){
-      console.error(err)
+      instanceAxios.defaults.headers.common["Authorization"] = headersToken;
+      console.log(response, "토큰 초기화");
+    } catch (err) {
+      console.error(err);
     }
-  }
-  
+  };
+
   useEffect(() => {
     requestAccessToken(refreshToken);
-  }, [])
+  }, []);
 
   return (
     <Header>
-    {/* 왼쪽 */}
+      {/* 왼쪽 */}
       <Nav>
-          <MainLogo src={logo} alt="메인 로고" />
-          <NavLi>
-              <LI><A href='#'>대시보드</A></LI>
-              <LI onClick={handleOpenNav}><A href='#'>PUSH 관리</A></LI>
-              {openNav && 
-                <SubNav>
-                  <SubLI><Link to="/makePush">push 작성</Link></SubLI>
-                  <SubLI><Link to="/test">push 리스트</Link></SubLI>
-                </SubNav>
-              }  
-            
-          </NavLi>
+        <MainLogo src={logo} alt="메인 로고" />
+        <NavLi>
+          <LI>
+            <A href="#">대시보드</A>
+          </LI>
+          <LI onClick={handleOpenNav}>
+            <A href="#">PUSH 관리</A>
+          </LI>
+          {openNav && (
+            <SubNav>
+              <SubLI>
+                <LinkStyle to="/makePush">push 작성</LinkStyle>
+              </SubLI>
+              <SubLI>
+                <LinkStyle to="/test">push 리스트</LinkStyle>
+              </SubLI>
+            </SubNav>
+          )}
+        </NavLi>
       </Nav>
 
       {/* 오른쪽 */}
       <WrapRight>
-          <TopHeader>
-              <MyButton onClick={handleOpenMyMenu}>
-                김태희(master)
-              </MyButton>
-              {openMyMenu && 
-                <MyMenu>
-                  <MyMenuLi first>MASTER</MyMenuLi>
-                  <MyMenuLi>비밀변경</MyMenuLi>
-                  <MyMenuLi onClick={logout}>
-                    로그아웃
-                  </MyMenuLi>
-                </MyMenu>
-              }
-          </TopHeader>
-          <main>
-            { children }
-          </main>  
+        <TopHeader>
+          <MyButton onClick={handleOpenMyMenu}>김태희(master)</MyButton>
+          {openMyMenu && (
+            <MyMenu>
+              <MyMenuLi first>MASTER</MyMenuLi>
+              <MyMenuLi>비밀변경</MyMenuLi>
+              <MyMenuLi onClick={logout}>로그아웃</MyMenuLi>
+            </MyMenu>
+          )}
+        </TopHeader>
+        <main>{children}</main>
       </WrapRight>
     </Header>
-  )
+  );
 }

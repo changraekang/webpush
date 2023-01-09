@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  primary4,
-  grey1,
-  grey3,
-  grey5,
-} from "../../constants/color";
+import { primary4, grey1, grey3, grey5 } from "../../constants/color";
 
 const Button = styled.button`
   display: block;
@@ -13,21 +8,16 @@ const Button = styled.button`
   padding: ${(props) => (props.certificate ? "10px" : " 12px")};
   cursor: pointer;
   border-radius: 32px;
-  font-size: ${(props) =>
-    props.certificate ? `${CERTIFICATION_BUTTON_SIZE}` : null};
-  font-size: ${(props) => (props.token ? `${TOKEN_BUTTON_SIZE}` : null)};
+  font-size: ${(props) => (props.certificate ? `16px` : null)};
+  font-size: ${(props) => (props.token ? `14px` : null)};
   background: ${(props) => (props.normal ? `${grey1}` : null)};
   background: ${(props) => (props.active ? `${primary4}` : null)};
-  background: ${(props) =>
-    props.inactive ? `${grey3}` : null};
+  background: ${(props) => (props.inactive ? `${grey3}` : null)};
   color: ${(props) => (props.normal ? `${primary4}` : null)};
   color: ${(props) => (props.active ? `${grey1}` : null)};
-  color: ${(props) =>
-    props.inactive ? `${grey5}` : null};
-  border: 1px solid
-    ${(props) => (props.normal ? `${primary4}` : "none")};
-  border: 1px solid
-    ${(props) => (props.inactive ? `${grey5}` : "none")};
+  color: ${(props) => (props.inactive ? `${grey5}` : null)};
+  border: 1px solid ${(props) => (props.normal ? `${primary4}` : "none")};
+  border: 1px solid ${(props) => (props.inactive ? `${grey5}` : "none")};
   cursor: ${(props) => (props.inactive ? `default` : null)};
   &:hover {
   }

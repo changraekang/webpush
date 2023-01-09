@@ -2,22 +2,24 @@ import styled from "styled-components";
 import React from "react";
 import {
   ACTIVE_INPUT_BORDER_COLOR,
+  grey1,
   INACTIVE_INPUT_BORDER_COLOR,
   INACTIVE_INPUT_FONT_COLOR,
+  primary5,
 } from "../../constants/color";
 const Input = styled.input`
   width: 100%;
   padding: 16px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  border: 1px solid ${grey1};
 
   &:focus {
-    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
+    border: 1px solid ${primary5};
   }
 
   &::placeholder {
-    color: ${INACTIVE_INPUT_FONT_COLOR};
+    color: ${grey1};
   }
 `;
 
