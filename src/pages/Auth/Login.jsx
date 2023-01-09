@@ -26,7 +26,7 @@ import {
   setAccessTokenToCookie,
   setRefreshTokenToCookie,
 } from "../../cookie/controlCookie";
-import InputGroup from "../../components/inputs/InputGroups";
+import {InputGroup} from "../../components/inputs/InputGroups";
 
 const Section = styled.section`
   display: flex;

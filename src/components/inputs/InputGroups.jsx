@@ -1,33 +1,32 @@
 import styled from "styled-components";
 import React from "react";
 import {
-  ACTIVE_INPUT_BORDER_COLOR,
-  grey1,
-  INACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_FONT_COLOR,
+  grey5,
+  grey6,
   primary5,
 } from "../../constants/color";
 const Input = styled.input`
   width: 100%;
-  padding: 16px;
+  padding: 10px 12px;
   box-sizing: border-box;
-  border-radius: 8px;
-  border: 1px solid ${grey1};
+  border-radius: 4px;
+  border: 1px solid ${grey5};
 
   &:focus {
     border: 1px solid ${primary5};
   }
 
   &::placeholder {
-    color: ${grey1};
+    color: ${grey6};
   }
 `;
 
-const InputGroup = ({
+export const InputGroup = ({
   type = "text",
   placeholder = "",
   value,
   setValue,
+  id,
   readonly = false,
 }) => {
   return (
@@ -36,6 +35,7 @@ const InputGroup = ({
         type={type}
         placeholder={placeholder}
         value={value}
+        id={id}
         readOnly={readonly}
         onChange={(e) => setValue(e.target.value)}
       />
@@ -43,4 +43,30 @@ const InputGroup = ({
   );
 };
 
-export default InputGroup;
+
+export const InputValidateGroup = ({
+  type = "text",
+  placeholder = "",
+  value,
+  setValue,
+  id,
+  name,
+  maxlength,
+  readonly = false,
+}) => {
+  return (
+    <div>
+      <Input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        id={id}
+        readOnly={readonly}
+        maxlength={maxlength}
+        name={name}
+        onChange={setValue}
+      />
+    </div>
+  );
+};
+
