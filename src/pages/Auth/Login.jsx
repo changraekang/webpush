@@ -30,6 +30,7 @@ import {
   setAccessTokenToCookie,
   setRefreshTokenToCookie,
 } from "../../cookie/controlCookie";
+import InputGroup from "../../components/inputs/InputGroups";
 
 const Section = styled.section`
   display: flex;
@@ -101,22 +102,6 @@ const PwdInputWrap = styled.div`
   margin-top: 20px;
 `;
 
-const Input = styled.input`
-  width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-  border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-
-  &:focus {
-    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
-  }
-
-  &::placeholder {
-    color: ${INACTIVE_INPUT_FONT_COLOR};
-  }
-`;
-
 const RadioList = styled.ul`
   display: flex;
   margin: 24px 0 36px 0;
@@ -153,21 +138,8 @@ const LinkStyle = styled(Link)`
 export default function Login() {
   const navigate = useNavigate();
   const [isCheck, setIsCheck] = useState(false);
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
-
-  const { email, password } = inputs;
-
-  const handleInputValues = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-    console.log(inputs);
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
@@ -236,18 +208,18 @@ export default function Login() {
             <form action="post">
               <IDInputWrap>
                 <SubTitle>아이디</SubTitle>
-                <Input
-                  onChange={handleInputValues}
-                  name="email"
+                <InputGroup
+                  setValue={setEmail}
+                  value={email}
                   type="text"
                   placeholder="이메일을 입력하세요"
                 />
               </IDInputWrap>
               <PwdInputWrap>
                 <SubTitle>비밀번호</SubTitle>
-                <Input
-                  onChange={handleInputValues}
-                  name="password"
+                <InputGroup
+                  setValue={setPassword}
+                  value={password}
                   last
                   type="password"
                   placeholder="비밀번호를 입력하세요"
