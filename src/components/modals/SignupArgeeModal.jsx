@@ -11,25 +11,19 @@ import {
 } from "../../constants/color";
 
 const Wrapper = styled.div`
-  background-image: ${MAIN_BACKGROUND_COLOR};
+  position: fixed;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
 `;
-const Title = styled.h2`
-  color: ${grey11};
-  font-size: 24px;
-  font-weight: 700;
-  padding-bottom: 12px;
-  align-items: center;
-`;
+
 const Modal = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,6 +33,15 @@ const Modal = styled.div`
   width: 560px;
   height: 544px;
 `;
+
+const Title = styled.h2`
+  color: ${grey11};
+  font-size: 24px;
+  font-weight: 700;
+  padding-bottom: 12px;
+  align-items: center;
+`;
+
 const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
