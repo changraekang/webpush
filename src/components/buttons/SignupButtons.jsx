@@ -5,11 +5,6 @@ import {
   grey3,
   grey5,
 } from "../../constants/color";
-import {
-  BUTTON_SIZE,
-  CERTIFICATION_BUTTON_SIZE,
-  TOKEN_BUTTON_SIZE,
-} from "../../constants/fontSize";
 
 const Button = styled.button`
   display: block;
@@ -41,7 +36,11 @@ const Button = styled.button`
 // 회원가입 작성 중
 function SignupButton({ children, requestRegister }) {
   return (
-    <Button style={{ marginTop: "55px", width:"200px", margin: "44px auto 0" }} active onClick={requestRegister}>
+    <Button
+      style={{ marginTop: "55px", width: "200px", margin: "44px auto 0" }}
+      active
+      onClick={requestRegister}
+    >
       {children}
     </Button>
   );
@@ -50,7 +49,11 @@ function SignupButton({ children, requestRegister }) {
 // 회원 가입 완료
 function BeforeSignupButton({ children }) {
   return (
-    <Button style={{ marginTop: "55px", width:"200px", margin: "44px auto 0" }} disabled inactive>
+    <Button
+      style={{ marginTop: "55px", width: "200px", margin: "44px auto 0" }}
+      disabled
+      inactive
+    >
       {children}
     </Button>
   );

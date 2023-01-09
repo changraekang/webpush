@@ -5,10 +5,6 @@ import {
   grey3,
   grey5,
 } from "../../constants/color";
-import {
-  BUTTON_SIZE,
-  CERTIFICATION_BUTTON_SIZE,
-} from "../../constants/fontSize";
 
 const Button = styled.button`
   display: block;

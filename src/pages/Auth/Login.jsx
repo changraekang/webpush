@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {LoginBox} from "../../components/containers/auth/AuthBox";
+import { LoginBox } from "../../components/containers/auth/AuthBox";
 import {
   MAIN_BACKGROUND_COLOR,
   grey11,
@@ -8,11 +8,6 @@ import {
   grey6,
   grey10,
 } from "../../constants/color";
-import {
-  AUTH_RADIO_SIZE,
-  BUTTON_SIZE,
-  MAIN_TITLE_SIZE,
-} from "../../constants/fontSize";
 import logo from "../../assets/images/logo.png";
 import mainImage from "../../assets/images/mainpage.png";
 import {
@@ -73,8 +68,8 @@ const WrapLogo = styled.div`
   font-weight: 900;
   line-height: 48px;
   margin-bottom: 60px;
-  font-size: ${MAIN_TITLE_SIZE};
   color: ${grey10};
+  font-size: 40px;
 `;
 
 const Logo = styled.img`
@@ -124,7 +119,7 @@ const RadioList = styled.ul`
   margin: 24px 0 36px 0;
   justify-content: space-between;
   align-items: center;
-  font-size: ${AUTH_RADIO_SIZE};
+  font-size: 14px;
 `;
 
 const SubTitle = styled.div`

@@ -5,7 +5,6 @@ import {
   grey3,
   grey5,
 } from "../../constants/color";
-import { BUTTON_SIZE } from "../../constants/fontSize";
 
 const Button = styled.button`
   display: block;
@@ -13,7 +12,7 @@ const Button = styled.button`
   width: 100%;
   padding: 16px;
   cursor: pointer;
-  font-size: ${BUTTON_SIZE};
+  font-size: 24px;
   border-radius: 8px;
   background: ${(props) => (props.normal ? `${grey1}` : null)};
   background: ${(props) => (props.active ? `${primary4}` : null)};
@@ -38,7 +37,7 @@ const ImageButton = styled.button`
   margin-top: 15px;
   margin-bottom: 8px;
   cursor: pointer;
-  font-size: ${BUTTON_SIZE};
+  font-size: 24px;
   border-radius: 8px;
   color: ${primary4};
   border: 1px solid ${primary4};
@@ -59,7 +58,11 @@ function ActivePushButton({ children, handleSubmit }) {
 }
 
 function InactivePushButton({ children }) {
-  return <Button inactive disabled>{children}</Button>;
+  return (
+    <Button inactive disabled>
+      {children}
+    </Button>
+  );
 }
 
 // 이미지 등록

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {SignupBox} from "../../components/containers/auth/AuthBox";
+import { SignupBox } from "../../components/containers/auth/AuthBox";
 import {
   grey11,
   grey9,
@@ -10,7 +10,6 @@ import {
   primary4,
   error3,
 } from "../../constants/color";
-import { SAMLL_INPUT_SIZE } from "../../constants/fontSize";
 import logo from "../../assets/images/logo.png";
 import {
   CertificationButton,
@@ -145,8 +144,8 @@ const EmailList = styled.ul`
   width: 218px;
   right: 0;
   top: 42px;
-  font-size: ${SAMLL_INPUT_SIZE};
   background-color: ${grey1};
+  font-size: 14px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
   border-radius: 8px;
   border: 1px solid ${grey5};
@@ -247,7 +246,6 @@ export default function Signup() {
           .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
       );
     }
-    console.log("하이픈", phoneWrite);
   }, [phoneWrite]);
 
   const handleInputValues = (e) => {
@@ -256,7 +254,6 @@ export default function Signup() {
     if (e.target.name === "password") {
       // 영문 숫자 특수문자 1개씩 +  8-25글자 정규식
       let re = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-      console.log(re.test(e.target.value));
       setPasswordVaildation(re.test(e.target.value));
       if (conPasswdVaildation) {
         setConPasswdVaildation(false);
@@ -269,9 +266,7 @@ export default function Signup() {
       }
     } else if (e.target.name === "phone") {
       const regex = /^[0-9\b -]{0,13}$/;
-      console.log(e.target.value);
       if (regex.test(e.target.value)) {
-        console.log(e.target.value, "통과");
         setPhoneWrite(e.target.value);
         setPhoneVaildation(true);
       } else {
@@ -300,11 +295,8 @@ export default function Signup() {
       /((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let result = re.test(e.target.value);
     setEmailVaildation(result);
-    console.log(emailVaildation);
     setEmail(e.target.value);
   };
-
-
 
   // 토큰 요청
   const requestToken = async (e) => {
@@ -454,7 +446,6 @@ export default function Signup() {
   // 로그인 요청
   const requestRegister = async (e) => {
     e.preventDefault();
-    console.log(registerData);
     try {
       const response = await instanceAxios.post("/auth/register", registerData);
       if (response.status === 200) {

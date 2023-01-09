@@ -5,7 +5,6 @@ import {
   grey3,
   grey5,
 } from "../../constants/color";
-import { BUTTON_SIZE } from "../../constants/fontSize";
 
 const Button = styled.button`
   display: block;
@@ -73,11 +72,7 @@ function InactiveSetNewPasswordButton({ children }) {
 
 // 이메일 찾기
 function ActiveFindEmailButton({ children }) {
-  return (
-    <Button active>
-      {children}
-    </Button>
-  );
+  return <Button active>{children}</Button>;
 }
 
 function InactiveFindEmailButton({ children }) {
