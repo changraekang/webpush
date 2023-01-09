@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import { SignupBox } from "../../components/containers/auth/AuthBox";
 import {
-  ACTIVE_INPUT_BORDER_COLOR,
-  AUTH_TITLE_COLOR,
-  AUTH_MESSAGE_COLOR,
-  AUTH_LABEL_COLOR,
+  grey11,
+  grey9,
+  grey1,
   MAIN_BACKGROUND_COLOR,
-  INACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_FONT_COLOR,
-  ACTIVE_INPUT_COLOR,
-  EMAIL_OPTION_BORDER_COLOR,
-  AUTH_WARNING_COLOR,
+  grey5,
+  grey6,
+  primary4,
+  error3,
 } from "../../constants/color";
 import logo from "../../assets/images/logo.png";
 import {
@@ -55,14 +53,14 @@ const WrapTitle = styled.div`
 `;
 
 const Title = styled.h2`
-  color: ${AUTH_TITLE_COLOR};
+  color: ${grey11};
   font-size: 32px;
   font-weight: 600;
   padding-bottom: 12px;
 `;
 
 const Message = styled.p`
-  color: ${AUTH_MESSAGE_COLOR};
+  color: ${grey9};
 `;
 
 const WrapContents = styled.div`
@@ -91,10 +89,10 @@ const Input = styled.input`
   padding: 10px 12px;
   box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  border: 1px solid ${grey5};
 
   &::placeholder {
-    color: ${INACTIVE_INPUT_FONT_COLOR};
+    color: ${grey6};
   }
 `;
 
@@ -105,27 +103,27 @@ const Input = styled.input`
 //   margin-top: 8px;
 //   box-sizing: border-box;
 //   border-radius: 8px;
-//   border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+//   border: 1px solid ${grey5};
 
 //   &:focus {
 //     border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
 //   }
 
 //   &::placeholder {
-//     color: ${INACTIVE_INPUT_FONT_COLOR};
+//     color: ${grey6};
 //   }
 // `;
 
 const Label = styled.label`
   /* width: 140px; */
-  color: ${AUTH_LABEL_COLOR};
+  color: ${grey11};
   display: inline-block;
   width: 140px;
 `;
 
 const LabelWarning = styled.span`
   display: block;
-  color: ${AUTH_WARNING_COLOR};
+  color: ${error3};
   font-size: 14px;
   margin-top: 8px;
 `;
@@ -135,7 +133,7 @@ const EmailInput = styled.input`
   padding: 10px 12px;
   box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  border: 1px solid ${grey5};
   cursor: pointer;
 `;
 
@@ -146,20 +144,20 @@ const EmailList = styled.ul`
   width: 218px;
   right: 0;
   top: 42px;
+  background-color: ${grey1};
   font-size: 14px;
-  background-color: ${ACTIVE_INPUT_COLOR};
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
   border-radius: 8px;
-  border: 1px solid ${EMAIL_OPTION_BORDER_COLOR};
+  border: 1px solid ${grey5};
   text-align: center;
   z-index: 5;
 `;
 
 const EmailOptions = styled.li`
   padding: 12px 0;
-  border-bottom: 1px solid ${EMAIL_OPTION_BORDER_COLOR};
+  border-bottom: 1px solid ${grey5};
   border-bottom: ${(props) =>
-    props.last ? "none" : `1px solid ${EMAIL_OPTION_BORDER_COLOR}`};
+    props.last ? "none" : `1px solid ${grey5}`};
 `;
 
 const WrapRightItems = styled.div`
@@ -493,7 +491,7 @@ export default function Signup() {
                   onChange={handleInputValues}
                   style={{
                     border: !passwordVaildation
-                      ? `1px solid ${AUTH_WARNING_COLOR}`
+                      ? `1px solid ${error3}`
                       : null,
                   }}
                 />
@@ -517,7 +515,7 @@ export default function Signup() {
                   onChange={handleInputValues}
                   style={{
                     border: !conPasswdVaildation
-                      ? `1px solid ${AUTH_WARNING_COLOR}`
+                      ? `1px solid ${error3}`
                       : null,
                   }}
                 />

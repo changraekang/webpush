@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  AUTH_TITLE_COLOR,
-  MODAL_BACKGROUND_COLOR,
-  MAIN_BOX_COLOR,
-  MODAL_BOX_COLOR,
-  ACTIVE_BUTTON_COLOR,
-  ACTIVE_BUTTON_FONT_COLOR,
-  INACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_BUTTON_COLOR,
+  grey11,
+  MAIN_BACKGROUND_COLOR,
+  grey1,
+  grey2,
+  primary4,
+  grey5,
+  grey3,
 } from "../../constants/color";
 
 const Wrapper = styled.div`
-  background-image: ${MODAL_BACKGROUND_COLOR};
+  background-image: ${MAIN_BACKGROUND_COLOR};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +24,7 @@ const Wrapper = styled.div`
   right: 0;
 `;
 const Title = styled.h2`
-  color: ${AUTH_TITLE_COLOR};
+  color: ${grey11};
   font-size: 24px;
   font-weight: 700;
   padding-bottom: 12px;
@@ -36,7 +35,7 @@ const Modal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${MAIN_BOX_COLOR};
+  background-color: ${grey1};
   width: 560px;
   height: 544px;
 `;
@@ -56,7 +55,7 @@ const ModalContent = styled.div`
   height: 392px;
   padding: 16px 24px 16px 16px;
   pointer-events: auto;
-  background-color: ${MODAL_BOX_COLOR};
+  background-color: ${grey2};
   border-radius: 8px;
   outline: 0;
 `;
@@ -72,12 +71,12 @@ const Button = styled.div`
   align-items: center;
   width: 72px;
   height: 36px;
-  background: ${INACTIVE_BUTTON_COLOR};
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  background: ${grey3};
+  border: 1px solid ${grey5};
   border-radius: 32px;
   &:hover {
-    background-color: ${ACTIVE_BUTTON_COLOR};
-    color: ${ACTIVE_BUTTON_FONT_COLOR};
+    background-color: ${primary4};
+    color: ${grey1};
   }
 `;
 const SignupArgeeModal = (props) => {

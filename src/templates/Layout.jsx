@@ -1,7 +1,7 @@
 import logo from '../assets/images/logo.png';
 import mypageLogo from '../assets/images/mypage-logo.png';
 import styled from 'styled-components';
-import {NAV_MY_MENU_HOVER_COLOR, NAV_MY_MENU_LINE_COLOR,NAV_MY_MENU_COLOR, SIDE_NAV_COLOR ,NAV_FONT_HOVER_COLOR,NAV_MAIN_COLOR,NAV_BUTTON_HOVER_COLOR,NAV_FONT_COLOR} from '../constants/color';
+import {grey6, grey1, primary4} from '../constants/color';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { instanceAxios } from '../api/axios';
@@ -14,8 +14,8 @@ const Header = styled.header`
   font-family: 'Pretendard-Regular';
 `
 const Nav = styled.nav`
-  background: ${SIDE_NAV_COLOR};
-  color: ${NAV_FONT_COLOR};
+  background: ${grey1};
+  color: ${grey1};
   padding: 40px;
   /* height: 100vh */
 `
@@ -36,7 +36,7 @@ const WrapRight = styled.div`
 `
 
 const TopHeader = styled.div`
-  background: ${NAV_MAIN_COLOR};
+  background: ${grey1};
   padding: 21px;
 `
 
@@ -45,10 +45,10 @@ const LI = styled.li`
   `
   
 const A = styled.a`
-color: ${NAV_FONT_COLOR};
+color: ${grey1};
 
 &:hover {
-  color : ${NAV_FONT_HOVER_COLOR};
+  color : ${grey1};
 }
 `
 
@@ -73,10 +73,10 @@ position: relative;
   padding: 5px;
   cursor: pointer;
   font-weight: 900;
-  color:${NAV_MY_MENU_COLOR};
+  color:${grey1};
   margin-right: 20px;
   &:hover {
-    background: ${NAV_MY_MENU_HOVER_COLOR};
+    background: ${primary4};
     border-radius: 8px;
   }
 `
@@ -88,7 +88,7 @@ const MyMenu = styled.ul`
   width: 105px;
   border-radius: 8px;
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
-  background-color: ${NAV_MY_MENU_COLOR};
+  background-color: ${grey1};
   text-align: center;
   padding: 16px;
 
@@ -98,7 +98,7 @@ const MyMenu = styled.ul`
     position: absolute;
     width: 80%;
     height: 2px;
-    background-color: ${NAV_MY_MENU_LINE_COLOR};
+    background-color: ${grey6};
     left: 15px;
     top: 55px;
   }

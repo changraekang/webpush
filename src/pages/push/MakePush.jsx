@@ -3,10 +3,9 @@ import styled from "styled-components";
 import PushBox from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
 import {
-  MAIN_SUBTITLE_FONT_COLOR,
-  INACTIVE_INPUT_BORDER_COLOR,
-  MAIN_FONT_COLOR,
-  MAIN_DEMOBOX_COLOR,
+  grey5,
+  grey10,
+  grey2,
 } from "../../constants/color";
 import activeCheck from "../../assets/images/active-check.png";
 import Fox from "../../assets/images/fox.png";
@@ -80,8 +79,8 @@ const SubDemoTitle = styled.h4`
 `;
 
 const Message = styled.p`
+  color: ${grey5};
   font-size: 14px;
-  color: ${MAIN_SUBTITLE_FONT_COLOR};
 `;
 
 const WrapMessage = styled.div`
@@ -106,7 +105,7 @@ const DemoWrapperBox = styled.div`
   left: 32px;
   top: 77px;
   padding-right: 50px;
-  background: ${MAIN_DEMOBOX_COLOR};
+  background: ${grey2};
   border-radius: 16px;
 `;
 
@@ -116,15 +115,15 @@ const Input = styled.input`
   margin-top: 8px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${MAIN_FONT_COLOR};
+  border: 1px solid ${grey5};
+  color: ${grey10};
 `;
 const InputDate = styled.input`
   padding: 16px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${MAIN_FONT_COLOR};
+  border: 1px solid ${grey5};
+  color: ${grey10};
 `;
 const ImageInput = styled.input`
   width: 100%;
@@ -133,8 +132,8 @@ const ImageInput = styled.input`
   margin-left: 20px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${MAIN_FONT_COLOR};
+  border: 1px solid ${grey5};
+  color: ${grey10};
 `;
 const InputArea = styled.input`
   width: 100%;
@@ -143,8 +142,8 @@ const InputArea = styled.input`
   margin-top: 8px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
-  color: ${MAIN_FONT_COLOR};
+  border: 1px solid ${grey5};
+  color: ${grey10};
 `;
 
 const RadioList = styled.ul`
@@ -162,13 +161,13 @@ const RadioLi = styled.li`
   gap: 4px;
 `;
 const SubMessage = styled.p`
-  color: ${MAIN_SUBTITLE_FONT_COLOR};
+  color: ${grey5};
   text-align: center;
   padding-top: 20px;
   padding-bottom: 60px;
 `;
 const LinkMessage = styled.p`
-  color: ${MAIN_SUBTITLE_FONT_COLOR};
+  color: ${grey5};
   text-align: center;
 `;
 const ButtonWrapper = styled.div`
