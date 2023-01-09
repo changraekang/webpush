@@ -1,13 +1,9 @@
 import styled from "styled-components";
 import {
-  ACTIVE_BUTTON_COLOR,
-  ACTIVE_BUTTON_FONT_COLOR,
-  INACTIVE_BUTTON_COLOR,
-  INACTIVE_BUTTON_FONT_COLOR,
-  NORMAL_BUTTON_COLOR,
-  NORMAL_BUTTON_FONT_COLOR,
-  NORMAL_BUTTON_BORDER_COLOR,
-  INACTIVE_BUTTON_BORDER_COLOR,
+  primary4,
+  grey1,
+  grey3,
+  grey5,
 } from "../../constants/color";
 import {
   BUTTON_SIZE,
@@ -25,18 +21,18 @@ const Button = styled.button`
   font-size: ${(props) =>
     props.certificate ? `${CERTIFICATION_BUTTON_SIZE}` : null};
   font-size: ${(props) => (props.token ? `${TOKEN_BUTTON_SIZE}` : null)};
-  background: ${(props) => (props.normal ? `${NORMAL_BUTTON_COLOR}` : null)};
-  background: ${(props) => (props.active ? `${ACTIVE_BUTTON_COLOR}` : null)};
+  background: ${(props) => (props.normal ? `${grey1}` : null)};
+  background: ${(props) => (props.active ? `${primary4}` : null)};
   background: ${(props) =>
-    props.inactive ? `${INACTIVE_BUTTON_COLOR}` : null};
-  color: ${(props) => (props.normal ? `${NORMAL_BUTTON_FONT_COLOR}` : null)};
-  color: ${(props) => (props.active ? `${ACTIVE_BUTTON_FONT_COLOR}` : null)};
+    props.inactive ? `${grey3}` : null};
+  color: ${(props) => (props.normal ? `${primary4}` : null)};
+  color: ${(props) => (props.active ? `${grey1}` : null)};
   color: ${(props) =>
-    props.inactive ? `${INACTIVE_BUTTON_FONT_COLOR}` : null};
+    props.inactive ? `${grey5}` : null};
   border: 1px solid
-    ${(props) => (props.normal ? `${NORMAL_BUTTON_BORDER_COLOR}` : "none")};
+    ${(props) => (props.normal ? `${primary4}` : "none")};
   border: 1px solid
-    ${(props) => (props.inactive ? `${INACTIVE_BUTTON_BORDER_COLOR}` : "none")};
+    ${(props) => (props.inactive ? `${grey5}` : "none")};
   cursor: ${(props) => (props.inactive ? `default` : null)};
   &:hover {
   }

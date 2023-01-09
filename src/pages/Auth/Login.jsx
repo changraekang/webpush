@@ -2,15 +2,11 @@ import styled from "styled-components";
 import {LoginBox} from "../../components/containers/auth/AuthBox";
 import {
   MAIN_BACKGROUND_COLOR,
-  AUTH_LABEL_COLOR,
-  ACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_FONT_COLOR,
-  INACTIVE_INPUT_COLOR,
-  NORMAL_BUTTON_BORDER_COLOR,
-  NORMAL_BUTTON_COLOR,
-  NORMAL_BUTTON_FONT_COLOR,
-  MAIN_FONT_COLOR,
+  grey11,
+  primary4,
+  grey5,
+  grey6,
+  grey10,
 } from "../../constants/color";
 import {
   AUTH_RADIO_SIZE,
@@ -55,6 +51,7 @@ const ImageSection = styled.section`
   /* padding: 186px 0; */
   background-image: ${MAIN_BACKGROUND_COLOR};
 `;
+
 const InputSection = styled.section`
   display: flex;
   justify-content: center;
@@ -77,7 +74,7 @@ const WrapLogo = styled.div`
   line-height: 48px;
   margin-bottom: 60px;
   font-size: ${MAIN_TITLE_SIZE};
-  color: ${MAIN_FONT_COLOR};
+  color: ${grey10};
 `;
 
 const Logo = styled.img`
@@ -111,14 +108,14 @@ const Input = styled.input`
   padding: 16px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${INACTIVE_INPUT_BORDER_COLOR};
+  border: 1px solid ${grey5};
 
   &:focus {
-    border: 1px solid ${ACTIVE_INPUT_BORDER_COLOR};
+    border: 1px solid ${primary4};
   }
 
   &::placeholder {
-    color: ${INACTIVE_INPUT_FONT_COLOR};
+    color: ${grey6};
   }
 `;
 
@@ -151,7 +148,7 @@ const WrapFindAuth = styled.div`
 
 const LinkStyle = styled(Link)`
   text-decoration: none;
-  color: ${AUTH_LABEL_COLOR};
+  color: ${grey11};
 `;
 
 //--------------로그인 페이지--------------------------

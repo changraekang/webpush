@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import inActiveCheck from "../../assets/images/inactive-radio.png";
 import activeCheck from "../../assets/images/active-radio.png";
-import { MAIN_FONT_COLOR } from "../../constants/color";
+import { grey9 } from "../../constants/color";
 import SignupArgeeModal from "../modals/SignupArgeeModal";
 
 const DesingLine = styled.div`
@@ -23,10 +23,10 @@ const InputAlign = styled.div`
   gap: 8px;
   margin-bottom: ${(props) => (props.last ? "32px" : "12px")};
 `;
-const PaperButton = styled.div`
+const PaperButton = styled.button`
   width: 60px;
   height: 30px;
-  color: ${MAIN_FONT_COLOR};
+  color: ${grey9};
   display: flex;
   cursor: pointer;
   align-items: flex-start;
@@ -52,7 +52,8 @@ export default function SignupAgreement(props) {
   const handleMarket = () => {
     !marketing ? setMarketing(true) : setMarketing(false);
   };
-  const openPersonal = () => {
+  const openPersonal = (e) => {
+    e.preventDefault();
     setOpenModal(true);
   };
   const openAgree = () => {
