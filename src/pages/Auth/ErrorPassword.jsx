@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import FindMemberBox from "../../components/containers/auth/FindMemberBox";
 import {
   MAIN_BACKGROUND_COLOR,
   AUTH_MESSAGE_COLOR,

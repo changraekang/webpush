@@ -8,10 +8,6 @@ import {
   NORMAL_BUTTON_FONT_COLOR,
   NORMAL_BUTTON_BORDER_COLOR,
 } from "../../constants/color";
-import {
-  BUTTON_SIZE,
-  CERTIFICATION_BUTTON_SIZE,
-} from "../../constants/fontSize";
 
 const Button = styled.button`
   display: block;
@@ -20,8 +16,7 @@ const Button = styled.button`
   padding: 12px 16px;
   cursor: pointer;
   border-radius: 32px;
-  font-size: ${(props) =>
-    props.certificate ? `${CERTIFICATION_BUTTON_SIZE}` : `${BUTTON_SIZE}`};
+  font-size: ${(props) => (props.certificate ? `16px` : `24px`)};
   background: ${(props) => (props.normal ? `${NORMAL_BUTTON_COLOR}` : null)};
   background: ${(props) => (props.active ? `${ACTIVE_BUTTON_COLOR}` : null)};
   background: ${(props) =>

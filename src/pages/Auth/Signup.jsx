@@ -12,7 +12,6 @@ import {
   EMAIL_OPTION_BORDER_COLOR,
   AUTH_WARNING_COLOR,
 } from "../../constants/color";
-import { SAMLL_INPUT_SIZE } from "../../constants/fontSize";
 import logo from "../../assets/images/logo.png";
 import {
   CertificationButton,
@@ -147,7 +146,7 @@ const EmailList = styled.ul`
   width: 218px;
   right: 0;
   top: 42px;
-  font-size: ${SAMLL_INPUT_SIZE};
+  font-size: 14px;
   background-color: ${ACTIVE_INPUT_COLOR};
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
   border-radius: 8px;
@@ -269,7 +268,6 @@ export default function Signup() {
       }
     } else if (e.target.name === "phone") {
       const regex = /^[0-9\b -]{0,13}$/;
-      console.log(e.target.value);
       if (regex.test(e.target.value)) {
         setPhoneWrite(e.target.value);
         setPhoneVaildation(true);
@@ -299,7 +297,6 @@ export default function Signup() {
       /((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let result = re.test(e.target.value);
     setEmailVaildation(result);
-    console.log(emailVaildation);
     setEmail(e.target.value);
   };
 
@@ -451,7 +448,6 @@ export default function Signup() {
   // 로그인 요청
   const requestRegister = async (e) => {
     e.preventDefault();
-    console.log(registerData);
     try {
       const response = await instanceAxios.post("/auth/register", registerData);
       if (response.status === 200) {

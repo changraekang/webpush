@@ -8,7 +8,6 @@ import {
   NORMAL_BUTTON_FONT_COLOR,
   NORMAL_BUTTON_BORDER_COLOR,
 } from "../../constants/color";
-import { BUTTON_SIZE } from "../../constants/fontSize";
 
 const Button = styled.button`
   display: block;
@@ -76,11 +75,7 @@ function InactiveSetNewPasswordButton({ children }) {
 
 // 이메일 찾기
 function ActiveFindEmailButton({ children }) {
-  return (
-    <Button active>
-      {children}
-    </Button>
-  );
+  return <Button active>{children}</Button>;
 }
 
 function InactiveFindEmailButton({ children }) {

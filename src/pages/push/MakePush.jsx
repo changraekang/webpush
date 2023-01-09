@@ -8,12 +8,6 @@ import {
   MAIN_FONT_COLOR,
   MAIN_DEMOBOX_COLOR,
 } from "../../constants/color";
-import {
-  MAIN_SUBCONTENT_SIZE,
-  MAIN_TITLE_SIZE,
-  MAIN_SUBTITLE_SIZE,
-  MAIN_CONTENT_SIZE,
-} from "../../constants/fontSize";
 import activeCheck from "../../assets/images/active-check.png";
 import Fox from "../../assets/images/fox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
@@ -63,30 +57,30 @@ const DemoSection = styled.section`
 `;
 
 const PageTitle = styled.h2`
-  font-size: ${MAIN_TITLE_SIZE};
+  font-size: 40px;
   font-weight: 600;
   padding-bottom: 12px;
 `;
 
 const Title = styled.h3`
-  font-size: ${MAIN_SUBTITLE_SIZE};
+  font-size: 24px;
   font-weight: 600;
   padding-bottom: 12px;
 `;
 const SubTitle = styled.h4`
   width: 100px;
-  font-size: ${MAIN_SUBTITLE_SIZE};
+  font-size: 24px;
   font-weight: 500;
   padding: 6px;
 `;
 const SubDemoTitle = styled.h4`
   width: 100%;
-  font-size: ${MAIN_SUBTITLE_SIZE};
+  font-size: 24px;
   font-weight: 500;
 `;
 
 const Message = styled.p`
-  font-size: ${MAIN_SUBCONTENT_SIZE};
+  font-size: 14px;
   color: ${MAIN_SUBTITLE_FONT_COLOR};
 `;
 
@@ -158,7 +152,7 @@ const RadioList = styled.ul`
   margin: 14px 0;
   justify-content: flex-start;
   align-items: center;
-  font-size: ${MAIN_CONTENT_SIZE};
+  font-size: 14px;
 `;
 
 const RadioLi = styled.li`
