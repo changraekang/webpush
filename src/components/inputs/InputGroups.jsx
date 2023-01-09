@@ -1,18 +1,12 @@
 import styled from "styled-components";
 import React from "react";
-import {
-  ACTIVE_INPUT_BORDER_COLOR,
-  grey1,
-  INACTIVE_INPUT_BORDER_COLOR,
-  INACTIVE_INPUT_FONT_COLOR,
-  primary5,
-} from "../../constants/color";
+import { grey1, grey5, primary5 } from "../../constants/color";
 const Input = styled.input`
   width: 100%;
   padding: 16px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid ${grey1};
+  border: 1px solid ${grey5};
 
   &:focus {
     border: 1px solid ${primary5};
