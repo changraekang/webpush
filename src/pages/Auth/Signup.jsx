@@ -24,7 +24,10 @@ import { useNavigate } from "react-router";
 import SignupAgreement from "../../components/agreement/SignupAgreement";
 import { instanceAxios } from "../../api/axios";
 import warning from "../../assets/images/warning.png";
-import {InputGroup, InputValidateGroup } from "../../components/inputs/InputGroups";
+import {
+  InputGroup,
+  InputValidateGroup,
+} from "../../components/inputs/InputGroups";
 
 const Section = styled.section`
   display: flex;
@@ -109,7 +112,7 @@ const LabelWarning = styled.span`
   color: ${error3};
   font-size: 14px;
   margin-top: 8px;
-  margin-bottom: ${props => (props.email ? "8px" : "0")};
+  margin-bottom: ${(props) => (props.email ? "8px" : "0")};
 `;
 
 const EmailInput = styled.input`
@@ -140,8 +143,7 @@ const EmailList = styled.ul`
 const EmailOptions = styled.li`
   padding: 12px 0;
   border-bottom: 1px solid ${grey5};
-  border-bottom: ${(props) =>
-    props.last ? "none" : `1px solid ${grey5}`};
+  border-bottom: ${(props) => (props.last ? "none" : `1px solid ${grey5}`)};
 `;
 
 const WrapRightItems = styled.div`
@@ -186,22 +188,25 @@ export default function Signup() {
   const [minutes, setMinutes] = useState(parseInt(3));
   const [seconds, setSeconds] = useState(parseInt(0));
 
-  // useEffect(() => {
-  // const countdown = setInterval(() => {
-  //   if (parseInt(seconds) > 0) {
-  //     setSeconds(parseInt(seconds) - 1);
-  //   }
-  //   if (parseInt(seconds) === 0) {
-  //     if (parseInt(minutes) === 0) {
-  //         clearInterval(countdown);
-  //     } else {
-  //       setMinutes(parseInt(minutes) - 1);
-  //       setSeconds(59);
-  //     }
-  //   }
-  // }, 1000);
-  // return () => clearInterval(countdown);
-  // }, [minutes, seconds]);
+  useEffect(() => {
+    if (isOpenTokenBox) {
+      console.log("open token");
+      const countdown = setInterval(() => {
+        if (parseInt(seconds) > 0) {
+          setSeconds(parseInt(seconds) - 1);
+        }
+        if (parseInt(seconds) === 0) {
+          if (parseInt(minutes) === 0) {
+            clearInterval(countdown);
+          } else {
+            setMinutes(parseInt(minutes) - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => clearInterval(countdown);
+    }
+  }, [minutes, seconds, isOpenTokenBox]);
 
   const handleOpenEmail = () => {
     !isOpenEmail ? setIsOpenEmail(true) : setIsOpenEmail(false);
@@ -352,7 +357,7 @@ export default function Signup() {
               <EmailInput
                 type="text"
                 placeholder="이메일 선택"
-                onChange={handleWriteEmail}
+                setValue={handleWriteEmail}
                 value={email}
                 name="email"
               />
@@ -377,11 +382,11 @@ export default function Signup() {
           )}
         </InputAlign>
         <WrapRightItems first>
-        {!emailVaildation && (
-              <LabelWarning email htmlFor="email">
-                이메일 형식을 맞춰주세요
-              </LabelWarning>
-        )}
+          {!emailVaildation && (
+            <LabelWarning email htmlFor="email">
+              이메일 형식을 맞춰주세요
+            </LabelWarning>
+          )}
           {(!id || !email || !emailVaildation) && (
             <UnCertificationButton>이메일 인증하기</UnCertificationButton>
           )}
@@ -399,7 +404,7 @@ export default function Signup() {
                   type="text"
                   placeholder="인증번호를 적어주세요."
                   name="token"
-                  onChange={handleInputValues}
+                  setValue={handleInputValues}
                   value={token}
                 />
                 <span>{minutes + " : " + seconds}</span>
@@ -449,7 +454,7 @@ export default function Signup() {
       console.error(err);
     }
   };
-  
+
   //------------ 컴포넌트 시작--------------
   return (
     <Section>
@@ -474,9 +479,7 @@ export default function Signup() {
                   name="password"
                   setValue={handleInputValues}
                   style={{
-                    border: !passwordVaildation
-                      ? `1px solid ${error3}`
-                      : null,
+                    border: !passwordVaildation ? `1px solid ${error3}` : null,
                   }}
                 />
                 {!passwordVaildation && (
@@ -498,9 +501,7 @@ export default function Signup() {
                   name="confirmPassword"
                   setValue={handleInputValues}
                   style={{
-                    border: !conPasswdVaildation
-                      ? `1px solid ${error3}`
-                      : null,
+                    border: !conPasswdVaildation ? `1px solid ${error3}` : null,
                   }}
                 />
                 {!conPasswdVaildation && (
