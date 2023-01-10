@@ -171,10 +171,19 @@ const ResendBtn = styled.button`
   color: #434343;
 `;
 
+const TimeSpan = styled.span`
+  color: ${error3};
+  position: absolute;
+  display: block;
+  right: 100px;
+  top: 12px;
+  font-size: 14px;
+`
+
 //--------------회원가입 페이지--------------------------
 export default function Signup() {
   const navigate = useNavigate();
-  const emailList = ["naver.com", "hanmail.net", "kakao.com", "gmail.com"];
+  const emailList = ['test.com', "naver.com", "hanmail.net", "kakao.com", "gmail.com",];
   const [isOpenEmail, setIsOpenEmail] = useState(false);
   const [isOpenTokenBox, setIsOpenTokenBox] = useState(false);
   const [email, setEmail] = useState("");
@@ -190,7 +199,6 @@ export default function Signup() {
 
   useEffect(() => {
     if (isOpenTokenBox) {
-      console.log("open token");
       const countdown = setInterval(() => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
@@ -297,7 +305,6 @@ export default function Signup() {
       if (response.status === 200) {
         alert(response.data.data);
         setIsOpenTokenBox(true);
-        // TIMER();
       }
       console.log(response);
     } catch (err) {
@@ -357,7 +364,7 @@ export default function Signup() {
               <EmailInput
                 type="text"
                 placeholder="이메일 선택"
-                setValue={handleWriteEmail}
+                onChange={handleWriteEmail}
                 value={email}
                 name="email"
               />
@@ -399,15 +406,15 @@ export default function Signup() {
           {isOpenTokenBox && (
             <WrapWriteToken>
               <TokenMsg>이메일로 전송된 인증번호를 입력해주세요.</TokenMsg>
-              <InputAlign style={{ gap: "8px" }}>
+              <InputAlign style={{gap: "8px"}}>
                 <InputValidateGroup
                   type="text"
                   placeholder="인증번호를 적어주세요."
                   name="token"
                   setValue={handleInputValues}
                   value={token}
-                />
-                <span>{minutes + " : " + seconds}</span>
+                  />
+                <TimeSpan>{minutes} : {seconds < 10 ? '0' + seconds : seconds}</TimeSpan>
                 <ActiveTokenButton requestCompleteToken={requestCompleteToken}>
                   인증하기
                 </ActiveTokenButton>
