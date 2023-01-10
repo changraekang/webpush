@@ -133,8 +133,7 @@ const ProjectModal = (props) => {
   const [cat, setCat] = useState("");
   const [url, setUrl] = useState("");
   const [catArray, setCatArray] = useState([]);
-  const accessToken = getCookie("accessToken");
-  // instanceAxios.defaults.headers.common["Authorization"] = accessToken;
+
   useEffect(() => {
   const checkCategory = async () => {
     try {
