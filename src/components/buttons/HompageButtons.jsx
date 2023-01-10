@@ -35,8 +35,8 @@ export function SelectHomepage({children, setValue}) {
     )
 }
 
-export function UpdateHomepage({children}) {
+export function UpdateHomepage({children, updateHomePage}) {
   return (
-      <Button active >{children}</Button>
+      <Button active onClick={updateHomePage}>{children}</Button>
     )
 }

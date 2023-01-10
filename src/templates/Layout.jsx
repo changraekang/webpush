@@ -139,9 +139,6 @@ export default function Layout({ children }) {
       const checkAccount = async () => {
         try {
           const response = await instanceAxios.post("/member/me");
-          if (response.status === 200) {
-            checkAccount();
-          }
         } catch (err) {
           // login yet
           console.error(err);

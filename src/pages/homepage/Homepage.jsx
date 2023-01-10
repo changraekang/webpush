@@ -55,7 +55,7 @@ export default function Homepage() {
   console.log(projectArr, "projectArr🐰")
   
 
-  const getOnetHomepage = async() => {
+  const getOneHomepage = async() => {
     try{
       const response = await instanceAxios.get(`/project/${pid}`);
       console.log("하나의 프로젝트⭐" , response.data);
@@ -71,6 +71,12 @@ export default function Homepage() {
     }
   }
 
+  useEffect(() => {
+    if(pid) {
+      getOneHomepage()
+    }
+  }, [pid])
+
   const getHomepageAll = async() => {
     try{
       const response = await instanceAxios.get('/project/all');
@@ -79,9 +85,7 @@ export default function Homepage() {
       if(response.status === 200) {
         setProjectArr(response.data);
         setPid(response.data[0].pid);
-        if(pid) {
-          getOnetHomepage();
-        } else {
+        if(pid === '') {
           setHomepage(data[0].name);
           setLink(data[0].projectUrl);
           setCategory(data[0].categoryCode);
@@ -96,6 +100,22 @@ export default function Homepage() {
       getHomepageAll();
     }, [])
 
+  const updateData = {
+    "code": cateogry,
+    "name": homepage,
+    "projectUrl": link
+  }  
+
+  const updateHomePage = async(e) => {
+    e.preventDefault()
+    try{
+      const response = await instanceAxios.put(`/project/${pid}`, updateData);
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <Layout>
       <HomepageBox>
@@ -103,7 +123,7 @@ export default function Homepage() {
           {projectArr?.map(({name, pid})=> {
             return (
               <li key={pid}>
-                <SelectHomepage setValue={()=> {setPid(pid)}}>
+                <SelectHomepage setValue={()=> {setPid(pid);}}>
                   {name}
                 </SelectHomepage >
               </li>
@@ -145,7 +165,7 @@ export default function Homepage() {
           </div>
         </WrapInputs>
           <WrapButton>
-          <UpdateHomepage>수정</UpdateHomepage>
+          <UpdateHomepage updateHomePage={updateHomePage}>수정</UpdateHomepage>
           </WrapButton>
         </form>
       </HomepageBox>
