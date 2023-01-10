@@ -9,6 +9,7 @@ import {
   primary5,
   grey5,
   grey10,
+  grey11,
 } from "../constants/color";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -39,15 +40,22 @@ const MainLogo = styled.img`
 const NavLi = styled.ul`
   margin-top: 61px;
 `;
+const ProLi = styled.ul``;
 
 const WrapRight = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
+  justify-content: space-between;
   flex-grow: 1;
 `;
 
 const TopHeader = styled.div`
-  background: ${grey1};
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  background: ${grey3};
+
   padding: 21px;
 `;
 
@@ -114,6 +122,17 @@ const MyMenu = styled.ul`
     top: 55px;
   }
 `;
+const MyProject = styled.ul`
+  position: absolute;
+  left: 220px;
+  top: 55px;
+  width: 105px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
+  background-color: ${grey1};
+  text-align: center;
+  padding: 16px;
+`;
 const Logo = styled.img`
   width: 15px;
   height: 15px;
@@ -122,21 +141,40 @@ const MyMenuLi = styled.li`
   cursor: pointer;
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
 `;
+const MyProLi = styled.li`
+  cursor: pointer;
+  padding-bottom: 3px;
+  border-bottom: 1px solid ${grey11};
+  margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
+`;
 //${(props) => (props.last ? "32px" : "16px")};
 
 export default function Layout({ children }) {
   const navigate = useNavigate();
   const [openNav, setOpenNav] = useState(false);
+  const [openProject, setOpenProject] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState("");
+  const [project, setProject] = useState([]);
   useEffect(() => {
     if (!refreshToken) {
       // login yet
       navigate("/");
     } else {
+      const checkProject = async () => {
+        try {
+          const response = await instanceAxios.get("/project/all");
+          if (response.status === 200) {
+            setProject(response.data);
+          }
+        } catch (err) {
+          // login yet
+          console.error(err);
+        }
+      };
       const checkAccount = async () => {
         try {
           const response = await instanceAxios.post("/member/me");
@@ -148,12 +186,17 @@ export default function Layout({ children }) {
           console.error(err);
         }
       };
+      checkProject();
       checkAccount();
     }
+    console.log(project, "프로젝트");
     requestAccessToken(refreshToken);
   }, []);
   const handleOpenNav = () => {
     !openNav ? setOpenNav(true) : setOpenNav(false);
+  };
+  const handleOpenProject = () => {
+    !openProject ? setOpenProject(true) : setOpenProject(false);
   };
 
   const handleOpenMyMenu = () => {
@@ -219,7 +262,7 @@ export default function Layout({ children }) {
           </LI>
 
           <LI>
-            <A href="#">대시보드</A>
+            <LinkStyle to="/dashboard">대시보드</LinkStyle>
           </LI>
           <LI onClick={handleOpenNav}>
             <A href="#">PUSH 관리</A>
@@ -240,6 +283,16 @@ export default function Layout({ children }) {
       {/* 오른쪽 */}
       <WrapRight>
         <TopHeader>
+          <ProLi>
+            <MyButton onClick={handleOpenProject}>홈페이지 관리</MyButton>
+            {openProject ? (
+              <MyProject>
+                {project.map(({ name, pid }) => {
+                  return <MyProLi key={pid}>{name}</MyProLi>;
+                })}
+              </MyProject>
+            ) : null}
+          </ProLi>
           <MyButton onClick={handleOpenMyMenu}>{userName}(master)</MyButton>
           {openMyMenu && (
             <MyMenu>

@@ -20,6 +20,7 @@ import ErrorPassword from "./pages/Auth/ErrorPassword";
 import MyPage from "./pages/profile/MyPage";
 import Homepage from "./pages/homepage/Homepage";
 import PushList from "./pages/push/PushList";
+import DashBoard from "./pages/DashBoard";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/findPassword" element={<FindPassword />} />
           <Route path="/error_newPassword" element={<ErrorPassword />} />
           <Route path="/setNewPassword" element={<SetNewPassword />} />
+          <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/makePush" element={<MakePush />} />
           <Route path="/pushList" element={<PushList />} />
 
