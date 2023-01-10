@@ -18,6 +18,7 @@ import ResultFindEmail from "./pages/Auth/ResultFindEmail";
 import NotFoundEmail from "./pages/Auth/NotFoundEmail";
 import ErrorPassword from "./pages/Auth/ErrorPassword";
 import MyPage from "./pages/profile/MyPage";
+import Homepage from "./pages/homepage/Homepage";
 
 function App() {
   return (
@@ -34,8 +35,10 @@ function App() {
           <Route path="/setNewPassword" element={<SetNewPassword />} />
           <Route path="/makePush" element={<MakePush />} />
 
-          {/* 나의 정보 */}
+          {/* 나의 정보 수정 */}
           <Route path="/myPage" element={<MyPage />} />
+          {/* 홈페이지 관리 */}
+          <Route path="/homepage" element={<Homepage />} />
           {/* 에러페이지 */}
           <Route path="/test" element={<Test />} />
         </Routes>
