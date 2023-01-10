@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { instanceAxios } from "../../api/axios";
 import {
   grey11,
   grey1,
@@ -10,6 +11,7 @@ import {
   grey6,
   primary3,
 } from "../../constants/color";
+import { getCookie } from "../../cookie/controlCookie";
 import { InputGroup } from "../inputs/InputGroups";
 
 const Wrapper = styled.div`
@@ -130,23 +132,41 @@ const ProjectModal = (props) => {
   const [homepage, setHomepage] = useState("");
   const [cat, setCat] = useState("");
   const [url, setUrl] = useState("");
-  let catArray = [
-    "교육업",
-    "IT/소프트웨어 서비스",
-    "핀메/유통",
-    "의료/제약/복지",
-    "서비스업",
-    "은행/금융업",
-  ];
-  const handleClose = () => {
-    let body = {
-      homepage: homepage,
-      url: url,
-      cat: cat,
+  const [catArray, setCatArray] = useState([]);
+  const accessToken = getCookie("accessToken");
+  useEffect(() => {
+    instanceAxios.defaults.headers.common["Authorization"] = accessToken;
+    const checkCategory = async () => {
+      try {
+        const response = await instanceAxios.get("/category/all");
+        if (response.status === 200) {
+          const data = response.data;
+          setCatArray(data);
+        }
+      } catch (err) {
+        // login yet
+        console.error(err);
+      }
     };
+    checkCategory();
+  }, []);
 
-    console.log(body);
-    props.setClose(false);
+  const handleClose = async () => {
+    let body = {
+      name: homepage,
+      projectUrl: url,
+      code: cat,
+    };
+    try {
+      const response = await instanceAxios.post("/project/add", body);
+      if (response.status === 200) {
+        console.log(response);
+        props.setClose(false);
+      }
+    } catch (err) {
+      console.error(err);
+      console.error("실패");
+    }
   };
   const handleNext = () => {
     setStep(2);
@@ -192,27 +212,27 @@ const ProjectModal = (props) => {
     return (
       <ModalWrapper>
         <>{step}</>
-        <Title>홈페이지</Title>
-        <SubTitle>DMPUSH를 사용할 홈페이지와 주소를 입력해주세요</SubTitle>
+        <Title>카테고리</Title>
+        <SubTitle>운영중인 사이트의 카테고리를 선택해주세요</SubTitle>
         <ModalContent>
           <WrapContents>
             <form action="post">
-              {catArray.map((cate) => {
-                if (cate === cat) {
+              {catArray.map(({ name, code }) => {
+                if (code === cat) {
                   return (
                     <SelectCatContents
-                      key={cate}
-                      onClick={() => onClickCat(cate)}
+                      key={code}
+                      onClick={() => onClickCat(code)}
                     >
                       {" "}
-                      {cate}
+                      {name}
                     </SelectCatContents>
                   );
                 } else {
                   return (
-                    <CatContents key={cate} onClick={() => onClickCat(cate)}>
+                    <CatContents key={code} onClick={() => onClickCat(code)}>
                       {" "}
-                      {cate}
+                      {name}
                     </CatContents>
                   );
                 }

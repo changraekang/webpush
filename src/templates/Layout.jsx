@@ -130,30 +130,26 @@ export default function Layout({ children }) {
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const accessToken = getCookie("accessToken");
-  {
-    /**
-useEffect(() => {
-  if (!refreshToken) {
-    // login yet
-    navigate("/");
-  } else {
-    const checkAccount = async () => {
-      console.log("memberme", accessToken);
-      try {
-        const response = await instanceAxios.post("/member/me", accessToken);
-        if (response.status === 200) {
-          console.log(response);
+  useEffect(() => {
+    if (!refreshToken) {
+      // login yet
+      navigate("/");
+    } else {
+      const checkAccount = async () => {
+        instanceAxios.defaults.headers.common["Authorization"] = accessToken;
+        try {
+          const response = await instanceAxios.post("/member/me", accessToken);
+
+          if (response.status === 200) {
+          }
+        } catch (err) {
+          // login yet
+          console.error(err);
         }
-      } catch (err) {
-        console.error(err);
-        console.error("실패");
-      }
-    };
-    checkAccount();
-  }
-}, []);
-*/
-  }
+      };
+      checkAccount();
+    }
+  }, []);
   const handleOpenNav = () => {
     !openNav ? setOpenNav(true) : setOpenNav(false);
   };
@@ -161,16 +157,6 @@ useEffect(() => {
   const handleOpenMyMenu = () => {
     !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false);
   };
-
-  const [browserName, setBrowserName] = useState("");
-  useEffect(() => {
-    if (deviceDetect().isBrowser) {
-      setBrowserName("PC");
-    } else if (deviceDetect().isMobile) {
-      setBrowserName("MOBILE");
-    }
-    console.log("브라우저 이름 : ", browserName);
-  }, [browserName]);
 
   // refreshToken 재발급
   const logoutTimer = () => {

@@ -13,6 +13,8 @@ import {
   RegisterImageButton,
 } from "../../components/buttons/PushButtons";
 import ProjectModal from "../../components/modals/ProjectModal";
+import { instanceAxios } from "../../api/axios";
+import { getCookie } from "../../cookie/controlCookie";
 const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -185,6 +187,7 @@ export default function MakePush() {
   const [ReserveMin, setReserveMin] = useState("");
   const [timer, setTimer] = useState(1);
   const [submitDate, setSubmitDate] = useState(ReserveMin);
+  const accessToken = getCookie("accessToken");
   const getClock = () => {
     const offset = 1000 * 60 * 60 * 9;
     const koreaNow = new Date(new Date().getTime() + offset);
@@ -193,6 +196,21 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
+    instanceAxios.defaults.headers.common["Authorization"] = accessToken;
+    const checkProject = async () => {
+      try {
+        const response = await instanceAxios.get("/project/all", accessToken);
+        if (response.status === 200) {
+          if (response.data.length > 0) {
+            setisModalOpen(false);
+          }
+        }
+      } catch (err) {
+        // login yet
+        console.error(err);
+      }
+    };
+    checkProject();
     getClock();
     setInterval(getClock, 20000);
   }, []);
