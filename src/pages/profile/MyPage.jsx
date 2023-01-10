@@ -2,8 +2,10 @@ import styled from 'styled-components'
 import ProfileBox from '../../components/containers/profile/ProfileBox'
 import { grey3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
-import { InputValidateGroup } from '../../components/inputs/InputGroups'
+import { InputValidateGroup, InputGroup } from '../../components/inputs/InputGroups'
 import UpdateProfile from '../../components/buttons/ProfileButtons';
+import { instanceAxios } from '../../api/axios';
+import { useEffect, useState } from 'react';
 
 const Section = styled.section`
   background: ${grey3};
@@ -12,6 +14,7 @@ const Section = styled.section`
   /* align-items: center; */
   width: 100%;
   height: 100vh;
+  padding: 20px;
   font-family: "Pretendard-Regular";
 `;
 
@@ -40,13 +43,58 @@ const LabelStyle = styled.label`
   display: flex;
   /* width: 180px; */
 `
-const Wrapbutton = styled.div`
+const WrapButton = styled.div`
   width: 180px;
   margin: 40px auto 0;
-
 `
 
+
 export default function MyPage() {
+  const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const getMemberInfo = async() => {
+    try{
+      const response = await instanceAxios.post('/member/me',{})
+      console.log(response);
+      const data = response.data; 
+      if(response.status === 200) {
+        setEmail(data.email);
+        setPhone(data.phone);
+        setCompany(data.company);
+      }
+    } catch (err) {
+        console.error(err);
+    }
+  }
+  
+  useEffect(() => {
+    getMemberInfo();
+  }, [])
+
+
+  const updateData = {
+    "company": company,
+    "email": email,
+    "phone": phone
+  }
+  const updateMyInfo = async(e) => {
+    e.preventDefault();
+    try{
+      const response = await instanceAxios.put('/member/update', updateData)
+      console.log(response);
+      const data = response.data; 
+      if(response.status === 200) {
+        setEmail(data.email);
+        setPhone(data.phone);
+        setCompany(data.company);
+      }
+    } catch (err) {
+        console.error(err);
+    }
+  }
+
   return (
     <Layout>
         <Section>
@@ -58,24 +106,39 @@ export default function MyPage() {
                 <WrapInputs>
                   <LabelStyle htmlFor="email">이메일</LabelStyle>
                   <div>
-                    <InputValidateGroup type="text" id='email'/>
+                    <InputGroup 
+                    type="text" 
+                    id='email' 
+                    value={email} 
+                    setValue={setEmail}
+                    />
                   </div>
                 </WrapInputs>
                 <WrapInputs>
                   <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
                   <div>
-                    <InputValidateGroup type="text" id='phone'/>
+                    <InputGroup 
+                    type="text" 
+                    id='phone' 
+                    value={phone} 
+                    setValue={setPhone}
+                    />
                   </div>
                 </WrapInputs>
                 <WrapInputs>
                   <LabelStyle htmlFor="company">회사명</LabelStyle>
                   <div>
-                    <InputValidateGroup type="text" id='company'/>
+                    <InputGroup 
+                    type="text" 
+                    id='company' 
+                    value={company} 
+                    setValue={setCompany}
+                    />
                   </div>
                 </WrapInputs>
-                  <Wrapbutton>
-                    <UpdateProfile>수정</UpdateProfile>
-                  </Wrapbutton>
+                  <WrapButton>
+                    <UpdateProfile updateMyInfo={updateMyInfo}>수정</UpdateProfile>
+                  </WrapButton>
               </form>
             </ProfileBox>
         </WrapBox>
