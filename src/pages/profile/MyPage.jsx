@@ -79,19 +79,24 @@ export default function MyPage() {
     "email": email,
     "phone": phone
   }
+
   const updateMyInfo = async(e) => {
     e.preventDefault();
-    try{
-      const response = await instanceAxios.put('/member/update', updateData)
-      console.log(response);
-      const data = response.data; 
-      if(response.status === 200) {
-        setEmail(data.email);
-        setPhone(data.phone);
-        setCompany(data.company);
+    if(window.confirm('개인정보를 수정하시겠습니까?')) {
+      try{
+        const response = await instanceAxios.put('/member/update', updateData)
+        console.log(response);
+        const data = response.data; 
+        if(response.status === 200) {
+          setEmail(data.email);
+          setPhone(data.phone);
+          setCompany(data.company);
+          alert('성공적으로 정보를 수정하였습니다.🎉');
+          window.location.reload();
+        }
+      } catch (err) {
+          console.error(err);
       }
-    } catch (err) {
-        console.error(err);
     }
   }
 
@@ -109,7 +114,7 @@ export default function MyPage() {
                     <InputGroup 
                     type="text" 
                     id='email' 
-                    value={email} 
+                    value={email === undefined ? '' : email} 
                     setValue={setEmail}
                     />
                   </div>
@@ -120,7 +125,7 @@ export default function MyPage() {
                     <InputGroup 
                     type="text" 
                     id='phone' 
-                    value={phone} 
+                    value={phone === undefined ? '' : phone} 
                     setValue={setPhone}
                     />
                   </div>
@@ -131,7 +136,7 @@ export default function MyPage() {
                     <InputGroup 
                     type="text" 
                     id='company' 
-                    value={company} 
+                    value={company === undefined ? '' : company} 
                     setValue={setCompany}
                     />
                   </div>
