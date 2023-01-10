@@ -286,6 +286,7 @@ export default function Signup() {
   };
   // 이메일 직접 쓰기
   const handleWriteEmail = (e) => {
+    console.log(e.target.value);
     e.preventDefault();
     // ***.com 정규식
     const re =

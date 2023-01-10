@@ -2,11 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import PushBox from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
-import {
-  grey5,
-  grey10,
-  grey2,
-} from "../../constants/color";
+import { grey5, grey10, grey2 } from "../../constants/color";
 import activeCheck from "../../assets/images/active-check.png";
 import Fox from "../../assets/images/fox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
@@ -16,6 +12,7 @@ import {
   InactivePushButton,
   RegisterImageButton,
 } from "../../components/buttons/PushButtons";
+import ProjectModal from "../../components/modals/ProjectModal";
 const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -202,6 +199,7 @@ export default function MakePush() {
 
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
+  const [isModalOpen, setisModalOpen] = useState(true);
   const [isAdsCheck, setIsAdsCheck] = useState(false);
   const [isInfoCheck, setisInfoCheck] = useState(false);
   const [isEtcCheck, setisEtcCheck] = useState(false);
@@ -532,6 +530,7 @@ export default function MakePush() {
           )}
         </ButtonWrapper>
       </PageWrapper>
+      {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
     </Layout>
   );
 }
