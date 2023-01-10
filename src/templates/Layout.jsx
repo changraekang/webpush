@@ -210,7 +210,7 @@ export default function Layout({ children }) {
         <MainLogo src={logo} alt="메인 로고" />
         <NavLi>
           <LI>
-            {minutes}:{seconds}{" "}
+            {minutes} : {seconds < 10 ? "0" + seconds : seconds}{" "}
             <div onClick={requestAccessToken}>
               <Logo src={alarm} alt="alarm"></Logo>
               로그인 연장하기
