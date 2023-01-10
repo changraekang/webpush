@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { grey1, grey3} from "../../../constants/color";
+import { grey1, grey3 } from "../../../constants/color";
 
 const Section = styled.section`
   background: ${grey3};
@@ -31,13 +31,13 @@ const Title = styled.h2`
   padding-bottom: 32px;
 `
 
-export default function ProfileBox({children}) {
+export default function HomepageBox({children}) {
   return (
     <Section>
-        <h1 className='ir'>나의 정보 페이지</h1>
+        <h1 className='ir'>홈페이지 수정 페이지</h1>
         <WrapBox>
           <Box>
-            <Title>나의 정보</Title>
+            <Title>홈페이지 관리</Title>
               {children}
           </Box>
         </WrapBox>
