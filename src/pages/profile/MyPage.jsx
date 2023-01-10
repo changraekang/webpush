@@ -2,32 +2,10 @@ import styled from 'styled-components'
 import ProfileBox from '../../components/containers/profile/ProfileBox'
 import { grey3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
-import { InputValidateGroup, InputGroup } from '../../components/inputs/InputGroups'
+import { InputGroup } from '../../components/inputs/InputGroups'
 import UpdateProfile from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
-
-const Section = styled.section`
-  background: ${grey3};
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  width: 100%;
-  height: 100vh;
-  padding: 20px;
-  font-family: "Pretendard-Regular";
-`;
-
-const Title = styled.h2`
-  font-size: 20px;
-  font-weight: 600;
-  padding-bottom: 32px;
-`
-
-const WrapBox = styled.div`
-  width: 800px;
-  margin-top: 80px;
-`
 
 const WrapInputs = styled.div`
   display: flex;
@@ -47,7 +25,6 @@ const WrapButton = styled.div`
   width: 180px;
   margin: 40px auto 0;
 `
-
 
 export default function MyPage() {
   const [email, setEmail] = useState('');
@@ -102,52 +79,46 @@ export default function MyPage() {
 
   return (
     <Layout>
-        <Section>
-        <h1 className='ir'>나의 정보 페이지</h1>
-        <WrapBox>
-            <ProfileBox>
-              <Title>나의 정보</Title>
-              <form action="">
-                <WrapInputs>
-                  <LabelStyle htmlFor="email">이메일</LabelStyle>
-                  <div>
-                    <InputGroup 
-                    type="text" 
-                    id='email' 
-                    value={email === undefined ? '' : email} 
-                    setValue={setEmail}
-                    />
-                  </div>
-                </WrapInputs>
-                <WrapInputs>
-                  <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
-                  <div>
-                    <InputGroup 
-                    type="text" 
-                    id='phone' 
-                    value={phone === undefined ? '' : phone} 
-                    setValue={setPhone}
-                    />
-                  </div>
-                </WrapInputs>
-                <WrapInputs>
-                  <LabelStyle htmlFor="company">회사명</LabelStyle>
-                  <div>
-                    <InputGroup 
-                    type="text" 
-                    id='company' 
-                    value={company === undefined ? '' : company} 
-                    setValue={setCompany}
-                    />
-                  </div>
-                </WrapInputs>
-                  <WrapButton>
-                    <UpdateProfile updateMyInfo={updateMyInfo}>수정</UpdateProfile>
-                  </WrapButton>
-              </form>
-            </ProfileBox>
-        </WrapBox>
-        </Section>
+      <ProfileBox>
+        <form action="post">
+          <WrapInputs>
+            <LabelStyle htmlFor="email">이메일</LabelStyle>
+            <div>
+              <InputGroup 
+              type="text" 
+              id='email' 
+              value={email === undefined ? '' : email} 
+              setValue={setEmail}
+              />
+            </div>
+          </WrapInputs>
+          <WrapInputs>
+            <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
+            <div>
+              <InputGroup 
+              type="text" 
+              id='phone' 
+              value={phone === undefined ? '' : phone} 
+              setValue={setPhone}
+              />
+            </div>
+          </WrapInputs>
+          <WrapInputs>
+            <LabelStyle htmlFor="company">회사명</LabelStyle>
+            <div>
+              <InputGroup 
+              type="text" 
+              id='company' 
+              value={company === undefined ? '' : company} 
+              setValue={setCompany}
+              />
+            </div>
+          </WrapInputs>
+            <WrapButton>
+              <UpdateProfile updateMyInfo={updateMyInfo}>수정</UpdateProfile>
+            </WrapButton>
+        </form>
+      </ProfileBox>
     </Layout>
   )
 }
