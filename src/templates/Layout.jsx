@@ -178,9 +178,6 @@ export default function Layout({ children }) {
       const checkAccount = async () => {
         try {
           const response = await instanceAxios.post("/member/me");
-          if (response.status === 200) {
-            setUserName(response.data.name);
-          }
         } catch (err) {
           // login yet
           console.error(err);
@@ -254,7 +251,7 @@ export default function Layout({ children }) {
         <MainLogo src={logo} alt="메인 로고" />
         <NavLi>
           <LI>
-            {minutes}:{seconds}{" "}
+            {minutes} : {seconds < 10 ? "0" + seconds : seconds}{" "}
             <div onClick={requestAccessToken}>
               <Logo src={alarm} alt="alarm"></Logo>
               로그인 연장하기

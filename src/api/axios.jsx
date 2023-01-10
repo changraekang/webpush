@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCookie } from "../cookie/controlCookie";
-const userAccessToken = getCookie('accessToken');
+const userAccessToken = getCookie('accessToken'); //null
 
 export const instanceAxios = axios.create({
   baseURL: "http://dev2023.dmpush.kr:8080/api/",
