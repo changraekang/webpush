@@ -26,7 +26,6 @@ export const InputGroup = ({
   readonly = false,
 }) => {
   return (
-    <div>
       <Input
         type={type}
         placeholder={placeholder}
@@ -35,7 +34,6 @@ export const InputGroup = ({
         readOnly={readonly}
         onChange={(e) => setValue(e.target.value)}
       />
-    </div>
   );
 };
 
@@ -50,7 +48,6 @@ export const InputValidateGroup = ({
   readonly = false,
 }) => {
   return (
-    <div>
       <Input
         type={type}
         placeholder={placeholder}
@@ -61,6 +58,5 @@ export const InputValidateGroup = ({
         name={name}
         onChange={setValue}
       />
-    </div>
   );
 };
