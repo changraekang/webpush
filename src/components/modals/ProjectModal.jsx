@@ -133,21 +133,20 @@ const ProjectModal = (props) => {
   const [cat, setCat] = useState("");
   const [url, setUrl] = useState("");
   const [catArray, setCatArray] = useState([]);
-  const accessToken = getCookie("accessToken");
+
   useEffect(() => {
-    instanceAxios.defaults.headers.common["Authorization"] = accessToken;
-    const checkCategory = async () => {
-      try {
-        const response = await instanceAxios.get("/category/all");
-        if (response.status === 200) {
-          const data = response.data;
-          setCatArray(data);
-        }
-      } catch (err) {
-        // login yet
-        console.error(err);
+  const checkCategory = async () => {
+    try {
+      const response = await instanceAxios.get("/category/all");
+      if (response.status === 200) {
+        const data = response.data;
+        setCatArray(data);
       }
-    };
+    } catch (err) {
+      // login yet
+      console.error(err);
+    }
+  };
     checkCategory();
   }, []);
 
