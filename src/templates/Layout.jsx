@@ -2,7 +2,7 @@ import logo from "../assets/images/logo.png";
 import mypageLogo from "../assets/images/mypage-logo.png";
 import styled from "styled-components";
 import {
-  grey6,
+  grey3,
   grey1,
   primary4,
   primary5,
@@ -26,6 +26,7 @@ const Header = styled.header`
 `;
 const Nav = styled.nav`
   padding: 40px;
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.6);
   /* height: 100vh */
 `;
 
@@ -55,10 +56,6 @@ const LI = styled.li`
 
 const A = styled.a`
   color: ${grey10};
-
-  &:hover {
-    color: ${grey10};
-  }
 `;
 
 const SubNav = styled.ul`
@@ -89,7 +86,7 @@ const MyButton = styled.button`
   color: ${grey10};
   margin-right: 20px;
   &:hover {
-    background: ${grey1};
+    background: ${grey3};
     border-radius: 8px;
   }
 `;
@@ -248,6 +245,11 @@ useEffect(() => {
           {openMyMenu && (
             <MyMenu>
               <MyMenuLi first>MASTER</MyMenuLi>
+              <MyMenuLi>
+                <LinkStyle to="/myPage">
+                  마이프로필
+                </LinkStyle>
+              </MyMenuLi>
               <MyMenuLi>비밀변경</MyMenuLi>
               <MyMenuLi onClick={logout}>로그아웃</MyMenuLi>
             </MyMenu>

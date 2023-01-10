@@ -17,6 +17,7 @@ import SetNewPassword from "./pages/Auth/setNewPassword";
 import ResultFindEmail from "./pages/Auth/ResultFindEmail";
 import NotFoundEmail from "./pages/Auth/NotFoundEmail";
 import ErrorPassword from "./pages/Auth/ErrorPassword";
+import MyPage from "./pages/profile/MyPage";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           <Route path="/error_newPassword" element={<ErrorPassword />} />
           <Route path="/setNewPassword" element={<SetNewPassword />} />
           <Route path="/makePush" element={<MakePush />} />
+
+          {/* 나의 정보 */}
+          <Route path="/myPage" element={<MyPage />} />
           {/* 에러페이지 */}
           <Route path="/test" element={<Test />} />
         </Routes>
