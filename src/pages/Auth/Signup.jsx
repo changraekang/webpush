@@ -278,6 +278,7 @@ export default function Signup() {
   };
   // 이메일 직접 쓰기
   const handleWriteEmail = (e) => {
+    console.log(e.target.value);
     e.preventDefault();
     // ***.com 정규식
     const re =
@@ -357,7 +358,7 @@ export default function Signup() {
               <EmailInput
                 type="text"
                 placeholder="이메일 선택"
-                setValue={handleWriteEmail}
+                onChange={handleWriteEmail}
                 value={email}
                 name="email"
               />

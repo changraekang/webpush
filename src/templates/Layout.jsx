@@ -89,7 +89,7 @@ const MyButton = styled.button`
   color: ${grey10};
   margin-right: 20px;
   &:hover {
-    background: ${grey10};
+    background: ${grey1};
     border-radius: 8px;
   }
 `;
@@ -101,7 +101,7 @@ const MyMenu = styled.ul`
   width: 105px;
   border-radius: 8px;
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
-  background-color: ${grey10};
+  background-color: ${grey1};
   text-align: center;
   padding: 16px;
 
@@ -128,7 +128,32 @@ export default function Layout({ children }) {
   const [openMyMenu, setOpenMyMenu] = useState(false);
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
-
+  const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
+  const accessToken = getCookie("accessToken");
+  {
+    /**
+useEffect(() => {
+  if (!refreshToken) {
+    // login yet
+    navigate("/");
+  } else {
+    const checkAccount = async () => {
+      console.log("memberme", accessToken);
+      try {
+        const response = await instanceAxios.post("/member/me", accessToken);
+        if (response.status === 200) {
+          console.log(response);
+        }
+      } catch (err) {
+        console.error(err);
+        console.error("실패");
+      }
+    };
+    checkAccount();
+  }
+}, []);
+*/
+  }
   const handleOpenNav = () => {
     !openNav ? setOpenNav(true) : setOpenNav(false);
   };
@@ -139,23 +164,15 @@ export default function Layout({ children }) {
 
   const [browserName, setBrowserName] = useState("");
   useEffect(() => {
-    setBrowserName(deviceDetect().browserName.toUpperCase());
-    if (
-      browserName === "CHOROME" ||
-      "SAFARI" ||
-      "EDGE" ||
-      "OPERA" ||
-      "FIREFOX" ||
-      "INTERNET EXPLORER"
-    ) {
+    if (deviceDetect().isBrowser) {
       setBrowserName("PC");
+    } else if (deviceDetect().isMobile) {
+      setBrowserName("MOBILE");
     }
     console.log("브라우저 이름 : ", browserName);
   }, [browserName]);
 
   // refreshToken 재발급
-  const accessToken = getCookie("accessToken");
-  const refreshToken = getCookie("refreshToken");
   const logoutTimer = () => {
     if (accessToken && refreshToken) {
       logout();
@@ -183,6 +200,7 @@ export default function Layout({ children }) {
   }, [minutes, seconds]);
 
   const requestAccessToken = async (token) => {
+    console.log(token, "리프레쉬 시도");
     try {
       const response = await instanceAxios.post("/auth/refresh", {
         refreshToken: token,
@@ -197,10 +215,6 @@ export default function Layout({ children }) {
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    requestAccessToken(refreshToken);
-  }, []);
 
   return (
     <Header>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instanceAxios = axios.create({
-  baseURL: "https://52.78.170.177:8080/api/",
+  baseURL: "http://dev2023.dmpush.kr:8080/api/",
   //baseURL: "http://localhost:8080/api/", // 로컬
   // headers : {
   //   Authorization : `${userAccessToken}`
