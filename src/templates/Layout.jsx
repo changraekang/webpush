@@ -131,6 +131,7 @@ export default function Layout({ children }) {
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
+  const [userName, setUserName] = useState();
   useEffect(() => {
     if (!refreshToken) {
       // login yet
@@ -140,7 +141,7 @@ export default function Layout({ children }) {
         try {
           const response = await instanceAxios.post("/member/me");
           if (response.status === 200) {
-            checkAccount();
+            setUserName(response.data.name);
           }
         } catch (err) {
           // login yet
@@ -229,7 +230,7 @@ export default function Layout({ children }) {
                 <LinkStyle to="/makePush">push 작성</LinkStyle>
               </SubLI>
               <SubLI>
-                <LinkStyle to="/test">push 리스트</LinkStyle>
+                <LinkStyle to="/pushList">push 리스트</LinkStyle>
               </SubLI>
             </SubNav>
           )}
@@ -239,7 +240,7 @@ export default function Layout({ children }) {
       {/* 오른쪽 */}
       <WrapRight>
         <TopHeader>
-          <MyButton onClick={handleOpenMyMenu}>김태희(master)</MyButton>
+          <MyButton onClick={handleOpenMyMenu}>{userName}(master)</MyButton>
           {openMyMenu && (
             <MyMenu>
               <MyMenuLi first>MASTER</MyMenuLi>

@@ -19,6 +19,7 @@ import NotFoundEmail from "./pages/Auth/NotFoundEmail";
 import ErrorPassword from "./pages/Auth/ErrorPassword";
 import MyPage from "./pages/profile/MyPage";
 import Homepage from "./pages/homepage/Homepage";
+import PushList from "./pages/push/PushList";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/error_newPassword" element={<ErrorPassword />} />
           <Route path="/setNewPassword" element={<SetNewPassword />} />
           <Route path="/makePush" element={<MakePush />} />
+          <Route path="/pushList" element={<PushList />} />
 
           {/* 나의 정보 수정 */}
           <Route path="/myPage" element={<MyPage />} />
