@@ -1,11 +1,13 @@
 import axios from "axios";
+import { getCookie } from "../cookie/controlCookie";
+const userAccessToken = getCookie('accessToken');
 
 export const instanceAxios = axios.create({
   baseURL: "http://dev2023.dmpush.kr:8080/api/",
-  //baseURL: "http://localhost:8080/api/", // 로컬
-  // headers : {
-  //   Authorization : `${userAccessToken}`
-  // }
+  // baseURL: "http://localhost:8080/api/", // 로컬
+  headers : {
+    Authorization : `${userAccessToken}`
+  }
 });
 
 // instanceAxios.interceptors.request.use(

@@ -26,7 +26,7 @@ const Header = styled.header`
 `;
 const Nav = styled.nav`
   padding: 40px;
-  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   /* height: 100vh */
 `;
 

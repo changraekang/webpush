@@ -21,8 +21,8 @@ const Button = styled.button`
   }
 `;
 
-export default function UpdateProfile({children}) {
+export default function UpdateProfile({children, updateMyInfo}) {
   return (
-    <Button active>{children}</Button>
+    <Button active onClick={updateMyInfo}>{children}</Button>
   )
 }
