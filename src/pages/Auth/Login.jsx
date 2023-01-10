@@ -181,7 +181,7 @@ export default function Login() {
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
         instanceAxios.defaults.headers.common["Authorization"] = headersToken;
-        navigate("/makepush");
+        navigate("/dashboard");
         console.log(response);
       }
     } catch (err) {
