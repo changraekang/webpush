@@ -19,9 +19,9 @@ export const getCookie = (name) => {
 
 const logoutData = {
   deviceInfo: {
-    deviceId: "adf", // chrome, firefox ...
-    deviceType: "DEVICE_TYPE_ANDROID", //true or false
-    notificationToken: "dghjk", // window, android, ios ,,,
+    deviceId: "Non empty string",
+    deviceType: "DEVICE_TYPE_ANDROID",
+    notificationToken: "Non empty string",
   },
 };
 

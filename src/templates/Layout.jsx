@@ -126,16 +126,14 @@ export default function Layout({ children }) {
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
-  const accessToken = getCookie("accessToken");
   useEffect(() => {
     if (!refreshToken) {
       // login yet
       navigate("/");
     } else {
       const checkAccount = async () => {
-        instanceAxios.defaults.headers.common["Authorization"] = accessToken;
         try {
-          const response = await instanceAxios.post("/member/me", accessToken);
+          const response = await instanceAxios.post("/member/me");
 
           if (response.status === 200) {
           }
@@ -157,11 +155,9 @@ export default function Layout({ children }) {
 
   // refreshToken 재발급
   const logoutTimer = () => {
-    if (accessToken && refreshToken) {
-      logout();
-      alert("세션이 만료되었습니다.");
-      navigate("/");
-    }
+    logout();
+    alert("세션이 만료되었습니다.");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -232,9 +228,7 @@ export default function Layout({ children }) {
             <MyMenu>
               <MyMenuLi first>MASTER</MyMenuLi>
               <MyMenuLi>
-                <LinkStyle to="/myPage">
-                  마이프로필
-                </LinkStyle>
+                <LinkStyle to="/myPage">마이프로필</LinkStyle>
               </MyMenuLi>
               <MyMenuLi>비밀변경</MyMenuLi>
               <MyMenuLi onClick={logout}>로그아웃</MyMenuLi>

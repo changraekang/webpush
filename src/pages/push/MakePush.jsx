@@ -196,10 +196,9 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
-    instanceAxios.defaults.headers.common["Authorization"] = accessToken;
     const checkProject = async () => {
       try {
-        const response = await instanceAxios.get("/project/all", accessToken);
+        const response = await instanceAxios.get("/project/all");
         if (response.status === 200) {
           if (response.data.length > 0) {
             setisModalOpen(false);
