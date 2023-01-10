@@ -1,5 +1,6 @@
 import logo from "../assets/images/logo.png";
 import mypageLogo from "../assets/images/mypage-logo.png";
+import alarm from "../assets/images/alarm.png";
 import styled from "styled-components";
 import {
   grey3,
@@ -113,6 +114,10 @@ const MyMenu = styled.ul`
     top: 55px;
   }
 `;
+const Logo = styled.img`
+  width: 15px;
+  height: 15px;
+`;
 const MyMenuLi = styled.li`
   cursor: pointer;
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
@@ -123,7 +128,7 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
   const [openNav, setOpenNav] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
-  const [minutes, setMinutes] = useState(10);
+  const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   useEffect(() => {
@@ -135,7 +140,7 @@ export default function Layout({ children }) {
         try {
           const response = await instanceAxios.post("/member/me");
           if (response.status === 200) {
-            console.log(response.data)
+            checkAccount();
           }
         } catch (err) {
           // login yet
@@ -144,6 +149,7 @@ export default function Layout({ children }) {
       };
       checkAccount();
     }
+    requestAccessToken(refreshToken);
   }, []);
   const handleOpenNav = () => {
     !openNav ? setOpenNav(true) : setOpenNav(false);
@@ -178,16 +184,18 @@ export default function Layout({ children }) {
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
 
-  const requestAccessToken = async (token) => {
-    console.log(token, "리프레쉬 시도");
+  const requestAccessToken = async () => {
     try {
       const response = await instanceAxios.post("/auth/refresh", {
-        refreshToken: token,
+        refreshToken: refreshToken,
       });
+
       const tokenType = response.data.tokenType;
       const headersToken = tokenType + response.data.accessToken;
       setAccessTokenToCookie(headersToken);
       setRefreshTokenToCookie(response.data.refreshToken);
+      setMinutes(8);
+      setSeconds(59);
       instanceAxios.defaults.headers.common["Authorization"] = headersToken;
       console.log(response, "토큰 초기화");
     } catch (err) {
@@ -201,6 +209,14 @@ export default function Layout({ children }) {
       <Nav>
         <MainLogo src={logo} alt="메인 로고" />
         <NavLi>
+          <LI>
+            {minutes}:{seconds}{" "}
+            <div onClick={requestAccessToken}>
+              <Logo src={alarm} alt="alarm"></Logo>
+              로그인 연장하기
+            </div>
+          </LI>
+
           <LI>
             <A href="#">대시보드</A>
           </LI>
