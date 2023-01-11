@@ -67,8 +67,9 @@ const openDemo = () => {
 
     let popupY= (window.screen.height / 2) - (popupHeight / 2);
     // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+    // http://dev2023.dmpush.kr:8080?site=${pid}
     agreeBtn.addEventListener('click',()=> {
-        window.open('http://dev2023.dmpush.kr:8080/', "demo",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY + ",menubar=no, toolbar=no, resizable=no" );
+        window.open('http://dev2023.dmpush.kr:8080', "demo",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY + ",menubar=no, toolbar=no, resizable=no" );
 
         container.remove();
     })

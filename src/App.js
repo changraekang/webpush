@@ -28,6 +28,7 @@ import MyPage from "./pages/profile/MyPage";
 import Homepage from "./pages/homepage/Homepage";
 import PushList from "./pages/push/PushList";
 import DashBoard from "./pages/DashBoard";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -49,10 +50,13 @@ function App() {
 
             {/* 나의 정보 수정 */}
             <Route path="/myPage" element={<MyPage />} />
+            {/* 비밀번호 수정 */}
+            <Route path="/myPage/setNewPassword" element={<SetNewPassword />} />
             {/* 홈페이지 관리 */}
             <Route path="/homepage" element={<Homepage />} />
             {/* 에러페이지 */}
             <Route path="/test" element={<Test />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
