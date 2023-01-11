@@ -161,6 +161,7 @@ export default function Layout({ children }) {
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [project, setProject] = useState([]);
+  // console.log(myProfile)
   useEffect(() => {
     if (!refreshToken) {
       // login yet
