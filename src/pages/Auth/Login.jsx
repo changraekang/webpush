@@ -29,7 +29,7 @@ import {
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
 import { MyProfile } from "../../atom/Atom";
-import '../../allowDemo.js'
+// import '../../allowDemo.js'
 
 const Section = styled.section`
   display: flex;

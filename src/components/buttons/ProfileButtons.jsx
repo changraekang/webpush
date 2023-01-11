@@ -21,8 +21,14 @@ const Button = styled.button`
   }
 `;
 
-export default function UpdateProfile({children, updateMyInfo}) {
+export function UpdateProfileBtn({children, updateMyInfo}) {
   return (
     <Button active onClick={updateMyInfo}>{children}</Button>
   )
+}
+
+export function UpdatePasswordBtn({children, updatePassword}) {
+    return (
+      <Button active onClick={updatePassword}>{children}</Button>
+    )
 }
