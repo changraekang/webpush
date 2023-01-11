@@ -6,6 +6,8 @@ import UpdateProfile from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 import HompageButton from "../../components/buttons/HompageButtons";
+import { grey1, grey4, primary4 } from "../../constants/color";
+import {SelectHomepage, UpdateHomepage} from "../../components/buttons/HompageButtons";
 const WrapInputs = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -25,96 +27,145 @@ const WrapButton = styled.div`
   margin: 40px auto 0;
 `
 
-export default function Homepage() {
-  const [email, setEmail] = useState('');
-  const [company, setCompany] = useState('');
-  const [phone, setPhone] = useState('');
-  
-  const getMemberInfo = async() => {
-  try{
-      const response = await instanceAxios.post('/member/me',{})
-      console.log(response);
-      const data = response.data; 
-      if(response.status === 200) {
-      setEmail(data.email);
-      setPhone(data.phone);
-      setCompany(data.company);
-      }
-  } catch (err) {
-      console.error(err);
-  }
-  }
-  
-  useEffect(() => {
-  getMemberInfo();
-  }, [])
+const WrapHomepages = styled.ul`
+  display: flex;
+  gap: 10px;
+  position: relative;
+  margin-bottom: 40px;
 
+  ::after {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: ${grey4};
+    bottom: -20px;
+    left: 0;
+  }
+`
+
+export default function Homepage() {
+  const [projectArr, setProjectArr] = useState([]);
+  const [homepage, setHomepage] = useState('');
+  const [link, setLink] = useState('');
+  const [cateogry, setCategory] = useState('');
+  const [pid, setPid] = useState('');
+  console.log("pid💙💙", pid)
+  console.log(projectArr, "projectArr🐰")
+  
+
+  const getOneHomepage = async() => {
+    try{
+      const response = await instanceAxios.get(`/project/${pid}`);
+      console.log("하나의 프로젝트⭐" , response.data);
+      if(response.status === 200) {
+        const data = response.data;   
+        setHomepage(data.name);
+        setLink(data.projectUrl);
+        setCategory(data.categoryCode);
+      }
+        
+      } catch (err) {
+        console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    if(pid) {
+      getOneHomepage()
+    }
+  }, [pid])
+
+  const getHomepageAll = async() => {
+    try{
+      const response = await instanceAxios.get('/project/all');
+      console.log("프로젝트 불러오기" , response.data);
+      const data = response.data;   
+      if(response.status === 200) {
+        setProjectArr(response.data);
+        setPid(response.data[0].pid);
+        if(pid === '') {
+          setHomepage(data[0].name);
+          setLink(data[0].projectUrl);
+          setCategory(data[0].categoryCode);
+        }
+      }
+    } catch (err) {
+        console.error(err);
+    }
+  }
+    
+    useEffect(() => {
+      getHomepageAll();
+    }, [])
 
   const updateData = {
-  "company": company,
-  "email": email,
-  "phone": phone
+    "code": cateogry,
+    "name": homepage,
+    "projectUrl": link
+  }  
+
+  const updateHomePage = async(e) => {
+    e.preventDefault()
+    try{
+      const response = await instanceAxios.put(`/project/${pid}`, updateData);
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
   }
-  
-  const updateMyInfo = async(e) => {
-      e.preventDefault();
-      if(window.confirm('개인정보를 수정하시겠습니까?')) {
-      try{
-          const response = await instanceAxios.put('/member/update', updateData)
-          console.log(response);
-          const data = response.data; 
-          if(response.status === 200) {
-          setEmail(data.email);
-          setPhone(data.phone);
-          setCompany(data.company);
-          alert('성공적으로 정보를 수정하였습니다.🎉');
-          window.location.reload();
-          }
-      } catch (err) {
-          console.error(err);
-      }
-      }
-  }
-  
+
   return (
     <Layout>
       <HomepageBox>
+        <WrapHomepages>
+          {projectArr?.map(({name, pid})=> {
+            return (
+              <li key={pid}>
+                <SelectHomepage setValue={()=> {setPid(pid);}}>
+                  {name}
+                </SelectHomepage >
+              </li>
+            ) 
+          })}
+        </WrapHomepages>
       <form action="post">
         <WrapInputs>
-          <LabelStyle htmlFor="email">홈페이지명</LabelStyle>
+          <LabelStyle htmlFor="homepage">홈페이지명</LabelStyle>
           <div>
           <InputGroup 
           type="text" 
-          id='email' 
-          value={email === undefined ? '' : email} 
-          setValue={setEmail}
+          id='homepage' 
+          value={homepage === undefined ? '' : homepage} 
+          setValue={setHomepage}
           />
           </div>
         </WrapInputs>
         <WrapInputs>
-          <LabelStyle htmlFor="phone">홈페이지주소</LabelStyle>
+          <LabelStyle htmlFor="link">홈페이지주소</LabelStyle>
           <div>
           <InputGroup 
           type="text" 
-          id='phone' 
-          value={phone === undefined ? '' : phone} 
-          setValue={setPhone}
+          id='link' 
+          value={link === undefined ? '' : link} 
+          setValue={setLink}
           />
           </div>
         </WrapInputs>
         <WrapInputs>
-          <LabelStyle htmlFor="company">카테고리</LabelStyle>
+          <LabelStyle htmlFor="category">카테고리</LabelStyle>
           <div>
           <InputGroup 
           type="text" 
-          id='company' 
-          value={company === undefined ? '' : company} 
-          setValue={setCompany}
+          id='category' 
+          value={cateogry === undefined ? '' : cateogry} 
+          setValue={setCategory}
           />
           </div>
         </WrapInputs>
           <WrapButton>
-          <HompageButton updateMyInfo={updateMyInfo}>수정</HompageButton>
+          <UpdateHomepage updateHomePage={updateHomePage}>수정</UpdateHomepage>
           </WrapButton>
         </form>
       </HomepageBox>

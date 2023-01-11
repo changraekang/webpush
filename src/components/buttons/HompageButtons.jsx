@@ -5,7 +5,7 @@ const Button = styled.button`
   display: block;
   border: none;
   width: 100%;
-  padding: 12px 16px;
+  padding: ${(props) => (props.homepage ?  "6px 10px " : "12px 16px")};
   cursor: pointer;
   border-radius: 32px;
   font-size: ${(props) => (props.certificate ? `14px` : `16px`)};
@@ -21,8 +21,22 @@ const Button = styled.button`
   }
 `;
 
-export default function HompageButton({children}) {
+const HomepageBtn = styled.button`
+  display: block;
+  border-radius: 30px;
+  background-color: ${primary4};
+  color: ${grey1};
+  padding: 6px 8px;
+`
+
+export function SelectHomepage({children, setValue}) {
   return (
-      <Button active >{children}</Button>
+      <Button homepage normal onClick={setValue}>{children}</Button>
+    )
+}
+
+export function UpdateHomepage({children, updateHomePage}) {
+  return (
+      <Button active onClick={updateHomePage}>{children}</Button>
     )
 }
