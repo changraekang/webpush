@@ -28,8 +28,8 @@ import {
 } from "../../cookie/controlCookie";
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
-import { MyProfile } from "../../atom/Atom";
-import '../../allowDemo.js'
+import { MyProfile, MyProject } from "../../atom/Atom";
+import "../../allowDemo.js";
 
 const Section = styled.section`
   display: flex;
@@ -141,6 +141,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
+  const [myProject, setMyProject] = useRecoilState(MyProject);
 
   // useEffect(()=> {
   //   const script = document.createElement("script");
@@ -196,6 +197,18 @@ export default function Login() {
             const response = await instanceAxios.post("/member/me");
             if (response.status === 200) {
               setMyProfile(response.data);
+              const checkProject = async () => {
+                try {
+                  const response = await instanceAxios.get("/project/all");
+                  if (response.status === 200) {
+                    setMyProject(response.data);
+                  }
+                } catch (err) {
+                  // login yet
+                  console.error(err);
+                }
+              };
+              checkProject();
             }
           } catch (err) {
             // login yet

@@ -19,6 +19,8 @@ import {
 import ProjectModal from "../../components/modals/ProjectModal";
 import { instanceAxios } from "../../api/axios";
 import { getCookie } from "../../cookie/controlCookie";
+import { MyProject } from "../../atom/Atom";
+import { useRecoilState } from "recoil";
 const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -215,7 +217,8 @@ export default function MakePush() {
   const [submitDate, setSubmitDate] = useState(ReserveMin);
   const [pid, setPid] = useState("");
   const accessToken = getCookie("accessToken");
-  const [project, setProject] = useState([]);
+  const [myProject, setMyProject] = useRecoilState(MyProject);
+
   const getClock = () => {
     const offset = 1000 * 60 * 60 * 9;
     const koreaNow = new Date(new Date().getTime() + offset);
@@ -224,21 +227,6 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
-    const checkProject = async () => {
-      try {
-        const response = await instanceAxios.get("/project/all");
-        if (response.status === 200) {
-          if (response.data.length > 0) {
-            setProject(response.data);
-            setisModalOpen(false);
-          }
-        }
-      } catch (err) {
-        // login yet
-        console.error(err);
-      }
-    };
-    checkProject();
     getClock();
     setInterval(getClock, 20000);
   }, []);
@@ -393,7 +381,7 @@ export default function MakePush() {
     <Layout>
       <TitleWrapper>
         <WrapHomepages>
-          {project?.map(({ name, pid }) => {
+          {myProject?.map(({ name, pid }) => {
             return (
               <li key={pid}>
                 <SelectHomepage

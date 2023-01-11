@@ -169,18 +169,6 @@ export default function Layout({ children }) {
       // login yet
       navigate("/");
     } else {
-      const checkProject = async () => {
-        try {
-          const response = await instanceAxios.get("/project/all");
-          if (response.status === 200) {
-            setProject(response.data);
-          }
-        } catch (err) {
-          // login yet
-          console.error(err);
-        }
-      };
-      checkProject();
     }
     requestAccessToken(refreshToken);
   }, []);
