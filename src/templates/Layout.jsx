@@ -297,7 +297,7 @@ export default function Layout({ children }) {
                 <LinkStyle to="/myPage">마이프로필</LinkStyle>
               </MyMenuLi>
               <MyMenuLi>
-                <LinkStyle to="/setNewPassword">비밀번호 변경</LinkStyle>
+                <LinkStyle to="/myPage/newPassword">비밀번호 변경</LinkStyle>
               </MyMenuLi>
               <MyMenuLi onClick={logout}>로그아웃</MyMenuLi>
             </MyMenu>

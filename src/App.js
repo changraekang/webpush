@@ -29,6 +29,7 @@ import Homepage from "./pages/homepage/Homepage";
 import PushList from "./pages/push/PushList";
 import DashBoard from "./pages/DashBoard";
 import NotFound from "./pages/NotFound";
+import NewPassword from "./pages/profile/NewPassword";
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
             {/* 나의 정보 수정 */}
             <Route path="/myPage" element={<MyPage />} />
             {/* 비밀번호 수정 */}
-            <Route path="/myPage/setNewPassword" element={<SetNewPassword />} />
+            <Route path="/myPage/newPassword" element={<NewPassword />} />
             {/* 홈페이지 관리 */}
             <Route path="/homepage" element={<Homepage />} />
             {/* 에러페이지 */}

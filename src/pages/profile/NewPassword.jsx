@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import {ProfileBox} from '../../components/containers/profile/ProfileBox'
+import {PasswordBox} from '../../components/containers/profile/ProfileBox'
 import { grey3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
 import { InputGroup } from '../../components/inputs/InputGroups'
-import {UpdateProfileBtn} from '../../components/buttons/ProfileButtons';
+import {UpdatePasswordBtn} from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 
@@ -26,10 +26,11 @@ const WrapButton = styled.div`
   margin: 40px auto 0;
 `
 
-export default function MyPage() {
+export default function NewPassword() {
   const [email, setEmail] = useState('');
-  const [company, setCompany] = useState('');
-  const [phone, setPhone] = useState('');
+  const [confimPassword, setConfimPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const getMemberInfo = async() => {
     try{
@@ -38,8 +39,6 @@ export default function MyPage() {
       const data = response.data; 
       if(response.status === 200) {
         setEmail(data.email);
-        setPhone(data.phone);
-        setCompany(data.company);
       }
     } catch (err) {
         console.error(err);
@@ -52,23 +51,24 @@ export default function MyPage() {
 
 
   const updateData = {
-    "company": company,
     "email": email,
-    "phone": phone
+    "confimPassword": confimPassword,
+    "currentPassword": currentPassword,
+    "newPassword": newPassword,
   }
 
-  const updateMyInfo = async(e) => {
+  const updatePassword = async(e) => {
     e.preventDefault();
-    if(window.confirm('개인정보를 수정하시겠습니까?')) {
+    if(window.confirm('비밀번호를 수정하시겠습니까?')) {
       try{
-        const response = await instanceAxios.put('/member/update', updateData)
-        console.log(response);
+        const response = await instanceAxios.put('/member/password/update', updateData)
+        console.log(response, "비밀번호 변경 api");
         const data = response.data; 
         if(response.status === 200) {
-          setEmail(data.email);
-          setPhone(data.phone);
-          setCompany(data.company);
-          alert('성공적으로 정보를 수정하였습니다.🎉');
+          // setEmail(data.email);
+          // setPhone(data.phone);
+          // setCompany(data.company);
+          alert('성공적으로 비밀번호를 수정하였습니다.🎉');
           window.location.reload();
         }
       } catch (err) {
@@ -76,49 +76,48 @@ export default function MyPage() {
       }
     }
   }
-
   return (
     <Layout>
-      <ProfileBox>
+        <PasswordBox>
         <form action="post">
           <WrapInputs>
-            <LabelStyle htmlFor="email">이메일</LabelStyle>
+            <LabelStyle htmlFor="currentPassword">기존 비밀번호</LabelStyle>
             <div>
               <InputGroup 
               type="text" 
-              id='email' 
-              value={email === undefined ? '' : email} 
-              setValue={setEmail}
+              id='currentPassword' 
+              value={currentPassword === undefined ? '' : currentPassword} 
+              setValue={setCurrentPassword}
               />
             </div>
           </WrapInputs>
           <WrapInputs>
-            <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
+            <LabelStyle htmlFor="newPassword">새 비밀번호</LabelStyle>
             <div>
               <InputGroup 
               type="text" 
-              id='phone' 
-              value={phone === undefined ? '' : phone} 
-              setValue={setPhone}
+              id='newPassword' 
+              value={newPassword === undefined ? '' : newPassword} 
+              setValue={setNewPassword}
               />
             </div>
           </WrapInputs>
           <WrapInputs>
-            <LabelStyle htmlFor="company">회사명</LabelStyle>
+            <LabelStyle htmlFor="confimPassword">새비밀번호 확인</LabelStyle>
             <div>
               <InputGroup 
               type="text" 
-              id='company' 
-              value={company === undefined ? '' : company} 
-              setValue={setCompany}
+              id='confimPassword' 
+              value={confimPassword === undefined ? '' : confimPassword} 
+              setValue={setConfimPassword}
               />
             </div>
           </WrapInputs>
             <WrapButton>
-              <UpdateProfileBtn updateMyInfo={updateMyInfo}>수정</UpdateProfileBtn>
+              <UpdatePasswordBtn updatePassword={updatePassword}>수정</UpdatePasswordBtn>
             </WrapButton>
         </form>
-      </ProfileBox>
+      </PasswordBox>
     </Layout>
   )
 }

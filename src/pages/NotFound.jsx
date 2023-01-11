@@ -19,7 +19,7 @@ const WrapBox = styled.div`
 `
 
 const Box = styled.div`
-  padding: 40px;
+  padding: 40px 32px 32px;
   width: 100%;
   border-radius: 16px;
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
@@ -28,11 +28,11 @@ const Box = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 32px;
+  font-size: 28px;
 `;
 
 const Img = styled.img`
-  width: 400px;
+  width: 350px;
   margin-top: 60px;
   transform: rotate(30deg);
 `;
