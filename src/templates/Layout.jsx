@@ -23,6 +23,7 @@ import {
 import { logout } from "../cookie/controlCookie";
 import { useRecoilState } from "recoil";
 import { MyProfile } from "../atom/Atom";
+import ProjectModal from "../components/modals/ProjectModal";
 
 const Header = styled.header`
   display: flex;
@@ -156,6 +157,7 @@ export default function Layout({ children }) {
   const [openNav, setOpenNav] = useState(false);
   const [openProject, setOpenProject] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
+  const [isModalOpen, setisModalOpen] = useState(false);
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
@@ -241,6 +243,7 @@ export default function Layout({ children }) {
     <Header>
       {/* 왼쪽 */}
       <Nav>
+        {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
         <MainLogo src={logo} alt="메인 로고" />
         <NavLi>
           <LI>
@@ -277,6 +280,7 @@ export default function Layout({ children }) {
             <MyButton onClick={handleOpenProject}>홈페이지 관리</MyButton>
             {openProject ? (
               <MyProject>
+                <MyProLi>추가하기</MyProLi>
                 {project.map(({ name, pid }) => {
                   return <MyProLi key={pid}>{name}</MyProLi>;
                 })}

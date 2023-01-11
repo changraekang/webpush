@@ -2,11 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import PushBox from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
-import { grey5, grey10, grey2 } from "../../constants/color";
+import { grey5, grey10, grey2, grey4 } from "../../constants/color";
 import activeCheck from "../../assets/images/active-check.png";
 import Fox from "../../assets/images/fox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
 import { DemoBox, DemoWrapBox } from "../../components/containers/push/DemoBox";
+import {
+  SelectHomepage,
+  UpdateHomepage,
+} from "../../components/buttons/HompageButtons";
 import {
   ActivePushButton,
   InactivePushButton,
@@ -27,6 +31,23 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+const WrapHomepages = styled.ul`
+  display: flex;
+  gap: 10px;
+  position: relative;
+  margin-bottom: 40px;
+
+  ::after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: ${grey4};
+    bottom: -20px;
+    left: 0;
+  }
 `;
 const SectionWrapper = styled.div`
   width: 100%;
@@ -186,13 +207,15 @@ const DemoImg = styled.img`
   width: 192px;
   height: 192px;
   object-fit: cover;
-`
+`;
 export default function MakePush() {
   const [thisClock, setThisClock] = useState("");
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
   const [submitDate, setSubmitDate] = useState(ReserveMin);
+  const [pid, setPid] = useState("");
   const accessToken = getCookie("accessToken");
+  const [project, setProject] = useState([]);
   const getClock = () => {
     const offset = 1000 * 60 * 60 * 9;
     const koreaNow = new Date(new Date().getTime() + offset);
@@ -206,6 +229,7 @@ export default function MakePush() {
         const response = await instanceAxios.get("/project/all");
         if (response.status === 200) {
           if (response.data.length > 0) {
+            setProject(response.data);
             setisModalOpen(false);
           }
         }
@@ -230,14 +254,12 @@ export default function MakePush() {
   const [inputs, setInputs] = useState({
     web: false,
     mobile: false,
-    ads: false,
-    info: false,
-    etc: false,
     title: "",
     content: "",
     link: "",
     image: "",
     date: "",
+    pid: pid,
   });
 
   // 이미지 파일 관리
@@ -329,7 +351,8 @@ export default function MakePush() {
   };
 
   // 제출
-  const onClickSubmit = () => {
+  const onClickSubmit = async (e) => {
+    e.preventDefault();
     if (!isMobileCheck && !isWebCheck) {
       return alert("Please select Push Type");
     }
@@ -356,12 +379,35 @@ export default function MakePush() {
       inputs.date = ReserveMin;
     }
     inputs.image = previewImg;
-    console.log(inputs, "제출");
+    try {
+      const response = await instanceAxios.post(`/message/${pid}/add`, inputs);
+      if (response.status === 200) {
+        console.log("메세지 등록 성공🎉");
+      }
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <Layout>
       <TitleWrapper>
-        <PageTitle>PUSH 작성</PageTitle>
+        <WrapHomepages>
+          {project?.map(({ name, pid }) => {
+            return (
+              <li key={pid}>
+                <SelectHomepage
+                  setValue={() => {
+                    setPid(pid);
+                  }}
+                >
+                  {name}
+                </SelectHomepage>
+              </li>
+            );
+          })}
+        </WrapHomepages>
+        <PageTitle>PUSH 작성 </PageTitle>
         <Message>
           고객들에게 날릴 웹푸시를 작성 및 등록할 수 있는 페이지입니다.
         </Message>
@@ -520,7 +566,7 @@ export default function MakePush() {
               <Title>웹푸시 미리보기</Title>
               <DemoWrapperBox>
                 <DemoBox>
-                    <DemoImg src={demoImg} alt="데모이미지" />
+                  <DemoImg src={demoImg} alt="데모이미지" />
                   <DemoSection>
                     <SubDemoTitle>{inputs.title}</SubDemoTitle>
                     <SubMessage>{inputs.content}</SubMessage>
