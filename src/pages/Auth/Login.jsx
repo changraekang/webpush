@@ -27,6 +27,8 @@ import {
   setRefreshTokenToCookie,
 } from "../../cookie/controlCookie";
 import { InputGroup } from "../../components/inputs/InputGroups";
+import { useRecoilState } from "recoil";
+import { MyProfile } from "../../atom/Atom";
 
 const Section = styled.section`
   display: flex;
@@ -137,7 +139,7 @@ export default function Login() {
   const [isCheck, setIsCheck] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
   };
@@ -181,6 +183,19 @@ export default function Login() {
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
         instanceAxios.defaults.headers.common["Authorization"] = headersToken;
+        const checkAccount = async () => {
+          try {
+            const response = await instanceAxios.post("/member/me");
+            if (response.status === 200) {
+              setMyProfile(response.data);
+            }
+          } catch (err) {
+            // login yet
+            navigate("/");
+            console.error(err);
+          }
+        };
+        checkAccount();
         navigate("/dashboard");
         console.log(response);
       }

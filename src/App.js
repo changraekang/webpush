@@ -6,6 +6,13 @@ import {
   Router,
   Routes,
 } from "react-router-dom";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
 import "./styles/global.css";
 import Test from "./pages/Test";
 import Signup from "./pages/Auth/Signup";
@@ -25,28 +32,30 @@ import DashBoard from "./pages/DashBoard";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/findEmail" element={<FindEmail />} />
-          <Route path="/resultEmail/:id" element={<ResultFindEmail />} />
-          <Route path="/notFoundemail" element={<NotFoundEmail />} />
-          <Route path="/findPassword" element={<FindPassword />} />
-          <Route path="/error_newPassword" element={<ErrorPassword />} />
-          <Route path="/setNewPassword" element={<SetNewPassword />} />
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/makePush" element={<MakePush />} />
-          <Route path="/pushList" element={<PushList />} />
+      <RecoilRoot>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/findEmail" element={<FindEmail />} />
+            <Route path="/resultEmail/:id" element={<ResultFindEmail />} />
+            <Route path="/notFoundemail" element={<NotFoundEmail />} />
+            <Route path="/findPassword" element={<FindPassword />} />
+            <Route path="/error_newPassword" element={<ErrorPassword />} />
+            <Route path="/setNewPassword" element={<SetNewPassword />} />
+            <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/makePush" element={<MakePush />} />
+            <Route path="/pushList" element={<PushList />} />
 
-          {/* 나의 정보 수정 */}
-          <Route path="/myPage" element={<MyPage />} />
-          {/* 홈페이지 관리 */}
-          <Route path="/homepage" element={<Homepage />} />
-          {/* 에러페이지 */}
-          <Route path="/test" element={<Test />} />
-        </Routes>
-      </BrowserRouter>
+            {/* 나의 정보 수정 */}
+            <Route path="/myPage" element={<MyPage />} />
+            {/* 홈페이지 관리 */}
+            <Route path="/homepage" element={<Homepage />} />
+            {/* 에러페이지 */}
+            <Route path="/test" element={<Test />} />
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </>
   );
 }

@@ -21,6 +21,8 @@ import {
   setRefreshTokenToCookie,
 } from "../cookie/controlCookie";
 import { logout } from "../cookie/controlCookie";
+import { useRecoilState } from "recoil";
+import { MyProfile } from "../atom/Atom";
 
 const Header = styled.header`
   display: flex;
@@ -157,7 +159,7 @@ export default function Layout({ children }) {
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
-  const [userName, setUserName] = useState("");
+  const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [project, setProject] = useState([]);
   useEffect(() => {
     if (!refreshToken) {
@@ -175,21 +177,9 @@ export default function Layout({ children }) {
           console.error(err);
         }
       };
-      const checkAccount = async () => {
-        try {
-          const response = await instanceAxios.post("/member/me");
-          if (response.status === 200) {
-            setUserName(response.data.name);
-          }
-        } catch (err) {
-          // login yet
-          console.error(err);
-        }
-      };
+
       checkProject();
-      checkAccount();
     }
-    console.log(project, "프로젝트");
     requestAccessToken(refreshToken);
   }, []);
   const handleOpenNav = () => {
@@ -293,7 +283,9 @@ export default function Layout({ children }) {
               </MyProject>
             ) : null}
           </ProLi>
-          <MyButton onClick={handleOpenMyMenu}>{userName}(master)</MyButton>
+          <MyButton onClick={handleOpenMyMenu}>
+            {myProfile.name}(master)
+          </MyButton>
           {openMyMenu && (
             <MyMenu>
               <MyMenuLi first>MASTER</MyMenuLi>
