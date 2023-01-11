@@ -29,6 +29,7 @@ import {
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
 import { MyProfile } from "../../atom/Atom";
+import '../../allowDemo.js'
 
 const Section = styled.section`
   display: flex;
@@ -140,6 +141,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
+
+  // useEffect(()=> {
+  //   const script = document.createElement("script");
+  //   script.src = "../../allowDemo.js";
+  //   document.body.appendChild(script);
+  // }, [])
+
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
   };
@@ -206,6 +214,7 @@ export default function Login() {
   };
   return (
     <Section>
+      <div id="demo"></div>
       <ImageSection>
         <MainImage src={mainImage} alt="메인이미지" />
       </ImageSection>

@@ -181,11 +181,16 @@ const ReserveWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
+
+const DemoImg = styled.img`
+  width: 192px;
+  height: 192px;
+  object-fit: cover;
+`
 export default function MakePush() {
   const [thisClock, setThisClock] = useState("");
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
-  const [timer, setTimer] = useState(1);
   const [submitDate, setSubmitDate] = useState(ReserveMin);
   const accessToken = getCookie("accessToken");
   const getClock = () => {
@@ -515,9 +520,7 @@ export default function MakePush() {
               <Title>웹푸시 미리보기</Title>
               <DemoWrapperBox>
                 <DemoBox>
-                  <>
-                    <img src={Fox} width="192px" height="192px" alt="여우" />
-                  </>
+                    <DemoImg src={demoImg} alt="데모이미지" />
                   <DemoSection>
                     <SubDemoTitle>{inputs.title}</SubDemoTitle>
                     <SubMessage>{inputs.content}</SubMessage>
