@@ -29,10 +29,11 @@ const Header = styled.header`
   display: flex;
   font-family: "Pretendard-Regular";
 `;
+
 const Nav = styled.nav`
   padding: 40px;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  /* height: 100vh */
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
+  z-index: 5;
 `;
 
 const MainLogo = styled.img`
@@ -56,9 +57,10 @@ const TopHeader = styled.div`
   display: flex;
   align-items: start;
   justify-content: space-between;
-  background: ${grey3};
-
+  background: ${grey1};
+  box-shadow:  0px 0px 50px rgba(0, 0, 0, 0.05);
   padding: 21px;
+  z-index: 5;
 `;
 
 const LI = styled.li`
