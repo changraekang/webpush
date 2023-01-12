@@ -30,6 +30,7 @@ import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
 import { MyProfile, MyProject } from "../../atom/Atom";
 import "../../allowDemo.js";
+import Cookies from "universal-cookie";
 
 const Section = styled.section`
   display: flex;
@@ -180,8 +181,10 @@ export default function Login() {
 
   // 로그인 요청
   const requestLogin = async (e) => {
+    const cookies = new Cookies();
     e.preventDefault();
-    console.log("login", loginData);
+    cookies.remove("refreshToken");
+      cookies.remove("accessToken");
     try {
       const response = await instanceAxios.post("/auth/login", loginData);
       if (response.status === 200) {
@@ -191,8 +194,8 @@ export default function Login() {
         const headersToken = tokenType + accessToken;
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
-        setMyProfile([])
-        setMyProject([])
+        setMyProfile([]);
+        setMyProject([]);
         instanceAxios.defaults.headers.common["Authorization"] = headersToken;
         const checkAccount = async () => {
           try {
@@ -204,7 +207,6 @@ export default function Login() {
                   const response = await instanceAxios.get("/project/all");
                   if (response.status === 200) {
                     setMyProject(response.data);
-                    console.log(myProject,"프로젝트")
                   }
                 } catch (err) {
                   // login yet
