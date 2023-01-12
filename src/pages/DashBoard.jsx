@@ -2,11 +2,14 @@ import React from "react";
 import { BoardWrapBox } from "../components/containers/dashboard/BoardBox";
 import Layout from "../templates/Layout";
 import styled from "styled-components";
+import { grey3 } from "../constants/color";
 const PageWrapper = styled.div`
   width: 100%;
+  padding-top: 200px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: ${grey3};
   justify-content: space-around;
 `;
 const DashBoard = () => {
