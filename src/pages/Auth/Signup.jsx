@@ -346,7 +346,7 @@ export default function Signup() {
               id="email"
               value={id}
               name="id"
-              maxLength={40}
+              maxLength={25}
               setValue={handleInputValues}
             />
             <span>@</span>

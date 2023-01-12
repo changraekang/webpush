@@ -1,9 +1,6 @@
 import {
   BrowserRouter,
   Route,
-  Link,
-  Switch,
-  Router,
   Routes,
 } from "react-router-dom";
 import {
