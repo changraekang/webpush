@@ -35,7 +35,7 @@ export default function MyPage() {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
-  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
   useEffect(() => {
     if (phone.length === 10) {
@@ -105,10 +105,10 @@ export default function MyPage() {
         console.log(response);
         const data = response.data; 
         if(response.status === 200) {
+          alert('성공적으로 정보를 수정하였습니다.🎉');
           setEmail(data.email);
           setPhone(data.phone);
           setCompany(data.company);
-          alert('성공적으로 정보를 수정하였습니다.🎉');
         }
       } catch (err) {
           console.error(err);
@@ -130,7 +130,9 @@ export default function MyPage() {
               value={email === undefined ? '' : email} 
               setValue={handleEmail}
               />
-              {!isValidEmail && <LabelWarning>올바른 이메일 형식이 아닙니다.</LabelWarning>}
+              {!isValidEmail && email && 
+               <LabelWarning>올바른 이메일 형식이 아닙니다.</LabelWarning>
+              }
             </div>
           </WrapInputs>
           <WrapInputs>
