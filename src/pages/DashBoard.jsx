@@ -5,12 +5,12 @@ import styled from "styled-components";
 import { grey3 } from "../constants/color";
 const PageWrapper = styled.div`
   width: 100%;
-  padding-top: 200px;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  justify-content: center;
+  gap: 40px;
   background-color: ${grey3};
-  justify-content: space-around;
+  height: 100vh;
 `;
 const DashBoard = () => {
   return (

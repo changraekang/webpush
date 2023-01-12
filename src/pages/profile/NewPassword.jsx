@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import {PasswordBox} from '../../components/containers/profile/ProfileBox'
-import { grey3 } from '../../constants/color'
+import { error3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
-import { InputGroup } from '../../components/inputs/InputGroups'
+import { InputGroup, InputValidateGroup } from '../../components/inputs/InputGroups'
 import {UpdatePasswordBtn} from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { MyProfile } from '../../atom/Atom';
 
 const WrapInputs = styled.div`
   display: flex;
@@ -25,29 +27,34 @@ const WrapButton = styled.div`
   width: 180px;
   margin: 40px auto 0;
 `
+const LabelWarning = styled.span`
+  display: block;
+  color: ${error3};
+  font-size: 12px;
+  margin: 8px 0 0;
+`;
 
 export default function NewPassword() {
-  const [email, setEmail] = useState('');
+  const [myProfile, setMyProfile] = useRecoilState(MyProfile)
+  const [email, setEmail] = useState(myProfile.email);
   const [confimPassword, setConfimPassword] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isConfirmPassword, setIsConfirmPassword] = useState(true);
 
-  const getMemberInfo = async() => {
-    try{
-      const response = await instanceAxios.post('/member/me',{})
-      console.log(response);
-      const data = response.data; 
-      if(response.status === 200) {
-        setEmail(data.email);
+  const handleValidPassword = (e) => {
+    setNewPassword(e.target.value);
+    if (e.target.name === "newPassword") {
+      const regex = /(?=.*[a-zA-Z])(?=.*[~!@#$%^&*()+|=-])(?=.*[0-9]).{8,25}/;
+      if (regex.test(e.target.value)) {
+        setNewPassword(e.target.value);
+        setIsValidPassword(true);
+      } else {
+        setIsValidPassword(false);
       }
-    } catch (err) {
-        console.error(err);
-    }
+   }
   }
-  
-  useEffect(() => {
-    getMemberInfo();
-  }, [])
 
 
   const updateData = {
@@ -84,7 +91,7 @@ export default function NewPassword() {
             <LabelStyle htmlFor="currentPassword">기존 비밀번호</LabelStyle>
             <div>
               <InputGroup 
-              type="text" 
+              type="password"
               id='currentPassword' 
               value={currentPassword === undefined ? '' : currentPassword} 
               setValue={setCurrentPassword}
@@ -94,23 +101,27 @@ export default function NewPassword() {
           <WrapInputs>
             <LabelStyle htmlFor="newPassword">새 비밀번호</LabelStyle>
             <div>
-              <InputGroup 
-              type="text" 
+              <InputValidateGroup 
+              type="password" 
               id='newPassword' 
+              name='newPassword' 
               value={newPassword === undefined ? '' : newPassword} 
-              setValue={setNewPassword}
+              placeholder="한글, 영문, 특수문자 포함 8자 이상"
+              setValue={handleValidPassword}
               />
+              {!isValidPassword && newPassword && <LabelWarning>한글, 영문, 특수문자 포함한 8자 이상</LabelWarning>}
             </div>
           </WrapInputs>
           <WrapInputs>
             <LabelStyle htmlFor="confimPassword">새비밀번호 확인</LabelStyle>
             <div>
               <InputGroup 
-              type="text" 
+              type="password" 
               id='confimPassword' 
               value={confimPassword === undefined ? '' : confimPassword} 
               setValue={setConfimPassword}
               />
+              { confimPassword != newPassword && confimPassword && <LabelWarning>비밀번호가 일치하지 않습니다.</LabelWarning>}
             </div>
           </WrapInputs>
             <WrapButton>
