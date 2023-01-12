@@ -37,7 +37,6 @@ const Nav = styled.nav`
 
 const MainLogo = styled.img`
   width: 152px;
-  height: 44px;
 `;
 
 const NavLi = styled.ul`

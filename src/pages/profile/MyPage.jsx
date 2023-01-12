@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import {ProfileBox} from '../../components/containers/profile/ProfileBox'
-import { grey3 } from '../../constants/color'
+import { error3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
-import { InputGroup } from '../../components/inputs/InputGroups'
+import { InputGroup, InputValidateGroup } from '../../components/inputs/InputGroups'
 import {UpdateProfileBtn} from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
@@ -19,17 +19,57 @@ const WrapInputs = styled.div`
 
 const LabelStyle = styled.label`
   display: flex;
-  /* width: 180px; */
 `
 const WrapButton = styled.div`
   width: 180px;
   margin: 40px auto 0;
 `
+const LabelWarning = styled.span`
+  display: block;
+  color: ${error3};
+  font-size: 12px;
+  margin: 8px 0 0;
+`;
 
 export default function MyPage() {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
+  useEffect(() => {
+    if (phone.length === 10) {
+      setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
+    }
+    if (phone.length === 13) {
+      setPhone(
+        phone
+          .replace(/-/g, "")
+          .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+      );
+    }
+  }, [email]);
+
+  const handlePhone = (e) => {
+    if (e.target.name === "phone") {
+      const regex = /^[0-9\b -]{0,13}$/;
+      if (regex.test(e.target.value)) {
+        setPhone(e.target.value);
+      } 
+  }}
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value)
+    if (e.target.name === "email") {
+      const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/gm;
+      if (regex.test(e.target.value)) {
+        setEmail(e.target.value);
+        setIsValidEmail(true);
+      } else {
+        setIsValidEmail(false)
+      }
+   }
+  }
 
   const getMemberInfo = async() => {
     try{
@@ -69,7 +109,6 @@ export default function MyPage() {
           setPhone(data.phone);
           setCompany(data.company);
           alert('성공적으로 정보를 수정하였습니다.🎉');
-          window.location.reload();
         }
       } catch (err) {
           console.error(err);
@@ -84,22 +123,27 @@ export default function MyPage() {
           <WrapInputs>
             <LabelStyle htmlFor="email">이메일</LabelStyle>
             <div>
-              <InputGroup 
+              <InputValidateGroup 
               type="text" 
               id='email' 
+              name='email'
               value={email === undefined ? '' : email} 
-              setValue={setEmail}
+              setValue={handleEmail}
               />
+              {!isValidEmail && email && 
+               <LabelWarning>올바른 이메일 형식이 아닙니다.</LabelWarning>
+              }
             </div>
           </WrapInputs>
           <WrapInputs>
             <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
             <div>
-              <InputGroup 
+              <InputValidateGroup 
               type="text" 
               id='phone' 
+              name='phone'
               value={phone === undefined ? '' : phone} 
-              setValue={setPhone}
+              setValue={handlePhone}
               />
             </div>
           </WrapInputs>
