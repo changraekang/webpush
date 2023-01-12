@@ -83,7 +83,7 @@ const SubNav = styled.ul`
 
 const SubLI = styled.li`
   color: ${grey10};
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 `;
 const LinkStyle = styled(Link)`
   color: ${grey10};
@@ -329,17 +329,21 @@ export default function Layout({ children }) {
             {myProject.map(({ pid, name }) => {
               if (pid !== myPushProject.pid) {
                 return (
-                  <button onClick={() => handlePushProject(pid, name)}>
-                    <ProjectOptions key={pid}>{name}</ProjectOptions>
-                  </button>
+                  <li key={pid} onClick={() => handlePushProject(pid, name)}>
+                    <button>
+                      <ProjectOptions>{name}</ProjectOptions>
+                    </button>
+                  </li>
                 );
               } else {
                 return (
-                  <button onClick={() => handlePushProject(pid, name)}>
-                    <ProjectSelectOptions key={pid}>
-                      {name}
-                    </ProjectSelectOptions>
-                  </button>
+                  <li key={pid}>
+                    <button onClick={() => handlePushProject(pid, name)}>
+                      <ProjectSelectOptions>
+                        {name}
+                      </ProjectSelectOptions>
+                    </button>
+                  </li>
                 );
               }
             })}
