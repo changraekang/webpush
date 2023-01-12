@@ -3,9 +3,11 @@ import {ProfileBox} from '../../components/containers/profile/ProfileBox'
 import { error3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
 import { InputGroup, InputValidateGroup } from '../../components/inputs/InputGroups'
-import {UpdateProfileBtn} from '../../components/buttons/ProfileButtons';
+import {UpdateInactiveProfileBtn, UpdateProfileBtn} from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { MyProfile } from '../../atom/Atom';
 
 const WrapInputs = styled.div`
   display: flex;
@@ -32,23 +34,26 @@ const LabelWarning = styled.span`
 `;
 
 export default function MyPage() {
-  const [email, setEmail] = useState('');
-  const [company, setCompany] = useState('');
-  const [phone, setPhone] = useState('');
+  const [myProfile, setMyProfile] = useRecoilState(MyProfile);
+  const [email, setEmail] = useState(myProfile.email);
+  const [company, setCompany] = useState(myProfile.company);
+  const [phone, setPhone] = useState(myProfile.phone);
   const [isValidEmail, setIsValidEmail] = useState(true);
-
+  console.log(myProfile, '⭐ 마이프로필'); 
   useEffect(() => {
-    if (phone.length === 10) {
-      setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
+    if(phone) {
+      if (phone.length === 10) {
+        setPhone(phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
+      }
+      if (phone.length === 13) {
+        setPhone(
+          phone
+            .replace(/-/g, "")
+            .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+        );
+      }
     }
-    if (phone.length === 13) {
-      setPhone(
-        phone
-          .replace(/-/g, "")
-          .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
-      );
-    }
-  }, [email]);
+  }, [phone]);
 
   const handlePhone = (e) => {
     if (e.target.name === "phone") {
@@ -71,47 +76,47 @@ export default function MyPage() {
    }
   }
 
-  const getMemberInfo = async() => {
-    try{
-      const response = await instanceAxios.post('/member/me',{})
-      console.log(response);
-      const data = response.data; 
-      if(response.status === 200) {
-        setEmail(data.email);
-        setPhone(data.phone);
-        setCompany(data.company);
-      }
-    } catch (err) {
-        console.error(err);
-    }
-  }
+  // const getMemberInfo = async() => {
+  //   try{
+  //     const response = await instanceAxios.post('/member/me',{})
+  //     console.log(response);
+  //     if(response.status === 200) {
+  //       setMyProfile(response.data)
+  //       setEmail(myProfile.email);
+  //       setPhone(myProfile.phone);
+  //       setCompany(myProfile.company);
+
+  //     }
+  //   } catch (err) {
+  //       console.error(err);
+  //   }
+  // }
   
-  useEffect(() => {
-    getMemberInfo();
-  }, [])
+  // useEffect(() => {
+  //   getMemberInfo();
+  // }, [])
 
 
   const updateData = {
+    "name" : myProfile.name,
     "company": company,
     "email": email,
     "phone": phone
   }
-
+  console.log(updateData, "updateData🐰");
+  console.log(!!myProfile === !!updateData)
   const updateMyInfo = async(e) => {
     e.preventDefault();
     if(window.confirm('개인정보를 수정하시겠습니까?')) {
       try{
-        const response = await instanceAxios.put('/member/update', updateData)
-        console.log(response);
-        const data = response.data; 
+        const response = await instanceAxios.put('/member/update', updateData);
         if(response.status === 200) {
-          setEmail(data.email);
-          setPhone(data.phone);
-          setCompany(data.company);
           alert('성공적으로 정보를 수정하였습니다.🎉');
+          setMyProfile(updateData);
+          // console.log(myProfile, '⚠️수정 누르고');
         }
       } catch (err) {
-          console.error(err);
+        console.error(err);
       }
     }
   }
@@ -159,7 +164,12 @@ export default function MyPage() {
             </div>
           </WrapInputs>
             <WrapButton>
+            {(Object.values(myProfile).toString() != Object.values(updateData).toString()) && 
               <UpdateProfileBtn updateMyInfo={updateMyInfo}>수정</UpdateProfileBtn>
+            }
+            {(Object.values(myProfile).toString() === Object.values(updateData).toString()) && 
+              <UpdateInactiveProfileBtn updateMyInfo={updateMyInfo}>수정</UpdateInactiveProfileBtn>
+            }
             </WrapButton>
         </form>
       </ProfileBox>
