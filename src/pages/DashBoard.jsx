@@ -1,10 +1,23 @@
 import React from "react";
+import { BoardWrapBox } from "../components/containers/dashboard/BoardBox";
 import Layout from "../templates/Layout";
-
+import styled from "styled-components";
+const PageWrapper = styled.div`
+  width: 100%;
+  padding: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
 const DashBoard = () => {
   return (
     <Layout>
-      <div>대시보드</div>
+      <PageWrapper>
+        <BoardWrapBox>전체 발송량</BoardWrapBox>
+        <BoardWrapBox>발송중</BoardWrapBox>
+        <BoardWrapBox>발송 완료</BoardWrapBox>
+      </PageWrapper>
     </Layout>
   );
 };

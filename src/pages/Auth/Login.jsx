@@ -192,8 +192,7 @@ export default function Login() {
         const headersToken = tokenType + accessToken;
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
-        setMyProfile([]);
-        setMyProject([]);
+        window.localStorage.removeItem("recoil-persist");
         instanceAxios.defaults.headers.common["Authorization"] = headersToken;
         const checkAccount = async () => {
           try {

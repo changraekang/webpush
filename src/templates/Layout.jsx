@@ -127,7 +127,7 @@ const MyMenu = styled.ul`
 `;
 const MyProjectUl = styled.ul`
   position: absolute;
-  left: 220px;
+  left: 280px;
   top: 55px;
   width: 105px;
   border-radius: 8px;
@@ -155,6 +155,7 @@ const ProjcetInput = styled.input`
   width: 100%;
   padding: 10px 12px;
   box-sizing: border-box;
+  margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid ${grey5};
   cursor: pointer;
@@ -165,8 +166,8 @@ const ProjectList = styled.ul`
   flex-direction: column;
   position: absolute;
   width: 120px;
-  left: 0;
-  top: 42px;
+  left: 35px;
+  top: 85px;
   background-color: ${grey1};
   font-size: 14px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
@@ -222,12 +223,12 @@ export default function Layout({ children }) {
     handleOpenProject();
   };
   const handlePushProject = (pid, name) => {
-    handleOpenPushProject()
-    let body ={
+    handleOpenPushProject();
+    let body = {
       pid: pid,
-            name: name
-    }
-    setMyPushProject(body)
+      name: name,
+    };
+    setMyPushProject(body);
   };
 
   // refreshToken 재발급
@@ -276,36 +277,33 @@ export default function Layout({ children }) {
   return (
     <Header>
       {/* 왼쪽 */}
-      <ProjcetInput
-                type="text"
-                placeholder="프로젝트선택 선택"
-                readOnly
-                onClick={handleOpenPushProject}
-                value={myPushProject.name}
-              />
-              {isProjectOpen && (
-            <ProjectList>
-              {myProject.map(({pid, name}) => (
-                <ProjectOptions key={pid}>
-                  <button onClick={() => handlePushProject(pid,name)}>
-                    {name}
-                  </button>
-                </ProjectOptions>
-              ))}
-            </ProjectList>
-          )}
       <Nav>
         {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
         <MainLogo src={logo} alt="메인 로고" />
         <NavLi>
           <LI>
             {minutes} : {seconds < 10 ? "0" + seconds : seconds}{" "}
-            <div onClick={requestAccessToken}>
+            <div onClick={requestAccessToken} style={{ cursor: "pointer" }}>
               <Logo src={alarm} alt="alarm"></Logo>
               로그인 연장하기
             </div>
           </LI>
-
+          <ProjcetInput
+            type="text"
+            placeholder="프로젝트선택 선택"
+            readOnly
+            onClick={handleOpenPushProject}
+            value={myPushProject.name}
+          />
+          {isProjectOpen && (
+            <ProjectList>
+              {myProject.map(({ pid, name }) => (
+                <button onClick={() => handlePushProject(pid, name)}>
+                  <ProjectOptions key={pid}>{name}</ProjectOptions>
+                </button>
+              ))}
+            </ProjectList>
+          )}
           <LI>
             <LinkStyle to="/dashboard">대시보드</LinkStyle>
           </LI>
@@ -332,7 +330,14 @@ export default function Layout({ children }) {
             <MyButton onClick={handleOpenProject}>홈페이지 관리</MyButton>
             {openProject ? (
               <MyProjectUl>
-                <MyProLi>추가하기</MyProLi>
+                <MyProLi
+                  onClick={() => {
+                    setisModalOpen(true);
+                    setOpenProject(false);
+                  }}
+                >
+                  추가하기
+                </MyProLi>
                 {myProject.map(({ name, pid }) => {
                   return <MyProLi key={pid}>{name}</MyProLi>;
                 })}

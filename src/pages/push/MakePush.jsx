@@ -19,7 +19,7 @@ import {
 import ProjectModal from "../../components/modals/ProjectModal";
 import { instanceAxios } from "../../api/axios";
 import { getCookie } from "../../cookie/controlCookie";
-import { MyProject } from "../../atom/Atom";
+import { MyProject, MyPushProject } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 const TitleWrapper = styled.div`
   width: 100%;
@@ -36,10 +36,9 @@ const PageWrapper = styled.div`
 `;
 const WrapHomepages = styled.ul`
   display: flex;
-  gap: 10px;
+  font-weight: 600;
   position: relative;
   margin-bottom: 40px;
-
   ::after {
     position: absolute;
     display: block;
@@ -218,6 +217,7 @@ export default function MakePush() {
   const [pid, setPid] = useState("");
   const accessToken = getCookie("accessToken");
   const [myProject, setMyProject] = useRecoilState(MyProject);
+  const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
 
   const getClock = () => {
     const offset = 1000 * 60 * 60 * 9;
@@ -250,7 +250,7 @@ export default function MakePush() {
     link: "",
     image: "",
     date: "",
-    pid: pid,
+    pid: myPushProject.pid,
   });
 
   // 이미지 파일 관리
@@ -384,19 +384,7 @@ export default function MakePush() {
     <Layout>
       <TitleWrapper>
         <WrapHomepages>
-          {myProject?.map(({ name, pid }) => {
-            return (
-              <li key={pid}>
-                <SelectHomepage
-                  setValue={() => {
-                    setPid(pid);
-                  }}
-                >
-                  {name}
-                </SelectHomepage>
-              </li>
-            );
-          })}
+          {myPushProject.name}
         </WrapHomepages>
         <PageTitle>PUSH 작성 </PageTitle>
         <Message>
