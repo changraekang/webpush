@@ -158,7 +158,7 @@ export default function Layout({ children }) {
   const [openProject, setOpenProject] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
   const [isModalOpen, setisModalOpen] = useState(false);
-  const [minutes, setMinutes] = useState(9);
+  const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
@@ -219,7 +219,7 @@ export default function Layout({ children }) {
       const headersToken = tokenType + response.data.accessToken;
       setAccessTokenToCookie(headersToken);
       setRefreshTokenToCookie(response.data.refreshToken);
-      setMinutes(8);
+      setMinutes(4);
       setSeconds(59);
       instanceAxios.defaults.headers.common["Authorization"] = headersToken;
       console.log(response, "토큰 초기화");
