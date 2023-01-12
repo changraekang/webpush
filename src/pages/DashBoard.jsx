@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { grey3 } from "../constants/color";
 const PageWrapper = styled.div`
   width: 100%;
-  padding-top: 200px;
+  padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
