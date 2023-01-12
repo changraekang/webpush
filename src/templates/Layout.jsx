@@ -22,7 +22,7 @@ import {
 } from "../cookie/controlCookie";
 import { logout } from "../cookie/controlCookie";
 import { useRecoilState } from "recoil";
-import { MyProfile, MyProject } from "../atom/Atom";
+import { MyProfile, MyProject, MyPushProject } from "../atom/Atom";
 import ProjectModal from "../components/modals/ProjectModal";
 
 const Header = styled.header`
@@ -150,7 +150,36 @@ const MyProLi = styled.li`
   border-bottom: 1px solid ${grey11};
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
 `;
+
+const ProjcetInput = styled.input`
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid ${grey5};
+  cursor: pointer;
+`;
 //${(props) => (props.last ? "32px" : "16px")};
+const ProjectList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 120px;
+  left: 0;
+  top: 42px;
+  background-color: ${grey1};
+  font-size: 14px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
+  border-radius: 8px;
+  border: 1px solid ${grey5};
+  text-align: center;
+  z-index: 5;
+`;
+const ProjectOptions = styled.li`
+  padding: 12px 0;
+  border-bottom: 1px solid ${grey5};
+  border-bottom: ${(props) => (props.last ? "none" : `1px solid ${grey5}`)};
+`;
 
 export default function Layout({ children }) {
   const navigate = useNavigate();
@@ -158,11 +187,13 @@ export default function Layout({ children }) {
   const [openProject, setOpenProject] = useState(false);
   const [openMyMenu, setOpenMyMenu] = useState(false);
   const [isModalOpen, setisModalOpen] = useState(false);
+  const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
+  const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   const [project, setProject] = useState([]);
   // console.log(myProfile)
   useEffect(() => {
@@ -179,9 +210,24 @@ export default function Layout({ children }) {
   const handleOpenProject = () => {
     !openProject ? setOpenProject(true) : setOpenProject(false);
   };
+  const handleOpenPushProject = () => {
+    !isProjectOpen ? setIsProjectOpen(true) : setIsProjectOpen(false);
+  };
 
   const handleOpenMyMenu = () => {
     !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false);
+  };
+  const handleProject = (e) => {
+    e.preventDefault();
+    handleOpenProject();
+  };
+  const handlePushProject = (pid, name) => {
+    handleOpenPushProject()
+    let body ={
+      pid: pid,
+            name: name
+    }
+    setMyPushProject(body)
   };
 
   // refreshToken 재발급
@@ -227,10 +273,27 @@ export default function Layout({ children }) {
       console.error(err);
     }
   };
-
   return (
     <Header>
       {/* 왼쪽 */}
+      <ProjcetInput
+                type="text"
+                placeholder="프로젝트선택 선택"
+                readOnly
+                onClick={handleOpenPushProject}
+                value={myPushProject.name}
+              />
+              {isProjectOpen && (
+            <ProjectList>
+              {myProject.map(({pid, name}) => (
+                <ProjectOptions key={pid}>
+                  <button onClick={() => handlePushProject(pid,name)}>
+                    {name}
+                  </button>
+                </ProjectOptions>
+              ))}
+            </ProjectList>
+          )}
       <Nav>
         {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
         <MainLogo src={logo} alt="메인 로고" />

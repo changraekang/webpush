@@ -224,6 +224,9 @@ export default function Login() {
         console.log(response);
       }
     } catch (err) {
+      const cookies = new Cookies();
+      cookies.remove("refreshToken");
+      cookies.remove("accessToken");
       window.location.reload();
       console.error(err);
       console.error("실패");

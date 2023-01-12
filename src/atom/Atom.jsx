@@ -13,5 +13,10 @@ const MyProject = atom({
   default: [], // default value (aka initial value)
   effects_UNSTABLE: [persistAtom],
 });
+const MyPushProject = atom({
+  key: "MyPushProject", // unique ID (with respect to other atoms/selectors)
+  default: [], // default value (aka initial value)
+  effects_UNSTABLE: [persistAtom],
+});
 
-export { MyProfile, MyProject };
+export { MyProfile, MyProject, MyPushProject };
