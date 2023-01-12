@@ -217,9 +217,11 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
-    if (myProject) {
+    if (myProject.length > 0) {
       setisModalOpen(false);
     }
+    console.log(myProject);
+
     getClock();
     setInterval(getClock, 20000);
   }, []);

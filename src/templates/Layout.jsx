@@ -230,6 +230,9 @@ export default function Layout({ children }) {
       navigate("/");
     } else {
     }
+    if (myProject.length === 1) {
+      setMyPushProject(myProject[0]);
+    }
     requestAccessToken(refreshToken);
   }, []);
   const handleOpenNav = () => {
