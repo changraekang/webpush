@@ -128,7 +128,7 @@ const EmailList = styled.ul`
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 229px;
+  width: 173px;
   right: 0;
   top: 42px;
   background-color: ${grey1};

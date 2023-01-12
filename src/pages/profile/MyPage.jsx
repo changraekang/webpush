@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {ProfileBox} from '../../components/containers/profile/ProfileBox'
 import { grey3 } from '../../constants/color'
 import Layout from '../../templates/Layout';
-import { InputGroup } from '../../components/inputs/InputGroups'
+import { InputGroup, InputValidateGroup } from '../../components/inputs/InputGroups'
 import {UpdateProfileBtn} from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
@@ -30,6 +30,7 @@ export default function MyPage() {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneVaildation,   setPhoneVaildation] = useState(false);
 
   const getMemberInfo = async() => {
     try{
@@ -84,7 +85,7 @@ export default function MyPage() {
           <WrapInputs>
             <LabelStyle htmlFor="email">이메일</LabelStyle>
             <div>
-              <InputGroup 
+              <InputValidateGroup 
               type="text" 
               id='email' 
               value={email === undefined ? '' : email} 
@@ -95,7 +96,7 @@ export default function MyPage() {
           <WrapInputs>
             <LabelStyle htmlFor="phone">휴대폰 번호</LabelStyle>
             <div>
-              <InputGroup 
+              <InputValidateGroup 
               type="text" 
               id='phone' 
               value={phone === undefined ? '' : phone} 
