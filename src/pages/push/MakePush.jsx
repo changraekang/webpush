@@ -4,7 +4,7 @@ import PushBox from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
 import { grey5, grey10, grey2, grey4 } from "../../constants/color";
 import activeCheck from "../../assets/images/active-check.png";
-import Fox from "../../assets/images/fox.png";
+import Rectangle from "../../assets/images/demoBox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
 import { DemoBox, DemoWrapBox } from "../../components/containers/push/DemoBox";
 import {
@@ -557,7 +557,7 @@ export default function MakePush() {
               <Title>웹푸시 미리보기</Title>
               <DemoWrapperBox>
                 <DemoBox>
-                  <DemoImg src={demoImg} alt="데모이미지" />
+                  <DemoImg src={demoImg? demoImg : Rectangle } alt="데모이미지" />
                   <DemoSection>
                     <SubDemoTitle>{inputs.title}</SubDemoTitle>
                     <SubMessage>{inputs.content}</SubMessage>
