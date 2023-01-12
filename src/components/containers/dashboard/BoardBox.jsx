@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { grey1 } from "../../../constants/color";
 
 const Box = styled.div`
   padding: 32px;
   width: 300px;
-  margin-left: 30px;
+  height: 160px;
   border-radius: 16px;
-  border: 2px solid #afafaf;
+  background-color: ${grey1};
+  box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.06);
 `;
 const DemoShowBox = styled.div`
   padding: 32px;
@@ -13,8 +15,8 @@ const DemoShowBox = styled.div`
   display: flex;
   margin-left: 25px;
   margin-right: 25px;
-  box-shadow: 0px -3px 16px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
+  box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.06);
 `;
 
 export function BoardWrapBox({ children }) {

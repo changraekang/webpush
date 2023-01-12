@@ -7,10 +7,10 @@ const PageWrapper = styled.div`
   width: 100%;
   padding: 20px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  justify-content: center;
+  gap: 40px;
   background-color: ${grey3};
-  justify-content: space-around;
+  height: 100vh;
 `;
 const DashBoard = () => {
   return (
