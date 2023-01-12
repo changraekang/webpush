@@ -22,7 +22,7 @@ import {
 } from "../cookie/controlCookie";
 import { logout } from "../cookie/controlCookie";
 import { useRecoilState } from "recoil";
-import { MyProfile } from "../atom/Atom";
+import { MyProfile, MyProject } from "../atom/Atom";
 import ProjectModal from "../components/modals/ProjectModal";
 
 const Header = styled.header`
@@ -125,7 +125,7 @@ const MyMenu = styled.ul`
     top: 55px;
   }
 `;
-const MyProject = styled.ul`
+const MyProjectUl = styled.ul`
   position: absolute;
   left: 220px;
   top: 55px;
@@ -162,6 +162,7 @@ export default function Layout({ children }) {
   const [seconds, setSeconds] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
+  const [myProject, setMyProject] = useRecoilState(MyProject);
   const [project, setProject] = useState([]);
   // console.log(myProfile)
   useEffect(() => {
@@ -267,12 +268,12 @@ export default function Layout({ children }) {
           <ProLi>
             <MyButton onClick={handleOpenProject}>홈페이지 관리</MyButton>
             {openProject ? (
-              <MyProject>
+              <MyProjectUl>
                 <MyProLi>추가하기</MyProLi>
-                {project.map(({ name, pid }) => {
+                {myProject.map(({ name, pid }) => {
                   return <MyProLi key={pid}>{name}</MyProLi>;
                 })}
-              </MyProject>
+              </MyProjectUl>
             ) : null}
           </ProLi>
           <MyButton onClick={handleOpenMyMenu}>

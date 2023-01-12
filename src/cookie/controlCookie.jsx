@@ -35,9 +35,9 @@ export const logout = async () => {
       // dispatch({type: 'logout'})
       cookies.remove("refreshToken");
       cookies.remove("accessToken");
-
       instanceAxios.defaults.headers.common["Authorization"] = null;
       window.location.reload();
+      window.localStorage.removeItem("recoil-persist");
       console.log("로그아웃 성공🎉");
     }
   } catch (err) {

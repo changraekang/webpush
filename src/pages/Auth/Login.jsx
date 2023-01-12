@@ -191,6 +191,8 @@ export default function Login() {
         const headersToken = tokenType + accessToken;
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
+        setMyProfile([])
+        setMyProject([])
         instanceAxios.defaults.headers.common["Authorization"] = headersToken;
         const checkAccount = async () => {
           try {
@@ -202,6 +204,7 @@ export default function Login() {
                   const response = await instanceAxios.get("/project/all");
                   if (response.status === 200) {
                     setMyProject(response.data);
+                    console.log(myProject,"프로젝트")
                   }
                 } catch (err) {
                   // login yet
@@ -227,7 +230,6 @@ export default function Login() {
   };
   return (
     <Section>
-      <div id="demo"></div>
       <ImageSection>
         <MainImage src={mainImage} alt="메인이미지" />
       </ImageSection>
