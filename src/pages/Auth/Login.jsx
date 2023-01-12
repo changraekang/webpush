@@ -28,7 +28,7 @@ import {
 } from "../../cookie/controlCookie";
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
-import { MyProfile, MyProject } from "../../atom/Atom";
+import { MyProfile, MyProject, MyPushProject } from "../../atom/Atom";
 import "../../allowDemo.js";
 import Cookies from "universal-cookie";
 
@@ -143,7 +143,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
-
+  const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   // useEffect(()=> {
   //   const script = document.createElement("script");
   //   script.src = "../../allowDemo.js";
@@ -204,6 +204,9 @@ export default function Login() {
                   const response = await instanceAxios.get("/project/all");
                   if (response.status === 200) {
                     setMyProject(response.data);
+                    if (response.data.length === 1) {
+                      setMyPushProject(response.data[0]);
+                    }
                   }
                 } catch (err) {
                   // login yet

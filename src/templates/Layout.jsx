@@ -1,6 +1,7 @@
 import logo from "../assets/images/logo.png";
 import mypageLogo from "../assets/images/mypage-logo.png";
 import alarm from "../assets/images/alarm.png";
+import plus from "../assets/images/plus.png";
 import styled from "styled-components";
 import {
   grey3,
@@ -43,7 +44,11 @@ const MainLogo = styled.img`
 const NavLi = styled.ul`
   margin-top: 61px;
 `;
-const ProLi = styled.ul``;
+const ProLi = styled.ul`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 const WrapRight = styled.div`
   display: flex;
@@ -58,9 +63,9 @@ const TopHeader = styled.div`
   align-items: start;
   justify-content: space-between;
   background: ${grey1};
-  box-shadow:  0px 0px 50px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
   padding: 21px;
-  z-index: 5;
+  z-index: 4;
 `;
 
 const LI = styled.li`
@@ -141,6 +146,10 @@ const Logo = styled.img`
   width: 15px;
   height: 15px;
 `;
+const Plus = styled.img`
+  width: 25px;
+  height: 25px;
+`;
 const MyMenuLi = styled.li`
   cursor: pointer;
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
@@ -178,9 +187,26 @@ const ProjectList = styled.ul`
   z-index: 5;
 `;
 const ProjectOptions = styled.li`
-  padding: 12px 0;
-  border-bottom: 1px solid ${grey5};
-  border-bottom: ${(props) => (props.last ? "none" : `1px solid ${grey5}`)};
+  width: 80px;
+  padding: 6px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${primary4};
+  border-bottom: 3px solid ${grey1};
+  cursor: pointer;
+  &:hover {
+    border-bottom: 3px solid ${primary4};
+  }
+`;
+const ProjectSelectOptions = styled.li`
+  width: 80px;
+  padding: 6px 0;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+  color: ${grey1};
+  background-color: ${primary4};
+  cursor: pointer;
 `;
 
 export default function Layout({ children }) {
@@ -203,6 +229,9 @@ export default function Layout({ children }) {
       // login yet
       navigate("/");
     } else {
+    }
+    if (myProject.length === 1) {
+      setMyPushProject(myProject[0]);
     }
     requestAccessToken(refreshToken);
   }, []);
@@ -230,6 +259,14 @@ export default function Layout({ children }) {
       name: name,
     };
     setMyPushProject(body);
+  };
+  const handleAddProject = () => {
+    console.log(myProject, "플젝");
+    if (myProject.length > 2) {
+      alert("프로젝트는 3개까지 가능합니다.");
+    } else {
+      setisModalOpen(true);
+    }
   };
 
   // refreshToken 재발급
@@ -289,22 +326,6 @@ export default function Layout({ children }) {
               로그인 연장하기
             </div>
           </LI>
-          <ProjcetInput
-            type="text"
-            placeholder="프로젝트선택 선택"
-            readOnly
-            onClick={handleOpenPushProject}
-            value={myPushProject.name}
-          />
-          {isProjectOpen && (
-            <ProjectList>
-              {myProject.map(({ pid, name }) => (
-                <button onClick={() => handlePushProject(pid, name)}>
-                  <ProjectOptions key={pid}>{name}</ProjectOptions>
-                </button>
-              ))}
-            </ProjectList>
-          )}
           <LI>
             <LinkStyle to="/dashboard">대시보드</LinkStyle>
           </LI>
@@ -328,23 +349,24 @@ export default function Layout({ children }) {
       <WrapRight>
         <TopHeader>
           <ProLi>
-            <MyButton onClick={handleOpenProject}>홈페이지 관리</MyButton>
-            {openProject ? (
-              <MyProjectUl>
-                <MyProLi
-                  onClick={() => {
-                    setisModalOpen(true);
-                    setOpenProject(false);
-                    setIsProjectOpen(false);
-                  }}
-                >
-                  추가하기
-                </MyProLi>
-                {myProject.map(({ name, pid }) => {
-                  return <MyProLi key={pid}>{name}</MyProLi>;
-                })}
-              </MyProjectUl>
-            ) : null}
+            {myProject.map(({ pid, name }) => {
+              if (pid !== myPushProject.pid) {
+                return (
+                  <button onClick={() => handlePushProject(pid, name)}>
+                    <ProjectOptions key={pid}>{name}</ProjectOptions>
+                  </button>
+                );
+              } else {
+                return (
+                  <button onClick={() => handlePushProject(pid, name)}>
+                    <ProjectSelectOptions key={pid}>
+                      {name}
+                    </ProjectSelectOptions>
+                  </button>
+                );
+              }
+            })}
+            <Plus src={plus} alt="plus" onClick={handleAddProject}></Plus>
           </ProLi>
           <MyButton onClick={handleOpenMyMenu}>
             {myProfile.name}(master)
