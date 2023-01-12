@@ -18,6 +18,7 @@ import { InputGroup } from "../inputs/InputGroups";
 
 const Wrapper = styled.div`
   position: fixed;
+  z-index: 10;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   display: flex;
   flex-direction: column;

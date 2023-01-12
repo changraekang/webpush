@@ -37,18 +37,8 @@ const PageWrapper = styled.div`
 const WrapHomepages = styled.ul`
   display: flex;
   font-weight: 600;
-  position: relative;
   margin-bottom: 40px;
-  ::after {
-    position: absolute;
-    display: block;
-    content: "";
-    width: 100%;
-    height: 2px;
-    background-color: ${grey4};
-    bottom: -20px;
-    left: 0;
-  }
+  border-bottom: 3px solid black;
 `;
 const SectionWrapper = styled.div`
   width: 100%;
@@ -227,8 +217,8 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
-    if(myProject) {
-      setisModalOpen(false)
+    if (myProject) {
+      setisModalOpen(false);
     }
     getClock();
     setInterval(getClock, 20000);
@@ -383,9 +373,7 @@ export default function MakePush() {
   return (
     <Layout>
       <TitleWrapper>
-        <WrapHomepages>
-          {myPushProject.name}
-        </WrapHomepages>
+        <WrapHomepages>{myPushProject.name}</WrapHomepages>
         <PageTitle>PUSH 작성 </PageTitle>
         <Message>
           고객들에게 날릴 웹푸시를 작성 및 등록할 수 있는 페이지입니다.
@@ -545,7 +533,10 @@ export default function MakePush() {
               <Title>웹푸시 미리보기</Title>
               <DemoWrapperBox>
                 <DemoBox>
-                  <DemoImg src={demoImg? demoImg : Rectangle } alt="데모이미지" />
+                  <DemoImg
+                    src={demoImg ? demoImg : Rectangle}
+                    alt="데모이미지"
+                  />
                   <DemoSection>
                     <SubDemoTitle>{inputs.title}</SubDemoTitle>
                     <SubMessage>{inputs.content}</SubMessage>

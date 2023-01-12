@@ -333,6 +333,7 @@ export default function Layout({ children }) {
                   onClick={() => {
                     setisModalOpen(true);
                     setOpenProject(false);
+                    setIsProjectOpen(false);
                   }}
                 >
                   추가하기
