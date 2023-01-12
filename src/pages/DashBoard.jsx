@@ -4,7 +4,7 @@ import Layout from "../templates/Layout";
 import styled from "styled-components";
 const PageWrapper = styled.div`
   width: 100%;
-  padding: 200px;
+  padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
