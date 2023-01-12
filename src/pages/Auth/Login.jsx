@@ -180,11 +180,9 @@ export default function Login() {
   };
 
   // 로그인 요청
+  // 로그인 > me > project
   const requestLogin = async (e) => {
-    const cookies = new Cookies();
     e.preventDefault();
-    cookies.remove("refreshToken");
-      cookies.remove("accessToken");
     try {
       const response = await instanceAxios.post("/auth/login", loginData);
       if (response.status === 200) {
@@ -226,6 +224,7 @@ export default function Login() {
         console.log(response);
       }
     } catch (err) {
+      window.location.reload();
       console.error(err);
       console.error("실패");
     }
