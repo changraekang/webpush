@@ -211,10 +211,9 @@ const ProjectSelectOptions = styled.li`
 
 export default function Layout({ children }) {
   const navigate = useNavigate();
-  const [openNav, setOpenNav] = useState(false);
-  const [openProject, setOpenProject] = useState(false);
-  const [openMyMenu, setOpenMyMenu] = useState(false);
-  const [isModalOpen, setisModalOpen] = useState(false);
+  const [isOpenNav, setIsOpenNav] = useState(false);
+  const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
+  const [isOpenMobal, setIsOpenModal] = useState(false);
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
@@ -236,21 +235,14 @@ export default function Layout({ children }) {
     requestAccessToken(refreshToken);
   }, []);
   const handleOpenNav = () => {
-    !openNav ? setOpenNav(true) : setOpenNav(false);
-  };
-  const handleOpenProject = () => {
-    !openProject ? setOpenProject(true) : setOpenProject(false);
+    !isOpenNav ? setIsOpenNav(true) : setIsOpenNav(false);
   };
   const handleOpenPushProject = () => {
     !isProjectOpen ? setIsProjectOpen(true) : setIsProjectOpen(false);
   };
 
   const handleOpenMyMenu = () => {
-    !openMyMenu ? setOpenMyMenu(true) : setOpenMyMenu(false);
-  };
-  const handleProject = (e) => {
-    e.preventDefault();
-    handleOpenProject();
+    !isOpenMyMenu ? setIsOpenMyMenu(true) : setIsOpenMyMenu(false);
   };
   const handlePushProject = (pid, name) => {
     handleOpenPushProject();
@@ -265,7 +257,7 @@ export default function Layout({ children }) {
     if (myProject.length > 2) {
       alert("프로젝트는 3개까지 가능합니다.");
     } else {
-      setisModalOpen(true);
+      setIsOpenModal(true);
     }
   };
 
@@ -316,7 +308,7 @@ export default function Layout({ children }) {
     <Header>
       {/* 왼쪽 */}
       <Nav>
-        {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
+        {isOpenMobal && <ProjectModal setClose={setIsOpenModal} />}
         <MainLogo src={logo} alt="메인 로고" />
         <NavLi>
           <LI>
@@ -332,7 +324,7 @@ export default function Layout({ children }) {
           <LI onClick={handleOpenNav}>
             <A href="#">PUSH 관리</A>
           </LI>
-          {openNav && (
+          {isOpenNav && (
             <SubNav>
               <SubLI>
                 <LinkStyle to="/makePush">push 작성</LinkStyle>
@@ -371,7 +363,7 @@ export default function Layout({ children }) {
           <MyButton onClick={handleOpenMyMenu}>
             {myProfile.name}(master)
           </MyButton>
-          {openMyMenu && (
+          {isOpenMyMenu && (
             <MyMenu>
               <MyMenuLi first>MASTER</MyMenuLi>
               <MyMenuLi>

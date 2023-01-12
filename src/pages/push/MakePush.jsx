@@ -204,8 +204,6 @@ export default function MakePush() {
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
   const [submitDate, setSubmitDate] = useState(ReserveMin);
-  const [pid, setPid] = useState("");
-  const accessToken = getCookie("accessToken");
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
 
@@ -363,7 +361,10 @@ export default function MakePush() {
     }
     inputs.image = previewImg;
     try {
-      const response = await instanceAxios.post(`/message/${pid}/add`, inputs);
+      const response = await instanceAxios.post(
+        `/message/${myPushProject.pid}/add`,
+        inputs
+      );
       if (response.status === 200) {
         console.log("메세지 등록 성공🎉");
       }
@@ -375,7 +376,9 @@ export default function MakePush() {
   return (
     <Layout>
       <TitleWrapper>
-        <WrapHomepages>{myPushProject.name}</WrapHomepages>
+        <WrapHomepages>
+          {myPushProject.name ? myPushProject.name : "프로젝트를 선택해주세요"}
+        </WrapHomepages>
         <PageTitle>PUSH 작성 </PageTitle>
         <Message>
           고객들에게 날릴 웹푸시를 작성 및 등록할 수 있는 페이지입니다.
@@ -553,6 +556,7 @@ export default function MakePush() {
           {content &&
             title &&
             link &&
+            myPushProject.pid &&
             (isMobileCheck || isWebCheck) &&
             (isDirectCheck || isReserveCheck) && (
               <ActivePushButton handleSubmit={onClickSubmit}>
@@ -562,6 +566,7 @@ export default function MakePush() {
           {(!content ||
             !title ||
             !link ||
+            !myPushProject.pid ||
             (!isMobileCheck && !isWebCheck) ||
             (!isDirectCheck && !isReserveCheck)) && (
             <InactivePushButton>발송</InactivePushButton>
