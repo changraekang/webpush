@@ -25,6 +25,7 @@ import { logout } from "../cookie/controlCookie";
 import { useRecoilState } from "recoil";
 import { MyProfile, MyProject, MyPushProject } from "../atom/Atom";
 import ProjectModal from "../components/modals/ProjectModal";
+import settingHomepage from "../assets/images/homepageSetting.png"
 
 const Header = styled.header`
   display: flex;
@@ -131,61 +132,26 @@ const MyMenu = styled.ul`
     top: 55px;
   }
 `;
-const MyProjectUl = styled.ul`
-  position: absolute;
-  left: 280px;
-  top: 55px;
-  width: 105px;
-  border-radius: 8px;
-  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
-  background-color: ${grey1};
-  text-align: center;
-  padding: 16px;
-`;
-const Logo = styled.img`
+
+const Bell = styled.img`
   width: 15px;
   height: 15px;
+  margin-top: 8px;
+  cursor: pointer;
 `;
-const Plus = styled.img`
-  width: 25px;
-  height: 25px;
+
+const Icon = styled.img`
+  width: 20px;
+  height: 20px;
+  padding-right: 8px;
+  cursor: pointer;
 `;
+
 const MyMenuLi = styled.li`
   cursor: pointer;
   margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
 `;
-const MyProLi = styled.li`
-  cursor: pointer;
-  padding-bottom: 3px;
-  border-bottom: 1px solid ${grey11};
-  margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
-`;
 
-const ProjcetInput = styled.input`
-  width: 100%;
-  padding: 10px 12px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid ${grey5};
-  cursor: pointer;
-`;
-//${(props) => (props.last ? "32px" : "16px")};
-const ProjectList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 120px;
-  left: 35px;
-  top: 85px;
-  background-color: ${grey1};
-  font-size: 14px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
-  border-radius: 8px;
-  border: 1px solid ${grey5};
-  text-align: center;
-  z-index: 5;
-`;
 const ProjectOptions = styled.li`
   width: 80px;
   padding: 6px 0;
@@ -317,12 +283,14 @@ export default function Layout({ children }) {
       {/* 왼쪽 */}
       <Nav>
         {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
-        <MainLogo src={logo} alt="메인 로고" />
+        <Link to="/dashboard">
+          <MainLogo src={logo} alt="메인 로고" />
+        </Link>
         <NavLi>
           <LI>
             {minutes} : {seconds < 10 ? "0" + seconds : seconds}{" "}
             <div onClick={requestAccessToken} style={{ cursor: "pointer" }}>
-              <Logo src={alarm} alt="alarm"></Logo>
+              <Bell src={alarm} alt="alarm" />
               로그인 연장하기
             </div>
           </LI>
@@ -366,7 +334,8 @@ export default function Layout({ children }) {
                 );
               }
             })}
-            <Plus src={plus} alt="plus" onClick={handleAddProject}></Plus>
+            <Icon src={plus} alt="plus" onClick={handleAddProject} />
+            <Icon src={settingHomepage} alt="홈페이지 관리하기" onClick={() => {navigate('/homepage')}}/>
           </ProLi>
           <MyButton onClick={handleOpenMyMenu}>
             {myProfile.name}(master)
