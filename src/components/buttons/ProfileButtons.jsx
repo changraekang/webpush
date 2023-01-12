@@ -20,10 +20,15 @@ const Button = styled.button`
   &:hover {
   }
 `;
-
 export function UpdateProfileBtn({children, updateMyInfo}) {
   return (
     <Button active onClick={updateMyInfo}>{children}</Button>
+  )
+}
+
+export function UpdateInactiveProfileBtn({children}) {
+  return (
+    <Button inactive disabled>{children}</Button>
   )
 }
 
