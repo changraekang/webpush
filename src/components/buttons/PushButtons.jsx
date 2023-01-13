@@ -32,6 +32,7 @@ const ImageButton = styled.button`
   display: block;
   border: none;
   width: 225px;
+  /* width: ${props => props.icon ? "100px" : "225px"}; */
   padding: 10px;
   margin-left: 15px;
   margin-top: 15px;
@@ -70,4 +71,8 @@ function RegisterImageButton({ children, handleUploadImage }) {
   return <ImageButton onClick={handleUploadImage}>{children}</ImageButton>;
 }
 
-export { ActivePushButton, InactivePushButton, RegisterImageButton };
+function RegisterIconButton({ children, handleUploadIcon }) {
+  return <ImageButton icon onClick={handleUploadIcon}>{children}</ImageButton>;
+}
+
+export { ActivePushButton, InactivePushButton, RegisterImageButton , RegisterIconButton};

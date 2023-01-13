@@ -29,7 +29,6 @@ import {
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
 import { MyProfile, MyProject, MyPushProject } from "../../atom/Atom";
-// import "../../allowDemo.js";
 import Cookies from "universal-cookie";
 
 const Section = styled.section`
