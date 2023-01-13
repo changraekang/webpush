@@ -29,7 +29,6 @@ import {
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
 import { MyProfile, MyProject, MyPushProject } from "../../atom/Atom";
-// import "../../allowDemo.js";
 import Cookies from "universal-cookie";
 
 const Section = styled.section`
@@ -144,11 +143,6 @@ export default function Login() {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-  // useEffect(()=> {
-  //   const script = document.createElement("script");
-  //   script.src = "../../allowDemo.js";
-  //   document.body.appendChild(script);
-  // }, [])
 
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
@@ -239,7 +233,6 @@ export default function Login() {
       <ImageSection>
         <MainImage src={mainImage} alt="메인이미지" />
       </ImageSection>
-
       <InputSection>
         <h1 className="ir">회원가입</h1>
         <LoginBox>
