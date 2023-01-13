@@ -1,7 +1,8 @@
 const openDemo = () => {
-    const container = document.querySelector('#demo');
-    console.log(container, "container");
-    container.innerHTML = `
+    const Div = document.createElement('div');
+    Div.id = "dmpush";
+    document.body.appendChild(Div);
+    Div.innerHTML = `
     <article style="
         position:fixed;
         z-index: 10;
@@ -23,7 +24,9 @@ const openDemo = () => {
         justify-content: center;
         gap: 12px;"
         >
-        <button style= "
+        <button
+          id="regretBtn" 
+          style= "
             display: block;
             width: 100px;
             border: none;
@@ -33,9 +36,7 @@ const openDemo = () => {
             color: #fff;
             font-size: 16px;
             font-weight: 600;
-            text-align: center;
-            
-            id="regretBtn"
+            text-align: center;"
         >
             다음에
         </button>
@@ -59,6 +60,8 @@ const openDemo = () => {
     </article>
     `
     const agreeBtn = document.querySelector('#agreeBtn');
+    const regretBtn = document.querySelector('#regretBtn');
+    const dmpush = document.querySelector('#dmpush');
     let popupWidth = 500;
     let popupHeight = 500;
 
@@ -69,9 +72,13 @@ const openDemo = () => {
     // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
     // http://dev2023.dmpush.kr:8080?site=${pid}
     agreeBtn.addEventListener('click',()=> {
-        window.open('http://dev2023.dmpush.kr:8080', "demo",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY + ",menubar=no, toolbar=no, resizable=no" );
+        window.open(`http://dev2023.dmpush.kr:8080?site_id=${pid}`, "demo",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY + ",menubar=no, toolbar=no, resizable=no" );
 
-        container.remove();
+        Div.remove();
+    });
+
+    regretBtn.addEventListener('click', () => {
+        Div.remove();
     })
 }
 
