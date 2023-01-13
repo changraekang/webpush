@@ -143,11 +143,6 @@ export default function Login() {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-  // useEffect(()=> {
-  //   const script = document.createElement("script");
-  //   script.src = "../../allowDemo.js";
-  //   document.body.appendChild(script);
-  // }, [])
 
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
@@ -238,7 +233,6 @@ export default function Login() {
       <ImageSection>
         <MainImage src={mainImage} alt="메인이미지" />
       </ImageSection>
-
       <InputSection>
         <h1 className="ir">회원가입</h1>
         <LoginBox>
