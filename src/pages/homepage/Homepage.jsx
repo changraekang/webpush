@@ -6,8 +6,10 @@ import UpdateProfile from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 import HompageButton from "../../components/buttons/HompageButtons";
-import { grey1, grey4, primary4 } from "../../constants/color";
+import { grey1, grey4, primary4, error3 } from "../../constants/color";
 import {SelectHomepage, UpdateHomepage} from "../../components/buttons/HompageButtons";
+import { useRecoilState } from "recoil";
+import { MyProject } from "../../atom/Atom";
 const WrapInputs = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -26,13 +28,14 @@ const WrapButton = styled.div`
   margin: 40px auto 0;
 `
 
-const WrapHomepages = styled.ul`
+const TopAlign = styled.ul`
   display: flex;
   gap: 10px;
   position: relative;
   margin-bottom: 40px;
+  justify-content: space-between;
 
-  ::after {
+    ::after {
     position: absolute;
     display: block;
     content: '';
@@ -43,6 +46,18 @@ const WrapHomepages = styled.ul`
     left: 0;
   }
 `
+
+const WrapHomepages = styled.ul`
+  display: flex;
+  gap: 10px;
+  position: relative;
+  align-items: center;
+`
+
+ const DeleteBtn = styled.button`
+  color: ${error3};
+  font-weight: 600;
+ `
 
 export default function Homepage() {
   const [projectArr, setProjectArr] = useState([]);
@@ -118,17 +133,20 @@ export default function Homepage() {
   return (
     <Layout>
       <HomepageBox>
-        <WrapHomepages>
-          {projectArr?.map(({name, pid})=> {
-            return (
-              <li key={pid}>
-                <SelectHomepage setValue={()=> {setPid(pid);}}>
-                  {name}
-                </SelectHomepage >
-              </li>
-            ) 
-          })}
-        </WrapHomepages>
+        <TopAlign>
+          <WrapHomepages>
+            {projectArr?.map(({name, pid})=> {
+              return (
+                <li key={pid}>
+                  <SelectHomepage setValue={()=> {setPid(pid);}}>
+                    {name}
+                  </SelectHomepage >
+                </li>
+              ) 
+            })}
+          </WrapHomepages>
+          <DeleteBtn>삭제하기</DeleteBtn>
+        </TopAlign>
       <form action="post">
         <WrapInputs>
           <LabelStyle htmlFor="homepage">홈페이지명</LabelStyle>
