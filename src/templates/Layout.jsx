@@ -8,7 +8,7 @@ import {
   grey1,
   primary4,
   primary5,
-  grey5,
+  grey7,
   grey10,
   grey11,
 } from "../constants/color";
@@ -70,7 +70,7 @@ const TopHeader = styled.div`
 `;
 
 const LI = styled.li`
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 `;
 
 const A = styled.a`
@@ -83,7 +83,7 @@ const SubNav = styled.ul`
 
 const SubLI = styled.li`
   color: ${grey10};
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 `;
 const LinkStyle = styled(Link)`
   color: ${grey10};
@@ -133,10 +133,17 @@ const MyMenu = styled.ul`
   }
 `;
 
+const WrapBell = styled.div`
+  cursor: pointer;
+  margin-bottom: 45px;
+  font-size: 14px;
+  color: ${grey7};
+`
+
 const Bell = styled.img`
-  width: 15px;
-  height: 15px;
-  margin-top: 8px;
+  width: 10px;
+  height: 11px;
+  margin: 8px 8px 0 0;
   cursor: pointer;
 `;
 
@@ -280,11 +287,13 @@ export default function Layout({ children }) {
         </Link>
         <NavLi>
           <LI>
-            {minutes} : {seconds < 10 ? "0" + seconds : seconds}{" "}
-            <div onClick={requestAccessToken} style={{ cursor: "pointer" }}>
+            <WrapBell onClick={requestAccessToken}>
+              <p>
+                {minutes} : {seconds < 10 ? "0" + seconds : seconds}
+              </p>
               <Bell src={alarm} alt="alarm" />
               로그인 연장하기
-            </div>
+            </WrapBell>
           </LI>
           <LI>
             <LinkStyle to="/dashboard">대시보드</LinkStyle>
@@ -312,17 +321,21 @@ export default function Layout({ children }) {
             {myProject.map(({ pid, name }) => {
               if (pid !== myPushProject.pid) {
                 return (
-                  <button onClick={() => handlePushProject(pid, name)}>
-                    <ProjectOptions key={pid}>{name}</ProjectOptions>
-                  </button>
+                  <li key={pid} onClick={() => handlePushProject(pid, name)}>
+                    <button>
+                      <ProjectOptions>{name}</ProjectOptions>
+                    </button>
+                  </li>
                 );
               } else {
                 return (
-                  <button onClick={() => handlePushProject(pid, name)}>
-                    <ProjectSelectOptions key={pid}>
-                      {name}
-                    </ProjectSelectOptions>
-                  </button>
+                  <li key={pid}>
+                    <button onClick={() => handlePushProject(pid, name)}>
+                      <ProjectSelectOptions>
+                        {name}
+                      </ProjectSelectOptions>
+                    </button>
+                  </li>
                 );
               }
             })}
