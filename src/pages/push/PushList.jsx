@@ -16,11 +16,15 @@ const Fox = styled.img`
   width: 150px;
   height: 150px;
 `;
+const Title = styled.p`
+  font-size: large;
+  font-weight: bold;
+`;
 const PushList = () => {
   return (
     <Layout>
       <PageWrapper>
-        안녕!
+        <Title>안녕!</Title>
         <Fox src={fox} />
       </PageWrapper>
     </Layout>

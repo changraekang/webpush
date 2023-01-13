@@ -215,8 +215,8 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
-    if (myProject.length > 0) {
-      setisModalOpen(false);
+    if (myProject.length === 0) {
+      setisModalOpen(true);
     }
     console.log(myProject);
 
@@ -226,7 +226,7 @@ export default function MakePush() {
 
   const [isWebCheck, setisWebCheck] = useState(false);
   const [isMobileCheck, setisMobileCheck] = useState(false);
-  const [isModalOpen, setisModalOpen] = useState(true);
+  const [isModalOpen, setisModalOpen] = useState(false);
   const [isAdsCheck, setIsAdsCheck] = useState(false);
   const [isInfoCheck, setisInfoCheck] = useState(false);
   const [isEtcCheck, setisEtcCheck] = useState(false);
