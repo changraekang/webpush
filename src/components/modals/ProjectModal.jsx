@@ -88,6 +88,7 @@ const SelectCatContents = styled.div`
   color: ${grey1};
 `;
 const ModalWrapper = styled.div`
+  position: relative;
   display: flex;
   padding: 20px;
   flex-direction: column;
@@ -98,6 +99,15 @@ const ModalWrapper = styled.div`
   border-radius: 16px 16px 0 0;
   font-family: "Pretendard-Regular";
 `;
+
+const CloseModal = styled.p`
+  position: absolute;
+  right: 13px;
+  top: -13px;
+  width: 24px;
+  height: 14px;
+  cursor: pointer;
+`
 const ModalContent = styled.div`
   display: flex;
   flex-direction: row;
@@ -201,6 +211,7 @@ const ProjectModal = (props) => {
   const renderWriteCatModal = () => {
     return (
       <ModalWrapper>
+        <CloseModal onClick={() =>{props.setClose(false)}}>X</CloseModal>
         {/* <>{step}</> */}
         <Title>🏠 홈페이지</Title>
         <SubTitle>DMPUSH를 사용할 홈페이지와 주소를 입력해주세요</SubTitle>
@@ -208,7 +219,7 @@ const ProjectModal = (props) => {
           <WrapContents>
             <form action="post">
               <ProjectInputWrap>
-                <SubTitle>홈페이지 명</SubTitle>
+                <SubTitle>홈페이지 이름</SubTitle>
                 <InputGroup
                   setValue={setHomepage}
                   value={homepage}
