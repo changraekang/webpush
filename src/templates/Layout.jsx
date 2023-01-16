@@ -23,7 +23,13 @@ import {
 } from "../cookie/controlCookie";
 import { logout } from "../cookie/controlCookie";
 import { useRecoilState } from "recoil";
-import { MyCategory, MyProfile, MyProject, MyPushProject } from "../atom/Atom";
+import {
+  MyCategory,
+  MyProfile,
+  MyProject,
+  MyPushProject,
+  IsOpenModal,
+} from "../atom/Atom";
 import ProjectModal from "../components/modals/ProjectModal";
 import settingHomepage from "../assets/images/homepageSetting.png";
 
@@ -187,7 +193,6 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
   const [isOpenNav, setIsOpenNav] = useState(false);
   const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
-  const [isOpenMobal, setIsOpenModal] = useState(false);
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
@@ -196,19 +201,51 @@ export default function Layout({ children }) {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
+  const [isOpenMobal, setIsOpenModal] = useRecoilState(IsOpenModal);
   const [project, setProject] = useState([]);
   useEffect(() => {
-    console.log(myProject, "🔥🔥🔥");
+    const checkAccount = async () => {
+      try {
+        const response = await instanceAxios.post("/member/me");
+        if (response.status === 200) {
+          console.log(response, "회원확인");
+        }
+      } catch (err) {
+        // login yet
+        navigate("/");
+        console.error(err);
+      }
+    };
+    {
+      /**
+  const checkProject = async () => {
+    try {
+      const response = await instanceAxios.get("/project/all");
+      if (response.status === 200) {
+        setMyProject(response.data);
+          setMyPushProject(response.data[0]);
+          if (response.data.length === 0) {
+            setIsOpenModal(true);
+          }
+        }
+      } catch (err) {
+        // login yet
+        console.error(err);
+      }
+    };
+    checkProject();
+  */
+    }
     if (!refreshToken) {
       // login yet
       navigate("/");
     } else {
+      checkAccount();
     }
-    console.log(isOpenMobal, "모달");
     requestAccessToken(refreshToken);
   }, []);
   useEffect(() => {
-    if (myProject.length === 0) {
+    if (!myProject) {
       setIsOpenModal(true);
     }
     if (myProject.length === 1) {
@@ -236,7 +273,6 @@ export default function Layout({ children }) {
     setMyPushProject(body);
   };
   const handleAddProject = () => {
-    console.log(myProject, "플젝");
     if (myProject.length > 2) {
       alert("프로젝트는 3개까지 가능합니다.");
     } else {
@@ -270,24 +306,6 @@ export default function Layout({ children }) {
 
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
-  useEffect(() => {
-    const checkAccount = async () => {
-      try {
-        const response = await instanceAxios.post("/member/me");
-        if (response.status === 200) {
-          console.log(response, "회원확인");
-        }
-      } catch (err) {
-        // login yet
-        console.error(err);
-      }
-    };
-    setInterval(() => {
-      console.log("test 300초");
-
-      requestAccessToken();
-    }, 300000);
-  }, []);
   const requestAccessToken = async () => {
     try {
       const response = await instanceAxios.post("/auth/refresh", {

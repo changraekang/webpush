@@ -28,7 +28,12 @@ import {
 } from "../../cookie/controlCookie";
 import { InputGroup } from "../../components/inputs/InputGroups";
 import { useRecoilState } from "recoil";
-import { MyProfile, MyProject, MyPushProject } from "../../atom/Atom";
+import {
+  MyProfile,
+  MyProject,
+  MyPushProject,
+  IsOpenModal,
+} from "../../atom/Atom";
 import Cookies from "universal-cookie";
 
 const Section = styled.section`
@@ -143,7 +148,7 @@ export default function Login() {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-
+  const [isOpenMobal, setIsOpenModal] = useRecoilState(IsOpenModal);
   const handleCheckRadio = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
   };
@@ -199,7 +204,8 @@ export default function Login() {
                   if (response.status === 200) {
                     setMyProject(response.data);
                     setMyPushProject(response.data[0]);
-                    if (response.data.length === 1) {
+                    if (response.data.length > 0) {
+                      setIsOpenModal(false);
                     }
                   }
                 } catch (err) {
