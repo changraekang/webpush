@@ -194,6 +194,8 @@ export default function Layout({ children }) {
   const [isOpenNav, setIsOpenNav] = useState(false);
   const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
   const [isProjectOpen, setIsProjectOpen] = useState(false);
+  const [isOpenMobal, setIsOpenModal] = useState(false);
+  //const [isOpenMobal, setIsOpenModal] = useRecoilState(IsOpenModal); recoil 나중에 다시 한번 시도
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
   const [count, setcount] = useState(0);
@@ -201,7 +203,6 @@ export default function Layout({ children }) {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-  const [isOpenMobal, setIsOpenModal] = useRecoilState(IsOpenModal);
   const [project, setProject] = useState([]);
   const requestAccessToken = async () => {
     try {
@@ -241,13 +242,11 @@ export default function Layout({ children }) {
         console.error(err);
       }
     };
-    {
-      /**
-  const checkProject = async () => {
-    try {
-      const response = await instanceAxios.get("/project/all");
-      if (response.status === 200) {
-        setMyProject(response.data);
+    const checkProject = async () => {
+      try {
+        const response = await instanceAxios.get("/project/all");
+        if (response.status === 200) {
+          setMyProject(response.data);
           setMyPushProject(response.data[0]);
           if (response.data.length === 0) {
             setIsOpenModal(true);
@@ -259,8 +258,6 @@ export default function Layout({ children }) {
       }
     };
     checkProject();
-  */
-    }
     if (!refreshToken) {
       // login yet
       navigate("/");
