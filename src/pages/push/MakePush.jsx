@@ -409,7 +409,7 @@ export default function MakePush() {
         }
       );
       if (response.status === 200) {
-        console.log("메세지 등록 성공🎉");
+        alert("메세지 등록 성공🎉");
       }
       console.log(response);
     } catch (err) {
