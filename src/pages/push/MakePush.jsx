@@ -480,8 +480,6 @@ export default function MakePush() {
       if (response.status === 200) {
         setIconArr(response.data);
       }
-      console.log(response);
-      console.log("iconArr🔥", iconArr);
     } catch (err) {
       console.error(err);
     }
