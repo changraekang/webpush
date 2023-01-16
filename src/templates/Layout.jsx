@@ -203,6 +203,22 @@ export default function Layout({ children }) {
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   const [isOpenMobal, setIsOpenModal] = useRecoilState(IsOpenModal);
   const [project, setProject] = useState([]);
+  const requestAccessToken = async () => {
+    try {
+      const response = await instanceAxios.post("/auth/refresh", {
+        refreshToken: refreshToken,
+      });
+
+      const tokenType = response.data.tokenType;
+      const headersToken = tokenType + response.data.accessToken;
+      setAccessTokenToCookie(headersToken);
+      setRefreshTokenToCookie(response.data.refreshToken);
+      instanceAxios.defaults.headers.common["Authorization"] = headersToken;
+      console.log(response, "토큰 초기화");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
     const checkAccount = async () => {
       try {
@@ -213,6 +229,15 @@ export default function Layout({ children }) {
       } catch (err) {
         // login yet
         navigate("/");
+        console.error(err);
+      }
+    };
+    const getCategory = async () => {
+      try {
+        const response = await instanceAxios.get("/category/all");
+        setMyCategory(response.data);
+        // console.log(myCategory, "🍓");
+      } catch (err) {
         console.error(err);
       }
     };
@@ -242,16 +267,9 @@ export default function Layout({ children }) {
     } else {
       checkAccount();
     }
+    getCategory();
     requestAccessToken(refreshToken);
   }, []);
-  useEffect(() => {
-    if (!myProject) {
-      setIsOpenModal(true);
-    }
-    if (myProject.length === 1) {
-      setMyPushProject(myProject[0]);
-    }
-  }, [myProject]);
   const handleOpenNav = () => {
     !isOpenNav ? setIsOpenNav(true) : setIsOpenNav(false);
   };
@@ -306,35 +324,6 @@ export default function Layout({ children }) {
 
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
-  const requestAccessToken = async () => {
-    try {
-      const response = await instanceAxios.post("/auth/refresh", {
-        refreshToken: refreshToken,
-      });
-
-      const tokenType = response.data.tokenType;
-      const headersToken = tokenType + response.data.accessToken;
-      setAccessTokenToCookie(headersToken);
-      setRefreshTokenToCookie(response.data.refreshToken);
-      instanceAxios.defaults.headers.common["Authorization"] = headersToken;
-      console.log(response, "토큰 초기화");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    const getCategory = async () => {
-      try {
-        const response = await instanceAxios.get("/category/all");
-        setMyCategory(response.data);
-        // console.log(myCategory, "🍓");
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getCategory();
-  }, []);
 
   return (
     <Header>
