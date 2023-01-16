@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { instanceAxios } from "../../api/axios";
-import { MyProject } from "../../atom/Atom";
+import { MyCategory, MyProject } from "../../atom/Atom";
 import {
   grey11,
   grey1,
@@ -135,23 +135,8 @@ const ProjectModal = (props) => {
   const [homepage, setHomepage] = useState("");
   const [cat, setCat] = useState("");
   const [url, setUrl] = useState("");
-  const [catArray, setCatArray] = useState([]);
   const [myProject, setMyProject] = useRecoilState(MyProject);
-  useEffect(() => {
-    const checkCategory = async () => {
-      try {
-        const response = await instanceAxios.get("/category/all");
-        if (response.status === 200) {
-          const data = response.data;
-          setCatArray(data);
-        }
-      } catch (err) {
-        // login yet
-        console.error(err);
-      }
-    };
-    checkCategory();
-  }, []);
+  const [myCategory, setMyCategoy] = useRecoilState(MyCategory);
 
   const handleClose = async () => {
     let body = {
@@ -230,7 +215,7 @@ const ProjectModal = (props) => {
         <ModalContent>
           <WrapContents>
             <form action="post">
-              {catArray.map(({ name, code }) => {
+              {myCategory.map(({ name, code }) => {
                 if (code === cat) {
                   return (
                     <SelectCatContents
