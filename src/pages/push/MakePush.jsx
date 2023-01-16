@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import PushBox from "../../components/containers/push/PushBox";
+import { PushBox } from "../../components/containers/push/PushBox";
 import Layout from "../../templates/Layout";
 import { grey5, grey10, grey2, grey4, grey3 } from "../../constants/color";
 import activeCheck from "../../assets/images/active-check.png";
 import Rectangle from "../../assets/images/demoBox.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
 import { DemoBox, DemoWrapBox } from "../../components/containers/push/DemoBox";
-import plusIcon from '../../assets/images/plus.png';
-import minusIcon from '../../assets/images/minus.png';
+import plusIcon from "../../assets/images/plus.png";
+import minusIcon from "../../assets/images/minus.png";
 import {
   ActivePushButton,
   InactivePushButton,
   RegisterImageButton,
-  RegisterIconButton
+  RegisterIconButton,
 } from "../../components/buttons/PushButtons";
 import ProjectModal from "../../components/modals/ProjectModal";
 import { instanceAxios } from "../../api/axios";
@@ -206,13 +206,13 @@ const IconBox = styled.div`
   height: 100px;
   background-color: ${grey5};
   margin-top: 20px;
-`
+`;
 
 const Icon = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`
+`;
 
 const MinusIconBtn = styled.button`
   width: 30px;
@@ -220,19 +220,19 @@ const MinusIconBtn = styled.button`
   position: absolute;
   left: -12px;
   top: -6px;
-`
+`;
 
 const DeleteIconImg = styled.img`
   width: 30px;
   height: 30px;
-`
+`;
 
 const AlignIcon = styled.div`
   display: flex;
   width: 100%;
   gap: 16px;
   margin-left: 29px;
-`
+`;
 export default function MakePush() {
   const [thisClock, setThisClock] = useState("");
   const [thisMonth, setThisMonth] = useState("");
@@ -277,7 +277,6 @@ export default function MakePush() {
     date: "",
     pid: myPushProject.pid,
   });
-
 
   // 라디오 체크
   const handleWebCheckRadio = () => {
@@ -383,94 +382,97 @@ export default function MakePush() {
   const [demoImg, setDomoImg] = useState("");
   const [iconImg, setIconImg] = useState(null);
   const formData = new FormData();
-  
+
   // 이미지 파일 관리
   const encodeFileBase64 = (file) => {
     const reader = new FileReader();
     // reader.readAsDataURL(file);
     // setPreviewImg(file);
     // return new Promise((resolve) => {
-      //   reader.onload = () => {
-        //     setPreviewImg(file.result);
-        //     resolve();
-        //   }
-        // })
-      };
-      const [previewImg, setPreviewImg] = useState(null);
-      const handleUploadImage = (e) => {
-        const fileList = e.target.files;
-        setPreviewImg(fileList[0]);
-        // formData.append('file', previewImg);
-        // for(const keyValues of formData) console.log("for 문: ", keyValues);
-        const imageUrl = URL.createObjectURL(fileList[0]);
-        setDomoImg(imageUrl);
-      };
-      
+    //   reader.onload = () => {
+    //     setPreviewImg(file.result);
+    //     resolve();
+    //   }
+    // })
+  };
+  const [previewImg, setPreviewImg] = useState(null);
+  const handleUploadImage = (e) => {
+    const fileList = e.target.files;
+    setPreviewImg(fileList[0]);
+    // formData.append('file', previewImg);
+    // for(const keyValues of formData) console.log("for 문: ", keyValues);
+    const imageUrl = URL.createObjectURL(fileList[0]);
+    setDomoImg(imageUrl);
+  };
+
   const handleUploadIcon = (e) => {
     const fileList = e.target.files;
     setIconImg(fileList[0]);
   };
-  
+
   const onImgInputBtnClick = (e) => {
     e.preventDefault();
     imageInputRef.current.click();
   };
-  
+
   const onIconInputBtnClick = (e) => {
     e.preventDefault();
     iconInputRef.current.click();
   };
-  
+
   // 아이콘 추가하기
-  const requestAddIcons = async() => {
+  const requestAddIcons = async () => {
     try {
       formData.append("icon", iconImg);
-      const response = await instanceAxios.post(`/image/${myPushProject.pid}/icon/upload`, formData); 
-      if(response.status === 200) {
-        console.log("🚩아이콘 등록 성공", response)
+      const response = await instanceAxios.post(
+        `/image/${myPushProject.pid}/icon/upload`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("🚩아이콘 등록 성공", response);
       }
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
-  useEffect (() => {
-    if(iconImg) {
+  useEffect(() => {
+    if (iconImg) {
       requestAddIcons();
     }
-  },[iconImg])
-  
+  }, [iconImg]);
+
   const [iconArr, setIconArr] = useRecoilState(MyIcons);
-  const requestIconAll = async() => {
+  const requestIconAll = async () => {
     try {
-      const response = await instanceAxios.get(`/image/${myPushProject.pid}/icon/all`); 
-      if(response.status === 200) {
-        setIconArr(response.data );
+      const response = await instanceAxios.get(
+        `/image/${myPushProject.pid}/icon/all`
+      );
+      if (response.status === 200) {
+        setIconArr(response.data);
       }
       console.log(response);
       console.log("iconArr🔥", iconArr);
-      
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   // 아이콘 삭제하기
-  const deleteIcon = async() => {
+  const deleteIcon = async () => {
     try {
-      // const response = await instanceAxios.delete(`/image/icon/${iid}`, {}); 
+      // const response = await instanceAxios.delete(`/image/icon/${iid}`, {});
       // console.log(response);
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
-  useEffect (() => {
-    if(myPushProject) {
+  useEffect(() => {
+    if (myPushProject) {
       requestIconAll();
     }
-  }, [myPushProject])
-
+  }, [myPushProject]);
 
   return (
     <Layout>
@@ -601,15 +603,15 @@ export default function MakePush() {
               <WrapMessage icon>
                 <SubTitle>아이콘</SubTitle>
                 <AlignIcon>
-                {/* map 돌릴 예정 */}
-                {iconArr.map((iid, name, url) => {
-                  <IconBox key={iid}>
-                    <MinusIconBtn>
-                      <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
-                    </MinusIconBtn>
-                    <Icon src={url} alt={name} />
-                  </IconBox>
-                })}
+                  {/* map 돌릴 예정 */}
+                  {iconArr.map((iid, name, url) => {
+                    <IconBox key={iid}>
+                      <MinusIconBtn>
+                        <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
+                      </MinusIconBtn>
+                      <Icon src={url} alt={name} />
+                    </IconBox>;
+                  })}
                 </AlignIcon>
                 <ImageInput
                   style={{ display: "none" }}

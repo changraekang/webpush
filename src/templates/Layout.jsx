@@ -138,7 +138,7 @@ const WrapBell = styled.div`
   margin-bottom: 45px;
   font-size: 14px;
   color: ${grey7};
-`
+`;
 
 const Bell = styled.img`
   width: 10px;
@@ -188,8 +188,9 @@ export default function Layout({ children }) {
   const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
   const [isOpenMobal, setIsOpenModal] = useState(false);
   const [isProjectOpen, setIsProjectOpen] = useState(false);
-  const [minutes, setMinutes] = useState(5);
+  const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
+  const [count, setcount] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
@@ -255,10 +256,28 @@ export default function Layout({ children }) {
           setSeconds(59);
         }
       }
+      setcount(count + 1);
+      console.log(count, "카운트");
     }, 1000);
+
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
-
+  useEffect(() => {
+    const checkAccount = async () => {
+      try {
+        const response = await instanceAxios.post("/member/me");
+        if (response.status === 200) {
+          console.log(response, "회원확인");
+        }
+      } catch (err) {
+        // login yet
+        console.error(err);
+      }
+    };
+    setInterval(() => {
+      requestAccessToken();
+    }, 300000);
+  }, []);
   const requestAccessToken = async () => {
     try {
       const response = await instanceAxios.post("/auth/refresh", {
@@ -269,8 +288,6 @@ export default function Layout({ children }) {
       const headersToken = tokenType + response.data.accessToken;
       setAccessTokenToCookie(headersToken);
       setRefreshTokenToCookie(response.data.refreshToken);
-      setMinutes(4);
-      setSeconds(59);
       instanceAxios.defaults.headers.common["Authorization"] = headersToken;
       console.log(response, "토큰 초기화");
     } catch (err) {
@@ -331,9 +348,7 @@ export default function Layout({ children }) {
                 return (
                   <li key={pid}>
                     <button onClick={() => handlePushProject(pid, name)}>
-                      <ProjectSelectOptions>
-                        {name}
-                      </ProjectSelectOptions>
+                      <ProjectSelectOptions>{name}</ProjectSelectOptions>
                     </button>
                   </li>
                 );
