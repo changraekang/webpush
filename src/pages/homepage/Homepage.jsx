@@ -68,20 +68,6 @@ export default function Homepage() {
   const [cateogry, setCategory] = useState(MyPushProject.categoryCode);
   const [pid, setPid] = useState('');
   console.log(myPushProject, "myPushProject🐰");
-  // console.log(myProject, "myProject🎉🎉🎉");
-
-  useEffect (() => {
-    const getCategory = async () => {
-      try {
-        const response = await instanceAxios.get('/category/all');
-        setMyCategory(response.data);
-        // console.log(myCategory, "🍓");
-      } catch (err) {
-        console.error(err);
-      }
-    }
-      getCategory();
-    }, [])
 
   const getOneHomepage = async() => {
     try{

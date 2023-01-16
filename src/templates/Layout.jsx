@@ -23,7 +23,7 @@ import {
 } from "../cookie/controlCookie";
 import { logout } from "../cookie/controlCookie";
 import { useRecoilState } from "recoil";
-import { MyProfile, MyProject, MyPushProject } from "../atom/Atom";
+import { MyCategory, MyProfile, MyProject, MyPushProject } from "../atom/Atom";
 import ProjectModal from "../components/modals/ProjectModal";
 import settingHomepage from "../assets/images/homepageSetting.png";
 
@@ -183,6 +183,7 @@ const ProjectSelectOptions = styled.li`
 `;
 
 export default function Layout({ children }) {
+  const [myCategory, setMyCategory] = useRecoilState(MyCategory);
   const navigate = useNavigate();
   const [isOpenNav, setIsOpenNav] = useState(false);
   const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
@@ -300,6 +301,20 @@ export default function Layout({ children }) {
       console.error(err);
     }
   };
+
+  useEffect (() => {
+    const getCategory = async () => {
+      try {
+        const response = await instanceAxios.get('/category/all');
+        setMyCategory(response.data);
+        // console.log(myCategory, "🍓");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+      getCategory();
+    }, [])
+
   return (
     <Header>
       {/* 왼쪽 */}
