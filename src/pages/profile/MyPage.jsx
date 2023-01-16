@@ -7,7 +7,7 @@ import {UpdateInactiveProfileBtn, UpdateProfileBtn} from '../../components/butto
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { MyProfile } from '../../atom/Atom';
+import { MyCategory, MyProfile } from '../../atom/Atom';
 
 const WrapInputs = styled.div`
   display: flex;
@@ -35,11 +35,12 @@ const LabelWarning = styled.span`
 
 export default function MyPage() {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
+  const [myCategory, setMyCategory] = useRecoilState(MyCategory);
   const [email, setEmail] = useState(myProfile.email);
   const [company, setCompany] = useState(myProfile.company);
   const [phone, setPhone] = useState(myProfile.phone);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  console.log(myProfile, '⭐ 마이프로필'); 
+
   useEffect(() => {
     if(phone) {
       if (phone.length === 10) {
