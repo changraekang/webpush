@@ -191,13 +191,19 @@ const ProjectModal = (props) => {
     setCat(cat);
     console.log(cat);
   };
+  
 
+  const renderCloseModal = () => {
+    if(myProject.length > 0) {
+      return <CloseModal onClick={() =>{props.setClose(false)}}>X</CloseModal>
+    }
+  }
 
   const renderWriteCatModal = () => {
     return (
       <ModalWrapper>
-        <CloseModal onClick={() =>{props.setClose(false)}}>X</CloseModal>
         {/* <>{step}</> */}
+        {renderCloseModal()}
         <Title>🏠 홈페이지</Title>
         <SubTitle>DMPUSH를 사용할 홈페이지와 주소를 입력해주세요</SubTitle>
         <ModalContent>
@@ -230,6 +236,7 @@ const ProjectModal = (props) => {
   const renderWriteUrlModal = () => {
     return (
       <ModalWrapper>
+        {renderCloseModal()}
         {/* <>{step}</> */}
         <Title>📁 카테고리</Title>
         <SubTitle>운영중인 사이트의 카테고리를 선택해주세요</SubTitle>
