@@ -197,7 +197,7 @@ export default function Layout({ children }) {
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   const [project, setProject] = useState([]);
   useEffect(() => {
-    console.log(myProject, "🔥🔥🔥")
+    console.log(myProject, "🔥🔥🔥");
     if (!refreshToken) {
       // login yet
       navigate("/");
@@ -224,7 +224,7 @@ export default function Layout({ children }) {
       categoryCode: categoryCode,
       projectUrl: projectUrl,
       pid: pid,
-      name: name, 
+      name: name,
     };
     setMyPushProject(body);
   };
@@ -259,7 +259,6 @@ export default function Layout({ children }) {
         }
       }
       setcount(count + 1);
-      console.log(count, "카운트");
     }, 1000);
 
     return () => clearInterval(countdown);
@@ -277,6 +276,8 @@ export default function Layout({ children }) {
       }
     };
     setInterval(() => {
+      console.log("test 300초");
+
       requestAccessToken();
     }, 300000);
   }, []);
@@ -337,10 +338,15 @@ export default function Layout({ children }) {
       <WrapRight>
         <TopHeader>
           <ProLi>
-            {myProject.map(({ categoryCode, pid, name, projectUrl}) => {
+            {myProject.map(({ categoryCode, pid, name, projectUrl }) => {
               if (pid !== myPushProject.pid) {
                 return (
-                  <li key={pid} onClick={() => handlePushProject(categoryCode, pid, name, projectUrl)}>
+                  <li
+                    key={pid}
+                    onClick={() =>
+                      handlePushProject(categoryCode, pid, name, projectUrl)
+                    }
+                  >
                     <button>
                       <ProjectOptions>{name}</ProjectOptions>
                     </button>

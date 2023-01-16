@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../templates/Layout";
 import styled from "styled-components";
 import fox from "../../assets/images/fox.png";
-import { PushListBox } from "../../components/containers/push/PushBox";
+import { PushListBoxs } from "../../components/containers/push/PushBox";
 import activeCheck from "../../assets/images/active-check.png";
 import inActiveCheck from "../../assets/images/inactive-check.png";
 import {
@@ -179,7 +179,7 @@ const PushList = () => {
         <PageTitle>PUSH 리스트 </PageTitle>
 
         <Message>고객들에게 날린 웹푸시 리스트입니다</Message>
-        <PushListBox>
+        <PushListBoxs>
           <PushButtonWrapper>
             <RadioList>
               <RadioLi onClick={handleAllClick}>
@@ -216,8 +216,8 @@ const PushList = () => {
               </RadioLi>
             </RadioList>
           </PushButtonWrapper>
-        </PushListBox>
-        <PushListBox>
+        </PushListBoxs>
+        <PushListBoxs>
           <PushListWrapper>
             <PushConteneListWrapper>
               <Message10>상태</Message10>
@@ -237,7 +237,7 @@ const PushList = () => {
               </Message35>
             </PushConteneListWrapper>
           </PushListWrapper>
-        </PushListBox>
+        </PushListBoxs>
       </PageWrapper>
     </Layout>
   );

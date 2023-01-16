@@ -20,6 +20,6 @@ const ListBox = styled.div`
 export function PushBox({ children }) {
   return <Box>{children}</Box>;
 }
-export function PushListBox({ children }) {
+export function PushListBoxs({ children }) {
   return <ListBox>{children}</ListBox>;
 }
