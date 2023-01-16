@@ -251,9 +251,6 @@ export default function MakePush() {
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
   useEffect(() => {
-    if (myProject.length === 0) {
-      setisModalOpen(true);
-    }
     console.log(myProject);
 
     getClock();
@@ -740,7 +737,6 @@ export default function MakePush() {
           )}
         </ButtonWrapper>
       </PageWrapper>
-      {isModalOpen && <ProjectModal setClose={setisModalOpen} />}
     </Layout>
   );
 }

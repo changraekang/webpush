@@ -203,6 +203,9 @@ export default function Layout({ children }) {
       navigate("/");
     } else {
     }
+    if (myProject.length === 0) {
+      setIsOpenModal(true);
+    }
     if (myProject.length === 1) {
       setMyPushProject(myProject[0]);
     }
