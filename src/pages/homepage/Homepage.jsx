@@ -9,7 +9,7 @@ import HompageButton from "../../components/buttons/HompageButtons";
 import { grey1, grey4, primary4, error3 } from "../../constants/color";
 import {SelectHomepage, BeforeUpdateHomepage, AfterUpdateHomepage} from "../../components/buttons/HompageButtons";
 import { useRecoilState } from "recoil";
-import { MyProject, MyPushProject } from "../../atom/Atom";
+import { MyCategory, MyProject, MyPushProject } from "../../atom/Atom";
 const WrapInputs = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +61,7 @@ const WrapHomepages = styled.ul`
 
 export default function Homepage() {
   const [myProject, setMyProject] = useRecoilState(MyProject);
+  const [myCategory, setMyCategory] = useRecoilState(MyCategory);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   const [homepage, setHomepage] = useState(myPushProject.name);
   const [link, setLink] = useState(MyPushProject.projectUrl);
@@ -68,6 +69,19 @@ export default function Homepage() {
   const [pid, setPid] = useState('');
   console.log(myPushProject, "myPushProject🐰");
   // console.log(myProject, "myProject🎉🎉🎉");
+
+  useEffect (() => {
+    const getCategory = async () => {
+      try {
+        const response = await instanceAxios.get('/category/all');
+        setMyCategory(response.data);
+        // console.log(myCategory, "🍓");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+      getCategory();
+    }, [])
 
   const getOneHomepage = async() => {
     try{
@@ -172,7 +186,7 @@ export default function Homepage() {
           <div>
           <InputGroup 
           type="text" 
-          value={myPushProject.categoryCode} 
+          value={myCategory[myPushProject.categoryCode-1].name} 
           id='category' 
           setValue={setCategory}
           />
