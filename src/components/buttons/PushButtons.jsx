@@ -1,29 +1,40 @@
 import styled from "styled-components";
-import {
-  primary4,
-  grey1,
-  grey3,
-  grey5,
-} from "../../constants/color";
+import { primary4, grey1, grey3, grey5 } from "../../constants/color";
 
 const Button = styled.button`
   display: block;
   border: none;
   width: 100%;
+  width: ${(props) => (props.delete ? `35px` : null)};
   padding: 16px;
   cursor: pointer;
   font-size: 24px;
   border-radius: 8px;
   background: ${(props) => (props.normal ? `${grey1}` : null)};
   background: ${(props) => (props.active ? `${primary4}` : null)};
-  background: ${(props) =>
-    props.inactive ? `${grey3}` : null};
+  background: ${(props) => (props.inactive ? `${grey3}` : null)};
   color: ${(props) => (props.normal ? `${primary4}` : null)};
   color: ${(props) => (props.active ? `${grey1}` : null)};
-  color: ${(props) =>
-    props.inactive ? `${grey1}` : null};
-  border: 1px solid
-    ${(props) => (props.normal ? `${primary4}` : "none")};
+  color: ${(props) => (props.inactive ? `${grey1}` : null)};
+  border: 1px solid ${(props) => (props.normal ? `${primary4}` : "none")};
+
+  &:hover {
+  }
+`;
+const DeleteButton = styled.button`
+  display: block;
+  border: none;
+  width: 40px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 8px;
+  background: ${(props) => (props.normal ? `${grey1}` : null)};
+  background: ${(props) => (props.active ? `${primary4}` : null)};
+  background: ${(props) => (props.inactive ? `${grey3}` : null)};
+  color: ${(props) => (props.normal ? `${primary4}` : null)};
+  color: ${(props) => (props.active ? `${grey1}` : null)};
+  color: ${(props) => (props.inactive ? `${grey1}` : null)};
+  border: 1px solid ${(props) => (props.normal ? `${primary4}` : "none")};
 
   &:hover {
   }
@@ -32,7 +43,7 @@ const ImageButton = styled.button`
   display: block;
   border: none;
   width: 225px;
-  /* width: ${props => props.icon ? "100px" : "225px"}; */
+  /* width: ${(props) => (props.icon ? "100px" : "225px")}; */
   padding: 10px;
   margin-left: 15px;
   margin-top: 15px;
@@ -57,6 +68,13 @@ function ActivePushButton({ children, handleSubmit }) {
     </Button>
   );
 }
+function ActiveDeletePushButton({ children, handleSubmit }) {
+  return (
+    <DeleteButton onClick={handleSubmit} active delete>
+      {children}
+    </DeleteButton>
+  );
+}
 
 function InactivePushButton({ children }) {
   return (
@@ -72,7 +90,17 @@ function RegisterImageButton({ children, handleUploadImage }) {
 }
 
 function RegisterIconButton({ children, handleUploadIcon }) {
-  return <ImageButton icon onClick={handleUploadIcon}>{children}</ImageButton>;
+  return (
+    <ImageButton icon onClick={handleUploadIcon}>
+      {children}
+    </ImageButton>
+  );
 }
 
-export { ActivePushButton, InactivePushButton, RegisterImageButton , RegisterIconButton};
+export {
+  ActivePushButton,
+  InactivePushButton,
+  RegisterImageButton,
+  RegisterIconButton,
+  ActiveDeletePushButton,
+};

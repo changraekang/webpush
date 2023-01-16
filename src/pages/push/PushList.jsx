@@ -16,6 +16,7 @@ import {
 import { useRecoilState } from "recoil";
 import { MyPushProject } from "../../atom/Atom";
 import { instanceAxios } from "../../api/axios";
+import { ActiveDeletePushButton } from "../../components/buttons/PushButtons";
 const PageWrapper = styled.div`
   width: 100%;
   padding: 20px;
@@ -153,6 +154,19 @@ const PushList = () => {
       console.error(err);
     }
   };
+  const handleSubmit = async (mid) => {
+    console.log(mid);
+    try {
+      const response = await instanceAxios.delete(`/message/${mid}`);
+      if (response.status === 200) {
+        alert("성공적으로 삭제되었습니다.");
+        window.location.reload();
+        console.log(response.data, "데이터 지우기⚠️");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const handleAllClick = () => {
     if (isAll === false) {
       setIsAll(true);
@@ -230,14 +244,18 @@ const PushList = () => {
             </PushConteneListWrapper>
             {pushList.map((item, index) => {
               return (
-                <PushConteneListWrapper key={index}>
+                <PushConteneListWrapper key={item.mid}>
                   <Message10>{item.state}</Message10>
                   <Message10>{item.pushType}</Message10>
                   <Message35>{item.content}</Message35>
                   <Message35>{item.sendTime.replace("T", " ")}</Message35>
                   <Message10>
                     <button>수정</button>
-                    <button>삭제</button>
+                    <ActiveDeletePushButton
+                      handleSubmit={() => handleSubmit(item.mid)}
+                    >
+                      삭제
+                    </ActiveDeletePushButton>
                   </Message10>
                 </PushConteneListWrapper>
               );
