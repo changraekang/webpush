@@ -196,8 +196,8 @@ export default function Layout({ children }) {
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   const [project, setProject] = useState([]);
-  // console.log(myProfile)
   useEffect(() => {
+    console.log(myProject, "🔥🔥🔥")
     if (!refreshToken) {
       // login yet
       navigate("/");
@@ -218,11 +218,13 @@ export default function Layout({ children }) {
   const handleOpenMyMenu = () => {
     !isOpenMyMenu ? setIsOpenMyMenu(true) : setIsOpenMyMenu(false);
   };
-  const handlePushProject = (pid, name) => {
+  const handlePushProject = (categoryCode, pid, name, projectUrl) => {
     handleOpenPushProject();
     let body = {
+      categoryCode: categoryCode,
+      projectUrl: projectUrl,
       pid: pid,
-      name: name,
+      name: name, 
     };
     setMyPushProject(body);
   };
@@ -335,10 +337,10 @@ export default function Layout({ children }) {
       <WrapRight>
         <TopHeader>
           <ProLi>
-            {myProject.map(({ pid, name }) => {
+            {myProject.map(({ categoryCode, pid, name, projectUrl}) => {
               if (pid !== myPushProject.pid) {
                 return (
-                  <li key={pid} onClick={() => handlePushProject(pid, name)}>
+                  <li key={pid} onClick={() => handlePushProject(categoryCode, pid, name, projectUrl)}>
                     <button>
                       <ProjectOptions>{name}</ProjectOptions>
                     </button>

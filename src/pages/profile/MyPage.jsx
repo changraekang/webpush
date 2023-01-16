@@ -103,6 +103,7 @@ export default function MyPage() {
     "email": email,
     "phone": phone
   }
+  
   console.log(updateData, "updateData🐰");
   console.log(!!myProfile === !!updateData)
   const updateMyInfo = async(e) => {

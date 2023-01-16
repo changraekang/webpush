@@ -6,8 +6,10 @@ import UpdateProfile from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 import HompageButton from "../../components/buttons/HompageButtons";
-import { grey1, grey4, primary4 } from "../../constants/color";
+import { grey1, grey4, primary4, error3 } from "../../constants/color";
 import {SelectHomepage, UpdateHomepage} from "../../components/buttons/HompageButtons";
+import { useRecoilState } from "recoil";
+import { MyProject, MyPushProject } from "../../atom/Atom";
 const WrapInputs = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -26,13 +28,14 @@ const WrapButton = styled.div`
   margin: 40px auto 0;
 `
 
-const WrapHomepages = styled.ul`
+const TopAlign = styled.ul`
   display: flex;
   gap: 10px;
   position: relative;
   margin-bottom: 40px;
+  justify-content: space-between;
 
-  ::after {
+    ::after {
     position: absolute;
     display: block;
     content: '';
@@ -44,31 +47,44 @@ const WrapHomepages = styled.ul`
   }
 `
 
+const WrapHomepages = styled.ul`
+  display: flex;
+  gap: 10px;
+  position: relative;
+  align-items: center;
+`
+
+ const DeleteBtn = styled.button`
+  color: ${error3};
+  font-weight: 600;
+ `
+
 export default function Homepage() {
-  const [projectArr, setProjectArr] = useState([]);
-  const [homepage, setHomepage] = useState('');
-  const [link, setLink] = useState('');
-  const [cateogry, setCategory] = useState('');
+  const [myProject, setMyProject] = useRecoilState(MyProject);
+  const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
+  // const [projectArr, setProjectArr] = useState([]);
+  const [homepage, setHomepage] = useState(MyPushProject.name);
+  const [link, setLink] = useState(MyPushProject.projectUrl);
+  const [cateogry, setCategory] = useState(MyPushProject.categoryCode);
   const [pid, setPid] = useState('');
-  console.log("pid💙💙", pid)
-  console.log(projectArr, "projectArr🐰")
-  
+  // console.log(myPushProject, "myPushProject🐰");
+  // console.log(myProject, "myProject🎉🎉🎉");
 
   const getOneHomepage = async() => {
     try{
       const response = await instanceAxios.get(`/project/${pid}`);
       console.log("하나의 프로젝트⭐" , response.data);
       if(response.status === 200) {
-        const data = response.data;   
-        setHomepage(data.name);
-        setLink(data.projectUrl);
-        setCategory(data.categoryCode);
-      }
-        
+        setMyPushProject(response.data);
+      }    
       } catch (err) {
         console.error(err);
     }
   }
+
+  // useEffect(() => {
+  //   setMyPushProject(myProject)
+  // },[])
 
   useEffect(() => {
     if(pid) {
@@ -76,28 +92,6 @@ export default function Homepage() {
     }
   }, [pid])
 
-  const getHomepageAll = async() => {
-    try{
-      const response = await instanceAxios.get('/project/all');
-      console.log("프로젝트 불러오기" , response.data);
-      const data = response.data;   
-      if(response.status === 200) {
-        setProjectArr(response.data);
-        setPid(response.data[0].pid);
-        if(pid === '') {
-          setHomepage(data[0].name);
-          setLink(data[0].projectUrl);
-          setCategory(data[0].categoryCode);
-        }
-      }
-    } catch (err) {
-        console.error(err);
-    }
-  }
-    
-    useEffect(() => {
-      getHomepageAll();
-    }, [])
 
   const updateData = {
     "code": cateogry,
@@ -115,20 +109,33 @@ export default function Homepage() {
     }
   }
 
+  const deleteHomePage = async(e) => {
+    e.preventDefault()
+    try{
+      const response = await instanceAxios.delete(`/project/${pid}`);
+      console.log(response.data, "데이터 지우기⚠️");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <Layout>
       <HomepageBox>
-        <WrapHomepages>
-          {projectArr?.map(({name, pid})=> {
-            return (
-              <li key={pid}>
-                <SelectHomepage setValue={()=> {setPid(pid);}}>
-                  {name}
-                </SelectHomepage >
-              </li>
-            ) 
-          })}
-        </WrapHomepages>
+        <TopAlign>
+          <WrapHomepages>
+            {myProject?.map(({name, pid})=> {
+              return (
+                <li key={pid}>
+                  <SelectHomepage setValue={()=> {setPid(pid);}}>
+                    {name}
+                  </SelectHomepage >
+                </li>
+              ) 
+            })}
+          </WrapHomepages>
+          <DeleteBtn onClick={deleteHomePage}>삭제하기</DeleteBtn>
+        </TopAlign>
       <form action="post">
         <WrapInputs>
           <LabelStyle htmlFor="homepage">홈페이지명</LabelStyle>
@@ -136,7 +143,7 @@ export default function Homepage() {
           <InputGroup 
           type="text" 
           id='homepage' 
-          value={homepage === undefined ? '' : homepage} 
+          value={myPushProject.name} 
           setValue={setHomepage}
           />
           </div>
@@ -147,7 +154,7 @@ export default function Homepage() {
           <InputGroup 
           type="text" 
           id='link' 
-          value={link === undefined ? '' : link} 
+          value={myPushProject.projectUrl} 
           setValue={setLink}
           />
           </div>
@@ -158,7 +165,7 @@ export default function Homepage() {
           <InputGroup 
           type="text" 
           id='category' 
-          value={cateogry === undefined ? '' : cateogry} 
+          value={myPushProject.categoryCode} 
           setValue={setCategory}
           />
           </div>
