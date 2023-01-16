@@ -237,6 +237,7 @@ export default function MakePush() {
   const [thisClock, setThisClock] = useState("");
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
+  const [pushType, setPushType] = useState();
   const [submitDate, setSubmitDate] = useState(ReserveMin);
   const [pid, setPid] = useState("");
   const [myProject, setMyProject] = useRecoilState(MyProject);
@@ -245,7 +246,7 @@ export default function MakePush() {
   const getClock = () => {
     const offset = 1000 * 60 * 60 * 9;
     const koreaNow = new Date(new Date().getTime() + offset);
-    setReserveMin(koreaNow.toISOString().slice(0, 16));
+    setReserveMin(koreaNow.toISOString().slice(0, 16).replace("T", " "));
     setThisClock(koreaNow.toISOString().slice(11, 16));
     setThisMonth(koreaNow.toISOString().slice(0, 10));
   };
@@ -316,6 +317,14 @@ export default function MakePush() {
     setSubmitDate(e.target.value);
   };
   const handleInputValues = (e) => {
+    if (isWebCheck && isMobileCheck) {
+      setPushType("web_push mobile_app_push");
+    } else if (isMobileCheck) {
+      setPushType("mobile_app_push");
+    } else if (isWebCheck) {
+      setPushType("web_push");
+    }
+
     if (isMobileCheck || isWebCheck) {
       e.preventDefault();
       const { name, value } = e.target;
@@ -357,15 +366,47 @@ export default function MakePush() {
       }
     }
     if (isReserveCheck && submitDate) {
-      inputs.date = submitDate;
+      inputs.date = submitDate.replace("T", " ");
     } else {
       inputs.date = ReserveMin;
     }
     inputs.image = previewImg;
+
+    let data = {
+      pushType: "web_push",
+      messageType: "advertising",
+      title: "test",
+      content: "contenttest",
+      sendType: "advertising",
+      link: "https://naver.com",
+      sendTime: "2023-01-18 15:44",
+    };
+    let data2 = {
+      pushType: pushType,
+      messageType: "advertising",
+      title: inputs.title,
+      content: inputs.content,
+      sendType: "advertising",
+      link: inputs.link,
+      sendTime: inputs.date,
+    };
+
+    formData.append(
+      "request",
+      new Blob([JSON.stringify(data2)], { type: "application/json" })
+    );
+    formData.append("file", previewImg);
+    console.log(data, "푸시");
+    console.log(data2, "푸시2");
     try {
       const response = await instanceAxios.post(
         `/message/${myPushProject.pid}/add`,
-        inputs
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       if (response.status === 200) {
         console.log("메세지 등록 성공🎉");

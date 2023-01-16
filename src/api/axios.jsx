@@ -7,8 +7,6 @@ export const instanceAxios = axios.create({
   // baseURL: "http://localhost:8080/api/", // 로컬
   headers: {
     Authorization: `${userAccessToken}`,
-    Content_Type: "multipart/form-data",
-    dataType: "json",
   },
 });
 

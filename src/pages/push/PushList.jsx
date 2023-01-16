@@ -134,6 +134,10 @@ const PushList = () => {
       setIsAll(false);
     }
   }, [isReserve, isProceed, isComplete]);
+  useEffect(() => {
+    getPushList();
+    console.log(pushList, "푸시리스트");
+  }, [myPushProject]);
   const getPushList = async () => {
     console.log("pushList", myPushProject.pid);
 
@@ -142,10 +146,8 @@ const PushList = () => {
         `/message/${myPushProject.pid}/all`,
         {}
       );
-      console.log(response);
-      const data = response.data;
       if (response.status === 200) {
-        setPushList(data);
+        setPushList(response.data);
       }
     } catch (err) {
       console.error(err);
@@ -223,19 +225,23 @@ const PushList = () => {
               <Message10>상태</Message10>
               <Message10>발송타입</Message10>
               <Message35>내용</Message35>
-              <Message10>발송시간</Message10>
-              <Message35></Message35>
+              <Message35>발송시간</Message35>
+              <Message10></Message10>
             </PushConteneListWrapper>
-            <PushConteneListWrapper>
-              <Message10>예약중</Message10>
-              <Message10>웹푸시</Message10>
-              <Message35>테스트 메세지입니다</Message35>
-              <Message10>2023-02-15</Message10>
-              <Message35>
-                <button>수정</button>
-                <button>삭제</button>
-              </Message35>
-            </PushConteneListWrapper>
+            {pushList.map((item, index) => {
+              return (
+                <PushConteneListWrapper key={index}>
+                  <Message10>{item.state}</Message10>
+                  <Message10>{item.pushType}</Message10>
+                  <Message35>{item.content}</Message35>
+                  <Message35>{item.sendTime.replace("T", " ")}</Message35>
+                  <Message10>
+                    <button>수정</button>
+                    <button>삭제</button>
+                  </Message10>
+                </PushConteneListWrapper>
+              );
+            })}
           </PushListWrapper>
         </PushListBoxs>
       </PageWrapper>
