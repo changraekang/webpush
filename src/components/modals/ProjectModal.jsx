@@ -39,7 +39,8 @@ const Modal = styled.div`
   align-items: center;
   background-color: ${grey1};
   width: 560px;
-  height: 544px;
+  padding: 40px 0;
+  border-radius: 16px;
 `;
 
 const Title = styled.h2`
@@ -51,7 +52,7 @@ const Title = styled.h2`
 `;
 const SubTitle = styled.h2`
   color: ${grey6};
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   padding-bottom: 12px;
   align-items: center;
@@ -88,19 +89,19 @@ const SelectCatContents = styled.div`
 `;
 const ModalWrapper = styled.div`
   display: flex;
+  padding: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  border-radius: 16px 16px 0 0;
   font-family: "Pretendard-Regular";
 `;
 const ModalContent = styled.div`
   display: flex;
   flex-direction: row;
   overflow: auto;
-  width: 520px;
-  height: 392px;
   padding: 16px 24px 16px 16px;
   pointer-events: auto;
   background-color: ${grey2};
@@ -109,6 +110,7 @@ const ModalContent = styled.div`
 `;
 const ProjectInputWrap = styled.div`
   width: 399px;
+  margin-top: 20px;
 `;
 const ButtonWrapper = styled.div`
   width: 520px;
@@ -118,13 +120,14 @@ const ButtonWrapper = styled.div`
 `;
 const Button = styled.div`
   display: flex;
+  width: 100px;
   justify-content: center;
   align-items: center;
-  width: 72px;
-  height: 36px;
   background: ${grey3};
   border: 1px solid ${grey5};
-  border-radius: 32px;
+  border-radius: 24px;
+  padding: 10px 12px;
+  cursor: pointer;
   &:hover {
     background-color: ${primary4};
     color: ${grey1};
@@ -169,15 +172,22 @@ const ProjectModal = (props) => {
   const handleNext = () => {
     setStep(2);
   };
+
+  const handleGoBack = () => {
+    setStep(1);
+  }
+
   const onClickCat = (cat) => {
     setCat(cat);
     console.log(cat);
   };
+
+
   const renderWriteCatModal = () => {
     return (
       <ModalWrapper>
-        <>{step}</>
-        <Title>홈페이지</Title>
+        {/* <>{step}</> */}
+        <Title>🏠 홈페이지</Title>
         <SubTitle>DMPUSH를 사용할 홈페이지와 주소를 입력해주세요</SubTitle>
         <ModalContent>
           <WrapContents>
@@ -209,8 +219,8 @@ const ProjectModal = (props) => {
   const renderWriteUrlModal = () => {
     return (
       <ModalWrapper>
-        <>{step}</>
-        <Title>카테고리</Title>
+        {/* <>{step}</> */}
+        <Title>📁 카테고리</Title>
         <SubTitle>운영중인 사이트의 카테고리를 선택해주세요</SubTitle>
         <ModalContent>
           <WrapContents>
@@ -247,9 +257,14 @@ const ProjectModal = (props) => {
         {step === 1 ? renderWriteCatModal() : renderWriteUrlModal()}
         <ButtonWrapper>
           {step === 2 ? (
-            <Button onClick={handleClose}> 시작하기</Button>
+            <div style={{display:"flex", gap:"12px"}}>
+              <Button onClick={handleGoBack}>뒤로가기</Button>
+              <Button onClick={handleClose}> 시작하기</Button>
+            </div>
           ) : (
-            <Button onClick={handleNext}>다음</Button>
+            <div>
+              <Button onClick={handleNext}>다음</Button>
+            </div>
           )}
         </ButtonWrapper>
       </Modal>
