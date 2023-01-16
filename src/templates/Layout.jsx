@@ -176,7 +176,7 @@ const ProjectOptions = styled.li`
   &:hover {
     border-bottom: 3px solid ${primary4};
   }
-  `;
+`;
 const ProjectSelectOptions = styled.button`
   padding: 6px 8px;
   font-size: 14px;
@@ -284,6 +284,8 @@ export default function Layout({ children }) {
       pid: pid,
       name: name,
     };
+    console.log(body, "push project");
+
     setMyPushProject(body);
   };
   const handleAddProject = () => {
@@ -380,7 +382,7 @@ export default function Layout({ children }) {
                 return (
                   <li key={pid}>
                     {/* <button onClick={() => handlePushProject(pid, name)}> */}
-                      <ProjectSelectOptions onClick={() => handlePushProject(pid, name)}>{name}</ProjectSelectOptions>
+                    <ProjectSelectOptions>{name}</ProjectSelectOptions>
                     {/* </button> */}
                   </li>
                 );
