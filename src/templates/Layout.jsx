@@ -11,6 +11,7 @@ import {
   grey7,
   grey10,
   grey11,
+  grey4,
 } from "../constants/color";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -105,13 +106,13 @@ const MyButton = styled.button`
   align-items: center;
   gap: 12px;
   float: right;
-  padding: 5px;
+  padding: 6px 8px;
   cursor: pointer;
   font-weight: 900;
   color: ${grey10};
   margin-right: 20px;
   &:hover {
-    background: ${grey3};
+    background: ${grey4};
     border-radius: 8px;
   }
 `;
@@ -156,7 +157,7 @@ const Bell = styled.img`
 const Icon = styled.img`
   width: 20px;
   height: 20px;
-  padding-right: 8px;
+  padding: 0 8px;
   cursor: pointer;
 `;
 
@@ -166,7 +167,6 @@ const MyMenuLi = styled.li`
 `;
 
 const ProjectOptions = styled.li`
-  width: 80px;
   padding: 6px 0;
   font-size: 14px;
   font-weight: 500;
@@ -176,13 +176,12 @@ const ProjectOptions = styled.li`
   &:hover {
     border-bottom: 3px solid ${primary4};
   }
-`;
-const ProjectSelectOptions = styled.li`
-  width: 80px;
-  padding: 6px 0;
+  `;
+const ProjectSelectOptions = styled.button`
+  padding: 6px 8px;
   font-size: 14px;
   font-weight: 500;
-  border-radius: 10px;
+  border-radius: 6px;
   color: ${grey1};
   background-color: ${primary4};
   cursor: pointer;
@@ -380,9 +379,9 @@ export default function Layout({ children }) {
               } else {
                 return (
                   <li key={pid}>
-                    <button onClick={() => handlePushProject(pid, name)}>
-                      <ProjectSelectOptions>{name}</ProjectSelectOptions>
-                    </button>
+                    {/* <button onClick={() => handlePushProject(pid, name)}> */}
+                      <ProjectSelectOptions onClick={() => handlePushProject(pid, name)}>{name}</ProjectSelectOptions>
+                    {/* </button> */}
                   </li>
                 );
               }
