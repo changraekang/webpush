@@ -238,7 +238,7 @@ export default function MakePush() {
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
   const [pushType, setPushType] = useState("");
-  const [pushTypeDemo, setPushTypeDemo] = useState("advertise");
+  const [pushTypeDemo, setPushTypeDemo] = useState("advertising");
   const [submitDate, setSubmitDate] = useState(ReserveMin);
   const [pid, setPid] = useState("");
   const [myProject, setMyProject] = useRecoilState(MyProject);
@@ -279,7 +279,7 @@ export default function MakePush() {
   useEffect(() => {
     if (isWebCheck && isMobileCheck) {
       setPushType("web_push");
-      setPushTypeDemo("others");
+      setPushTypeDemo("other");
     } else if (isMobileCheck) {
       setPushType("mobile_app_push");
     } else if (isWebCheck) {
@@ -372,15 +372,6 @@ export default function MakePush() {
     inputs.image = previewImg;
 
     let data = {
-      pushType: "web_push",
-      messageType: "advertising",
-      title: "test",
-      content: "contenttest",
-      sendType: "advertising",
-      link: "https://naver.com",
-      sendTime: "2023-01-18 15:44",
-    };
-    let data2 = {
       pushType: pushType,
       messageType: pushTypeDemo,
       title: inputs.title,
@@ -392,11 +383,9 @@ export default function MakePush() {
 
     formData.append(
       "request",
-      new Blob([JSON.stringify(data2)], { type: "application/json" })
+      new Blob([JSON.stringify(data)], { type: "application/json" })
     );
     formData.append("file", previewImg);
-    console.log(data, "푸시");
-    console.log(data2, "푸시2");
     try {
       const response = await instanceAxios.post(
         `/message/${myPushProject.pid}/add`,

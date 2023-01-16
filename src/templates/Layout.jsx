@@ -19,6 +19,7 @@ import { instanceAxios } from "../api/axios";
 import { deviceDetect } from "react-device-detect";
 import {
   getCookie,
+  logoutSession,
   setAccessTokenToCookie,
   setRefreshTokenToCookie,
 } from "../cookie/controlCookie";
@@ -195,9 +196,8 @@ export default function Layout({ children }) {
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [isOpenMobal, setIsOpenModal] = useState(false);
   //const [isOpenMobal, setIsOpenModal] = useRecoilState(IsOpenModal); recoil 나중에 다시 한번 시도
-  const [minutes, setMinutes] = useState(10);
+  const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
-  const [count, setcount] = useState(0);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
@@ -298,7 +298,7 @@ export default function Layout({ children }) {
 
   // refreshToken 재발급
   const logoutTimer = () => {
-    logout();
+    logoutSession();
     alert("세션이 만료되었습니다.");
     navigate("/");
   };
@@ -317,7 +317,6 @@ export default function Layout({ children }) {
           setSeconds(59);
         }
       }
-      setcount(count + 1);
     }, 1000);
 
     return () => clearInterval(countdown);
