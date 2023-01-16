@@ -154,19 +154,23 @@ const PushList = () => {
       console.error(err);
     }
   };
+
   const handleSubmit = async (mid) => {
     console.log(mid);
-    try {
-      const response = await instanceAxios.delete(`/message/${mid}`);
-      if (response.status === 200) {
-        alert("성공적으로 삭제되었습니다.");
-        window.location.reload();
-        console.log(response.data, "데이터 지우기⚠️");
+    if(window.confirm('push 메세지를 삭제하시겠습니까?')) {
+      try {
+        const response = await instanceAxios.delete(`/message/${mid}`);
+        if (response.status === 200) {
+          alert("성공적으로 삭제되었습니다.");
+          window.location.reload();
+          console.log(response.data, "데이터 지우기⚠️");
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
     }
   };
+  
   const handleAllClick = () => {
     if (isAll === false) {
       setIsAll(true);
