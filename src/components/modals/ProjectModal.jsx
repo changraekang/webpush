@@ -165,6 +165,7 @@ const ProjectModal = (props) => {
             const response = await instanceAxios.get("/project/all");
             if (response.status === 200) {
               setMyProject(response.data);
+              window.location.reload();
             }
           } catch (err) {
             // login yet
