@@ -7,7 +7,7 @@ import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 import HompageButton from "../../components/buttons/HompageButtons";
 import { grey1, grey4, primary4, error3 } from "../../constants/color";
-import {SelectHomepage, UpdateHomepage} from "../../components/buttons/HompageButtons";
+import {SelectHomepage, BeforeUpdateHomepage, AfterUpdateHomepage} from "../../components/buttons/HompageButtons";
 import { useRecoilState } from "recoil";
 import { MyProject, MyPushProject } from "../../atom/Atom";
 const WrapInputs = styled.div`
@@ -62,12 +62,11 @@ const WrapHomepages = styled.ul`
 export default function Homepage() {
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-  // const [projectArr, setProjectArr] = useState([]);
-  const [homepage, setHomepage] = useState(MyPushProject.name);
+  const [homepage, setHomepage] = useState(myPushProject.name);
   const [link, setLink] = useState(MyPushProject.projectUrl);
   const [cateogry, setCategory] = useState(MyPushProject.categoryCode);
   const [pid, setPid] = useState('');
-  // console.log(myPushProject, "myPushProject🐰");
+  console.log(myPushProject, "myPushProject🐰");
   // console.log(myProject, "myProject🎉🎉🎉");
 
   const getOneHomepage = async() => {
@@ -81,10 +80,6 @@ export default function Homepage() {
         console.error(err);
     }
   }
-
-  // useEffect(() => {
-  //   setMyPushProject(myProject)
-  // },[])
 
   useEffect(() => {
     if(pid) {
@@ -111,11 +106,24 @@ export default function Homepage() {
 
   const deleteHomePage = async(e) => {
     e.preventDefault()
+    if(window.confirm("정말 홈페이지를 삭제하시겠습니까?")) {
     try{
       const response = await instanceAxios.delete(`/project/${pid}`);
-      console.log(response.data, "데이터 지우기⚠️");
+      if(response.status === 200) {
+        alert("성공적으로 삭제되었습니다.")
+        console.log(response.data, "데이터 지우기⚠️");
+      }
     } catch (err) {
       console.error(err);
+    }
+  }
+  }
+
+  const renderButton = () => {
+    if(MyPushProject.projectUrl ===  link || MyPushProject.name === homepage || MyPushProject.categoryCode === cateogry) {
+      return <BeforeUpdateHomepage>수정</BeforeUpdateHomepage>
+    } else {
+      return <AfterUpdateHomepage updateHomePage={updateHomePage}>수정</AfterUpdateHomepage>
     }
   }
 
@@ -142,8 +150,8 @@ export default function Homepage() {
           <div>
           <InputGroup 
           type="text" 
+          value={myPushProject.name}
           id='homepage' 
-          value={myPushProject.name} 
           setValue={setHomepage}
           />
           </div>
@@ -153,8 +161,8 @@ export default function Homepage() {
           <div>
           <InputGroup 
           type="text" 
-          id='link' 
           value={myPushProject.projectUrl} 
+          id='link' 
           setValue={setLink}
           />
           </div>
@@ -164,14 +172,14 @@ export default function Homepage() {
           <div>
           <InputGroup 
           type="text" 
-          id='category' 
           value={myPushProject.categoryCode} 
+          id='category' 
           setValue={setCategory}
           />
           </div>
         </WrapInputs>
           <WrapButton>
-          <UpdateHomepage updateHomePage={updateHomePage}>수정</UpdateHomepage>
+          {renderButton()}
           </WrapButton>
         </form>
       </HomepageBox>

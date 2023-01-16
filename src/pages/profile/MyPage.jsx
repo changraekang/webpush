@@ -76,27 +76,6 @@ export default function MyPage() {
    }
   }
 
-  // const getMemberInfo = async() => {
-  //   try{
-  //     const response = await instanceAxios.post('/member/me',{})
-  //     console.log(response);
-  //     if(response.status === 200) {
-  //       setMyProfile(response.data)
-  //       setEmail(myProfile.email);
-  //       setPhone(myProfile.phone);
-  //       setCompany(myProfile.company);
-
-  //     }
-  //   } catch (err) {
-  //       console.error(err);
-  //   }
-  // }
-  
-  // useEffect(() => {
-  //   getMemberInfo();
-  // }, [])
-
-
   const updateData = {
     "name" : myProfile.name,
     "company": company,
@@ -104,8 +83,6 @@ export default function MyPage() {
     "phone": phone
   }
   
-  console.log(updateData, "updateData🐰");
-  console.log(!!myProfile === !!updateData)
   const updateMyInfo = async(e) => {
     e.preventDefault();
     if(window.confirm('개인정보를 수정하시겠습니까?')) {
