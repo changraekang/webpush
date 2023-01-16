@@ -204,14 +204,17 @@ export default function Layout({ children }) {
       navigate("/");
     } else {
     }
+    console.log(isOpenMobal, "모달");
+    requestAccessToken(refreshToken);
+  }, []);
+  useEffect(() => {
     if (myProject.length === 0) {
       setIsOpenModal(true);
     }
     if (myProject.length === 1) {
       setMyPushProject(myProject[0]);
     }
-    requestAccessToken(refreshToken);
-  }, []);
+  }, [myProject]);
   const handleOpenNav = () => {
     !isOpenNav ? setIsOpenNav(true) : setIsOpenNav(false);
   };
@@ -302,18 +305,18 @@ export default function Layout({ children }) {
     }
   };
 
-  useEffect (() => {
+  useEffect(() => {
     const getCategory = async () => {
       try {
-        const response = await instanceAxios.get('/category/all');
+        const response = await instanceAxios.get("/category/all");
         setMyCategory(response.data);
         // console.log(myCategory, "🍓");
       } catch (err) {
         console.error(err);
       }
-    }
-      getCategory();
-    }, [])
+    };
+    getCategory();
+  }, []);
 
   return (
     <Header>

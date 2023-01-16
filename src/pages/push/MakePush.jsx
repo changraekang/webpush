@@ -237,7 +237,8 @@ export default function MakePush() {
   const [thisClock, setThisClock] = useState("");
   const [thisMonth, setThisMonth] = useState("");
   const [ReserveMin, setReserveMin] = useState("");
-  const [pushType, setPushType] = useState();
+  const [pushType, setPushType] = useState("");
+  const [pushTypeDemo, setPushTypeDemo] = useState("advertise");
   const [submitDate, setSubmitDate] = useState(ReserveMin);
   const [pid, setPid] = useState("");
   const [myProject, setMyProject] = useRecoilState(MyProject);
@@ -275,7 +276,16 @@ export default function MakePush() {
     date: "",
     pid: myPushProject.pid,
   });
-
+  useEffect(() => {
+    if (isWebCheck && isMobileCheck) {
+      setPushType("web_push");
+      setPushTypeDemo("others");
+    } else if (isMobileCheck) {
+      setPushType("mobile_app_push");
+    } else if (isWebCheck) {
+      setPushType("web_push");
+    }
+  }, [isWebCheck, isMobileCheck]);
   // 라디오 체크
   const handleWebCheckRadio = () => {
     isWebCheck ? setisWebCheck(false) : setisWebCheck(true);
@@ -314,14 +324,6 @@ export default function MakePush() {
     setSubmitDate(e.target.value);
   };
   const handleInputValues = (e) => {
-    if (isWebCheck && isMobileCheck) {
-      setPushType("web_push mobile_app_push");
-    } else if (isMobileCheck) {
-      setPushType("mobile_app_push");
-    } else if (isWebCheck) {
-      setPushType("web_push");
-    }
-
     if (isMobileCheck || isWebCheck) {
       e.preventDefault();
       const { name, value } = e.target;
@@ -380,7 +382,7 @@ export default function MakePush() {
     };
     let data2 = {
       pushType: pushType,
-      messageType: "advertising",
+      messageType: pushTypeDemo,
       title: inputs.title,
       content: inputs.content,
       sendType: "advertising",
