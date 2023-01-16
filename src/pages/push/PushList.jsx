@@ -17,6 +17,7 @@ import { useRecoilState } from "recoil";
 import { MyPushProject } from "../../atom/Atom";
 import { instanceAxios } from "../../api/axios";
 import { ActiveDeletePushButton } from "../../components/buttons/PushButtons";
+import Pagination from "../../components/pagination/Pagination";
 const PageWrapper = styled.div`
   width: 100%;
   padding: 20px;
@@ -127,6 +128,15 @@ const PushList = () => {
   const [isAll, setIsAll] = useState(false);
   const [isModalOpen, setisModalOpen] = useState(false);
   const [pushList, setPushList] = useState([]);
+
+  // 페이지네이션 
+  const [currentPage, setCurrrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = pushList.slice(firstPostIndex, lastPostIndex);
+  // console.log(currentPosts, "currentPosts🍑🍑🍑")
+
   useEffect(() => {
     if (isReserve && isProceed && isComplete) {
       setIsAll(true);
@@ -170,7 +180,7 @@ const PushList = () => {
       }
     }
   };
-  
+
   const handleAllClick = () => {
     if (isAll === false) {
       setIsAll(true);
@@ -246,7 +256,7 @@ const PushList = () => {
               <Message35>발송시간</Message35>
               <Message10></Message10>
             </PushConteneListWrapper>
-            {pushList.map((item, index) => {
+            {currentPosts.map((item, index) => {
               return (
                 <PushConteneListWrapper key={item.mid}>
                   <Message10>{item.state}</Message10>
@@ -266,6 +276,11 @@ const PushList = () => {
             })}
           </PushListWrapper>
         </PushListBoxs>
+        <Pagination 
+          totalPost = {currentPosts.length}
+          postsPerPage={postsPerPage}
+          setCurrrentPage={setCurrrentPage}
+        />
       </PageWrapper>
     </Layout>
   );
