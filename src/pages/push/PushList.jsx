@@ -18,6 +18,7 @@ import { MyPushProject } from "../../atom/Atom";
 import { instanceAxios } from "../../api/axios";
 import { ActiveDeletePushButton } from "../../components/buttons/PushButtons";
 import Pagination from "../../components/pagination/Pagination";
+import { useNavigate } from "react-router-dom";
 const PageWrapper = styled.div`
   width: 100%;
   padding: 20px;
@@ -121,6 +122,10 @@ const MessageEven = styled.div`
   background-color: ${primary2};
 `;
 const PushList = () => {
+  //React 요소
+  const navigate = useNavigate();
+
+  //state
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
   const [isReserve, setIsReserve] = useState(false);
   const [isProceed, setIsProceed] = useState(false);
@@ -129,7 +134,7 @@ const PushList = () => {
   const [isModalOpen, setisModalOpen] = useState(false);
   const [pushList, setPushList] = useState([]);
 
-  // 페이지네이션 
+  // 페이지네이션
   const [currentPage, setCurrrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const lastPostIndex = currentPage * postsPerPage;
@@ -150,8 +155,6 @@ const PushList = () => {
     console.log(pushList, "푸시리스트");
   }, [myPushProject]);
   const getPushList = async () => {
-    console.log("pushList", myPushProject.pid);
-
     try {
       const response = await instanceAxios.get(
         `/message/${myPushProject.pid}/all`,
@@ -165,9 +168,10 @@ const PushList = () => {
     }
   };
 
+  //handle 함수
   const handleSubmit = async (mid) => {
     console.log(mid);
-    if(window.confirm('push 메세지를 삭제하시겠습니까?')) {
+    if (window.confirm("push 메세지를 삭제하시겠습니까?")) {
       try {
         const response = await instanceAxios.delete(`/message/${mid}`);
         if (response.status === 200) {
@@ -258,7 +262,10 @@ const PushList = () => {
             </PushConteneListWrapper>
             {currentPosts.map((item, index) => {
               return (
-                <PushConteneListWrapper key={item.mid}>
+                <PushConteneListWrapper
+                  key={item.mid}
+                  onClick={() => navigate(`/pushdetail/${item.mid}`)}
+                >
                   <Message10>{item.state}</Message10>
                   <Message10>{item.pushType}</Message10>
                   <Message35>{item.content}</Message35>
@@ -276,8 +283,8 @@ const PushList = () => {
             })}
           </PushListWrapper>
         </PushListBoxs>
-        <Pagination 
-          totalPost = {pushList.length}
+        <Pagination
+          totalPost={pushList.length}
           postsPerPage={postsPerPage}
           setCurrrentPage={setCurrrentPage}
         />

@@ -3,7 +3,7 @@ import { getCookie } from "../cookie/controlCookie";
 const userAccessToken = getCookie("accessToken"); //null
 
 export const instanceAxios = axios.create({
-  baseURL: "http://api.dmpush.kr:8080/api/",
+  //baseURL: "https://api.dmpush.kr/api/",
   // baseURL: "http://localhost:8080/api/", // 로컬
   headers: {
     Authorization: `${userAccessToken}`,

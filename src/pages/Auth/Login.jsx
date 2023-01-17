@@ -167,6 +167,9 @@ export default function Login() {
       setBrowserName("MOBILE");
     }
   }, [browserName]);
+  useEffect(() => {
+    window.localStorage.removeItem("recoil-persist");
+  }, []);
 
   const loginData = {
     deviceInfo: {
@@ -191,7 +194,7 @@ export default function Login() {
         const headersToken = tokenType + accessToken;
         setAccessTokenToCookie(headersToken);
         setRefreshTokenToCookie(refreshToken);
-        window.localStorage.removeItem("recoil-persist");
+
         instanceAxios.defaults.headers.common["Authorization"] = headersToken;
         const checkAccount = async () => {
           try {
