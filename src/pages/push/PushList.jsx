@@ -157,8 +157,31 @@ const PushList = () => {
   const [postsPerPage, setPostsPerPage] = useState(10);
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = pushList.slice(firstPostIndex, lastPostIndex);
-  // console.log(currentPosts, "currentPosts🍑🍑🍑")
+  const currentPosts = pushList
+    .slice(firstPostIndex, lastPostIndex)
+    .sort(function (a, b) {
+      if (a.create_time > b.create_time) {
+        return -1;
+      }
+      if (a.create_time < b.create_time) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+  console.log(
+    currentPosts.sort(function (a, b) {
+      if (a.create_time > b.create_time) {
+        return -1;
+      }
+      if (a.create_time < b.create_time) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
+    }),
+    "currentPosts역순"
+  );
 
   useEffect(() => {
     if (isReserve && isProceed && isComplete) {
@@ -289,7 +312,11 @@ const PushList = () => {
                   >
                     <DetailMessage>{item.state}</DetailMessage>
                     <DetailMessage>{item.pushType}</DetailMessage>
-                    <DetailMessage>{item.title}</DetailMessage>
+                    <DetailMessage>
+                      {item.title.length > 20
+                        ? item.title.substring(0, 20) + "..."
+                        : item.title}
+                    </DetailMessage>
                     <DetailMessage>
                       {item.content.length > 20
                         ? item.content.substring(0, 20) + "..."
