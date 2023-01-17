@@ -18,7 +18,7 @@ import {
 import ProjectModal from "../../components/modals/ProjectModal";
 import { instanceAxios } from "../../api/axios";
 import { getCookie } from "../../cookie/controlCookie";
-import { MyIcons, MyProject, MyPushProject } from "../../atom/Atom";
+import { MyProject, MyPushProject } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
 const TitleWrapper = styled.div`
@@ -490,7 +490,7 @@ export default function PushDetail() {
     }
   }, [iconImg]);
 
-  const [iconArr, setIconArr] = useRecoilState(MyIcons);
+  const [iconArr, setIconArr] = useState([]);
   const requestIconAll = async () => {
     try {
       const response = await instanceAxios.get(
@@ -571,23 +571,23 @@ export default function PushDetail() {
               </WrapMessage>
               <WrapMessage>
                 <SubTitle>이미지</SubTitle>
-                <ImageInput
-                  placeholder="이미지를 등록하세요"
-                  value={previewImg ? previewImg.name : ""}
-                  name="image"
-                  readOnly={true}
-                ></ImageInput>
-                <ImageInput
-                  placeholder="이미지를 등록하세요"
-                  style={{ display: "none" }}
-                  type="file"
-                  accept="image/*"
-                  ref={imageInputRef}
-                  onChange={handleUploadImage}
-                ></ImageInput>
-                <RegisterImageButton handleUploadImage={onImgInputBtnClick}>
-                  이미지 등록
-                </RegisterImageButton>
+                  <ImageInput
+                    placeholder="이미지를 등록하세요"
+                    value={previewImg ? previewImg.name : ""}
+                    name="image"
+                    readOnly={true}
+                  ></ImageInput>
+                  <ImageInput
+                    placeholder="이미지를 등록하세요"
+                    style={{ display: "none" }}
+                    type="file"
+                    accept="image/*"
+                    ref={imageInputRef}
+                    onChange={handleUploadImage}
+                  ></ImageInput>
+                  <RegisterImageButton handleUploadImage={onImgInputBtnClick}>
+                    이미지 등록
+                  </RegisterImageButton>
               </WrapMessage>
               {/* 아이콘!!!! 🐰 */}
               <WrapMessage icon>
