@@ -43,8 +43,19 @@ const Title = styled.p`
 `;
 
 const Message = styled.p`
+  display: flex;
+  width: 35%;
   color: ${grey9};
   font-size: 18px;
+`;
+const DetailMessage = styled.p`
+  display: flex;
+  justify-content: center;
+  width: 35%;
+  color: ${grey9};
+  margin-bottom: 5px;
+  font-size: 14px;
+  border-right: 1px solid black;
 `;
 const PageTitle = styled.h2`
   font-size: 40px;
@@ -62,7 +73,7 @@ const PushButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  flex-direction: column;
+  flex-direction: row;
 `;
 const RadioList = styled.ul`
   display: flex;
@@ -78,7 +89,7 @@ const RadioLi = styled.li`
   align-items: center;
   gap: 4px;
 `;
-const PushConteneListWrapper = styled.div`
+const PushContentListWrapper = styled.div`
   padding-top: 5px;
   width: 100%;
   display: flex;
@@ -86,6 +97,13 @@ const PushConteneListWrapper = styled.div`
   align-items: center;
   flex-direction: row;
   border-bottom: 1px solid black; ;
+`;
+const PushDetailListWrapper = styled.div`
+  width: 160%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
 `;
 const Tabs = styled.div`
   display: flex;
@@ -253,32 +271,42 @@ const PushList = () => {
         </PushListBoxs>
         <PushListBoxs>
           <PushListWrapper>
-            <PushConteneListWrapper>
-              <Message10>상태</Message10>
-              <Message10>발송타입</Message10>
-              <Message35>내용</Message35>
-              <Message35>발송시간</Message35>
-              <Message10></Message10>
-            </PushConteneListWrapper>
+            <PushContentListWrapper>
+              <PushDetailListWrapper>
+                <DetailMessage>상태</DetailMessage>
+                <DetailMessage>발송타입</DetailMessage>
+                <DetailMessage>제목</DetailMessage>
+                <DetailMessage>내용</DetailMessage>
+                <DetailMessage>발송시간</DetailMessage>
+              </PushDetailListWrapper>
+              <DetailMessage></DetailMessage>
+            </PushContentListWrapper>
             {currentPosts.map((item, index) => {
               return (
-                <PushConteneListWrapper
-                  key={item.mid}
-                  onClick={() => navigate(`/pushdetail/${item.mid}`)}
-                >
-                  <Message10>{item.state}</Message10>
-                  <Message10>{item.pushType}</Message10>
-                  <Message35>{item.content}</Message35>
-                  <Message35>{item.sendTime.replace("T", " ")}</Message35>
-                  <Message10>
-                    <button>수정</button>
+                <PushContentListWrapper key={item.mid}>
+                  <PushDetailListWrapper
+                    onClick={() => navigate(`/pushdetail/${item.mid}`)}
+                  >
+                    <DetailMessage>{item.state}</DetailMessage>
+                    <DetailMessage>{item.pushType}</DetailMessage>
+                    <DetailMessage>{item.title}</DetailMessage>
+                    <DetailMessage>
+                      {item.content.length > 20
+                        ? item.content.substring(0, 20) + "..."
+                        : item.content}
+                    </DetailMessage>
+                    <DetailMessage>
+                      {item.sendTime.replace("T", " ").substring(0, 16)}
+                    </DetailMessage>
+                  </PushDetailListWrapper>
+                  <DetailMessage>
                     <ActiveDeletePushButton
                       handleSubmit={() => handleSubmit(item.mid)}
                     >
                       삭제
                     </ActiveDeletePushButton>
-                  </Message10>
-                </PushConteneListWrapper>
+                  </DetailMessage>
+                </PushContentListWrapper>
               );
             })}
           </PushListWrapper>
