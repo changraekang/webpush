@@ -177,7 +177,7 @@ const ProjectOptions = styled.li`
   &:hover {
     border-bottom: 3px solid ${primary4};
   }
-  `;
+`;
 const ProjectSelectOptions = styled.button`
   padding: 6px 8px;
   font-size: 14px;
@@ -286,7 +286,7 @@ export default function Layout({ children }) {
     };
     setMyPushProject(body);
   };
-  
+
   const handleAddProject = () => {
     if (myProject.length > 2) {
       alert("프로젝트는 3개까지 가능합니다.");
@@ -368,12 +368,7 @@ export default function Layout({ children }) {
             {myProject.map(({ categoryCode, pid, name, projectUrl }) => {
               if (pid !== myPushProject.pid) {
                 return (
-                  <li
-                    key={pid}
-                    onClick={() =>
-                      handlePushProject(categoryCode, pid, name, projectUrl)
-                    }
-                  >
+                  <li key={pid}>
                     <button>
                       <ProjectOptions>{name}</ProjectOptions>
                     </button>
@@ -382,7 +377,11 @@ export default function Layout({ children }) {
               } else {
                 return (
                   <li key={pid}>
-                    <ProjectSelectOptions onClick={() => handlePushProject(pid, name)}>{name}</ProjectSelectOptions>
+                    <ProjectSelectOptions
+                      onClick={() => handlePushProject(pid, name)}
+                    >
+                      {name}
+                    </ProjectSelectOptions>
                   </li>
                 );
               }
