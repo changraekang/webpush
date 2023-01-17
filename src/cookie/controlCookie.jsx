@@ -57,15 +57,13 @@ export const logoutSession = async () => {
     // window.localStorage.setItem('logout', Date.now());
     if (response.status === 200) {
       // dispatch({type: 'logout'})
-      cookies.remove("refreshToken");
-      cookies.remove("accessToken");
+      cookies.remove({ path: "/" });
       instanceAxios.defaults.headers.common["Authorization"] = null;
       window.location.reload();
       console.log("로그아웃 성공🎉");
     }
   } catch (err) {
-    cookies.remove("refreshToken");
-    cookies.remove("accessToken");
+    cookies.remove({ path: "/" });
     instanceAxios.defaults.headers.common["Authorization"] = null;
     window.location.reload();
     console.log("로그아웃 세션만료🎉");
