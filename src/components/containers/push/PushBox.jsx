@@ -4,7 +4,7 @@ import { grey1 } from "../../../constants/color";
 const Box = styled.div`
   padding: 32px;
   width: 100%;
-  margin: 10px;
+  margin-bottom: 10px;
   border: 1px solid #afafaf;
   border-radius: 16px;
 `;

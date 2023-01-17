@@ -24,14 +24,14 @@ const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 100px;
-  padding-left: 40px;
+  padding: 20px;
 `;
 const PageWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 `;
 const WrapHomepages = styled.ul`
   display: flex;
@@ -42,49 +42,42 @@ const WrapHomepages = styled.ul`
 const SectionWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+  gap: 25px;
+  justify-content: center;
+  margin-bottom: 40px;
 `;
 const Section = styled.section`
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-direction: column;
-  margin-left: 10px;
-  width: 877px;
-  padding-left: 10px;
-  padding-bottom: 100px;
-  /* height: 100vh; */
+  width: 100%;
   font-family: "Pretendard-Regular";
-  /* padding: 186px 0; */
 `;
 const DemoSection = styled.section`
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-direction: column;
-  margin-left: 10px;
+  justify-content: flex-start;
 `;
 
 const PageTitle = styled.h2`
-  font-size: 40px;
+  font-size: 16px;
   font-weight: 600;
   padding-bottom: 12px;
 `;
 
 const Title = styled.h3`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   padding-bottom: 12px;
 `;
 const SubTitle = styled.h4`
-  width: 100px;
-  font-size: 24px;
+  width: 78px;
+  font-size: 18px;
   font-weight: 500;
   padding: 6px;
 `;
 const SubDemoTitle = styled.h4`
-  width: 100%;
-  font-size: 24px;
+  width: 300px;
+  font-size: 16px;
   font-weight: 500;
 `;
 
@@ -111,11 +104,7 @@ const DemoWrapperBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 550px;
-  height: 383px;
-  left: 32px;
-  top: 77px;
-  padding-right: 50px;
+  width: 500px;
   background: ${grey2};
   border-radius: 16px;
 `;
@@ -173,13 +162,12 @@ const RadioLi = styled.li`
 `;
 const SubMessage = styled.p`
   color: ${grey5};
-  text-align: center;
   padding-top: 20px;
   padding-bottom: 60px;
+
 `;
 const LinkMessage = styled.p`
   color: ${grey5};
-  text-align: center;
 `;
 const ButtonWrapper = styled.div`
   display: flex;
@@ -195,8 +183,8 @@ const ReserveWrapper = styled.div`
 `;
 
 const DemoImg = styled.img`
-  width: 192px;
-  height: 192px;
+  width: 130px;
+  height: 130px;
   object-fit: cover;
 `;
 
@@ -528,9 +516,9 @@ export default function MakePush() {
                   )}
                   웹 푸시
                 </RadioLi>
-                <RadioLi onClick={handleMobileCheckRadio}>
+                <RadioLi>
                   {!isMobileCheck && (
-                    <img src={inActiveCheck} alt="모바일푸시 체크 아이콘" />
+                    <img src={inActiveCheck} alt="모바일푸시 체크 아이콘"/>
                   )}
                   {isMobileCheck && (
                     <img src={activeCheck} alt="모바일푸시 체크 아이콘" />
@@ -632,7 +620,7 @@ export default function MakePush() {
                 <SubTitle>아이콘</SubTitle>
                 <AlignIcon>
                   {/* map 돌릴 예정 */}
-                  {iconArr.map(({url}, index) => {
+                  {/* {iconArr.map(({url}, index) => {
                     return (
                       <IconBox key={index}>
                         <MinusIconBtn>
@@ -642,7 +630,7 @@ export default function MakePush() {
                       // </IconBox>
                       // <p>{url}</p>
                     )
-                  })}
+                  })} */}
                 </AlignIcon>
                 <ImageInput
                   style={{ display: "none" }}
