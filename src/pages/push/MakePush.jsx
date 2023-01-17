@@ -460,6 +460,7 @@ export default function MakePush() {
       if (response.status === 200) {
         console.log("🚩아이콘 등록 성공", response);
       }
+      console.log(response, "아이콘 리스트🔥");
     } catch (err) {
       console.error(err);
     }
@@ -631,13 +632,16 @@ export default function MakePush() {
                 <SubTitle>아이콘</SubTitle>
                 <AlignIcon>
                   {/* map 돌릴 예정 */}
-                  {iconArr.map((iid, name, url) => {
-                    <IconBox key={iid}>
-                      <MinusIconBtn>
-                        <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
-                      </MinusIconBtn>
-                      <Icon src={url} alt={name} />
-                    </IconBox>;
+                  {iconArr.map(({url}, index) => {
+                    return (
+                      <IconBox key={index}>
+                        <MinusIconBtn>
+                          <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
+                        </MinusIconBtn>
+                        <Icon src={url} alt={url} />
+                      // </IconBox>
+                      // <p>{url}</p>
+                    )
                   })}
                 </AlignIcon>
                 <ImageInput

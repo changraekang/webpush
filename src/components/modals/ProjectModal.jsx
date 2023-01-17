@@ -114,7 +114,6 @@ const ModalContent = styled.div`
   overflow: auto;
   padding: 16px 24px 16px 16px;
   pointer-events: auto;
-  background-color: ${grey2};
   border-radius: 8px;
   outline: 0;
 `;
