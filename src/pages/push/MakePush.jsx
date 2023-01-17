@@ -192,6 +192,7 @@ const SelectIconDiv = styled.div`
     padding: 5px;
     border: 2px solid ${primary4};
     border-radius: 8px;
+    margin-top: -7px;
 `
 
 const IconBox = styled.div`
