@@ -189,10 +189,10 @@ const DemoImg = styled.img`
 `;
 
 const SelectIconDiv = styled.div`
-    padding: 5px;
-    border: 2px solid ${primary4};
-    border-radius: 8px;
-    margin-top: -7px;
+  padding: 2px;
+  border: 3px solid ${primary4};
+  border-radius: 4px;
+  margin-top: -5px;
 `
 
 const IconBox = styled.div`
