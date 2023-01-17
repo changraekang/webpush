@@ -46,10 +46,10 @@ export  function HomepageBox({children}) {
 export function InsertScriptBox({children}) {
   return (
     <Section>
-        <h1 className='ir'>홈페이지 수정 페이지</h1>
+        <h1 className='ir'>Push 스크립트 입력 페이지</h1>
         <WrapBox>
           <Box>
-            <Title>홈페이지 관리</Title>
+            <Title>PUSH 설정 스크립트</Title>
               {children}
           </Box>
         </WrapBox>
