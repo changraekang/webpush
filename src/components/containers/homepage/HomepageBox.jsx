@@ -29,7 +29,21 @@ const Title = styled.h2`
   padding-bottom: 32px;
 `
 
-export default function HomepageBox({children}) {
+export  function HomepageBox({children}) {
+  return (
+    <Section>
+        <h1 className='ir'>홈페이지 수정 페이지</h1>
+        <WrapBox>
+          <Box>
+            <Title>홈페이지 관리</Title>
+              {children}
+          </Box>
+        </WrapBox>
+    </Section>
+  )
+}
+
+export function InsertScriptBox({children}) {
   return (
     <Section>
         <h1 className='ir'>홈페이지 수정 페이지</h1>

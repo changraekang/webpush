@@ -443,7 +443,12 @@ export default function MakePush() {
       formData.append("icon", iconImg);
       const response = await instanceAxios.post(
         `/image/${myPushProject.pid}/icon/upload`,
-        formData
+        formData,   
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
       );
       if (response.status === 200) {
         console.log("🚩아이콘 등록 성공", response);
@@ -628,7 +633,7 @@ export default function MakePush() {
                 <SubTitle>아이콘</SubTitle>
                 <AlignIcon>
                   {/* map 돌릴 예정 */}
-                  {/* {iconArr.map(({url}, index) => {
+                  {iconArr.map(({url}, index) => {
                      if(url === iconUrl) {
                       return (
                         <SelectIconDiv> 
@@ -650,8 +655,8 @@ export default function MakePush() {
                           </IconBox>
                       )
                     }
-                  })} */}
-                  <IconBox onClick={handleIconSelect}>
+                  })}
+                  {/* <IconBox onClick={handleIconSelect}>
                     <MinusIconBtn>
                       <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
                     </MinusIconBtn>
@@ -668,7 +673,7 @@ export default function MakePush() {
                       <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
                     </MinusIconBtn>
                     <Icon src="" alt=""/>
-                  </IconBox>
+                  </IconBox> */}
                 </AlignIcon>
                 <ImageInput
                   style={{ display: "none" }}
