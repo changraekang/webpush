@@ -20,6 +20,7 @@ import { instanceAxios } from "../../api/axios";
 import { getCookie } from "../../cookie/controlCookie";
 import { MyIcons, MyProject, MyPushProject } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
+import Loading from "../../components/loading/Loading";
 const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -266,6 +267,7 @@ export default function MakePush() {
   const [isEtcCheck, setisEtcCheck] = useState(false);
   const [isDirectCheck, setIsDirectCheck] = useState(false);
   const [isReserveCheck, setIsReserveCheck] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [inputs, setInputs] = useState({
     web: false,
     mobile: false,
@@ -364,6 +366,7 @@ export default function MakePush() {
         }
       }
     }
+    setIsLoading(true);
     if (isReserveCheck && submitDate) {
       inputs.date = submitDate.replace("T", " ");
     } else {
@@ -398,9 +401,12 @@ export default function MakePush() {
       );
       if (response.status === 200) {
         alert("메세지 등록 성공🎉");
+        setIsLoading(false);
+        window.location.reload();
       }
       console.log(response);
     } catch (err) {
+      setIsLoading(false);
       console.error(err);
     }
   };
@@ -504,6 +510,8 @@ export default function MakePush() {
 
   return (
     <Layout>
+      {/* 로딩창 */}
+      {isLoading && <Loading></Loading>}
       <TitleWrapper>
         <WrapHomepages>
           {myPushProject.name ? myPushProject.name : "프로젝트를 선택해주세요"}
@@ -632,16 +640,20 @@ export default function MakePush() {
                 <SubTitle>아이콘</SubTitle>
                 <AlignIcon>
                   {/* map 돌릴 예정 */}
-                  {iconArr.map(({url}, index) => {
+                  {iconArr.map(({ url }, index) => {
                     return (
                       <IconBox key={index}>
                         <MinusIconBtn>
-                          <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
+                          <DeleteIconImg
+                            src={minusIcon}
+                            alt="아이콘 삭제하기"
+                          />
                         </MinusIconBtn>
                         <Icon src={url} alt={url} />
-                      // </IconBox>
+                        //{" "}
+                      </IconBox>
                       // <p>{url}</p>
-                    )
+                    );
                   })}
                 </AlignIcon>
                 <ImageInput
