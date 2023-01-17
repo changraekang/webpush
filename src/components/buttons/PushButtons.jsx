@@ -42,7 +42,7 @@ const DeleteButton = styled.button`
 const ImageButton = styled.button`
   display: block;
   border: none;
-  width: 140px;
+  width: 150px;
   /* width: ${(props) => (props.icon ? "100px" : "225px")}; */
   padding: 10px;
   margin: 15px 0 8px 15px;
