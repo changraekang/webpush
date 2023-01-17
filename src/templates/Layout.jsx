@@ -368,7 +368,12 @@ export default function Layout({ children }) {
             {myProject.map(({ categoryCode, pid, name, projectUrl }) => {
               if (pid !== myPushProject.pid) {
                 return (
-                  <li key={pid}>
+                  <li
+                    key={pid}
+                    onClick={() =>
+                      handlePushProject(categoryCode, pid, name, projectUrl)
+                    }
+                  >
                     <button>
                       <ProjectOptions>{name}</ProjectOptions>
                     </button>
@@ -377,11 +382,7 @@ export default function Layout({ children }) {
               } else {
                 return (
                   <li key={pid}>
-                    <ProjectSelectOptions
-                      onClick={() => handlePushProject(pid, name)}
-                    >
-                      {name}
-                    </ProjectSelectOptions>
+                    <ProjectSelectOptions>{name}</ProjectSelectOptions>
                   </li>
                 );
               }
