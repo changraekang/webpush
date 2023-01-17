@@ -277,7 +277,7 @@ const PushList = () => {
           </PushListWrapper>
         </PushListBoxs>
         <Pagination 
-          totalPost = {currentPosts.length}
+          totalPost = {pushList.length}
           postsPerPage={postsPerPage}
           setCurrrentPage={setCurrrentPage}
         />
