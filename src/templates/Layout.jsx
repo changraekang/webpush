@@ -128,7 +128,7 @@ const MyButton = styled.button`
 `;
 
 const MyMenu = styled.ul`
-  width: 130px;
+  width: 150px;
   position: absolute;
   right: 20px;
   top: 58px;
@@ -192,7 +192,7 @@ const MyMenuLi = styled.li`
   cursor: pointer;
   color: ${(props) => (props.first ? `${grey10}` : ` ${grey7}`)};
   margin: ${(props) => (props.first ? "12px 0 26px" : "16px 0")};
-  margin: ${(props) => (props.logout ? "16px 0 0" : null)};
+  justify-content : ${(props) => (props.first ? "center" : "")};
 `;
 
 const MyMenuIcon = styled.img`
@@ -437,7 +437,6 @@ export default function Layout({ children }) {
             마이프로필
             {isOpenMyMenu && (
               <MyMenu>
-                <div></div>
                 <MyMenuLi first>{myProfile.name}(master)</MyMenuLi>
                 <MyMenuLi>
                   <MyMenuIcon profile={true} src={profile} alt="내 정보 아이콘" />
