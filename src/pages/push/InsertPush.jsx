@@ -6,7 +6,7 @@ import UpdateProfile from '../../components/buttons/ProfileButtons';
 import { instanceAxios } from '../../api/axios';
 import { useEffect, useState } from 'react';
 import { grey1, grey4, primary4, error3 } from "../../constants/color";
-import {SelectHomepage, AfterCopy, BeforeCopy} from "../../components/buttons/HompageButtons";
+import {SelectedHomepage, SelectHomepage, AfterCopy, BeforeCopy} from "../../components/buttons/HompageButtons";
 import { useRecoilState } from "recoil";
 import { MyCategory, MyProject, MyPushProject } from "../../atom/Atom";
 import { async } from "q";
@@ -108,21 +108,39 @@ export default function InsertPush() {
         alert('클립보드 복사에 실패하였습니다.');
       }
   }
-    
+
+  const handleRenderBtns = () => {
+    return (
+      <>
+        {myProject?.map(({name, pid})=> {
+          if(pid === myPushProject.pid) {
+            return (
+              <li key={pid}>
+              <SelectedHomepage setValue={()=> {setPid(pid);}}>
+                  {name}
+              </SelectedHomepage >
+              </li>
+            )
+          } else {
+            return (
+              <li key={pid}>
+              <SelectHomepage setValue={()=> {setPid(pid);}}>
+                  {name}
+              </SelectHomepage >
+              </li>
+            )
+          }
+        })}
+      </>
+    )
+  }
+
   return (
     <Layout>
       <InsertScriptBox>
         <TopAlign>
           <WrapHomepages>
-            {myProject?.map(({name, pid})=> {
-              return (
-                <li key={pid}>
-                <SelectHomepage setValue={()=> {setPid(pid);}}>
-                    {name}
-                </SelectHomepage >
-                </li>
-              )
-            })}
+            {handleRenderBtns()}
           </WrapHomepages>
           <GetScript onClick={handleGetScript}>출력하기</GetScript>
         </TopAlign>
