@@ -60,8 +60,9 @@ const WrapHomepages = styled.ul`
 export default function InsertPush() {
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-  const [pid, setPid] = useState(MyPushProject.pid);
-  const [script, setScript] = useState('')
+  const [pid, setPid] = useState(myPushProject.pid);
+  const [script, setScript] = useState('');
+
   useEffect(() => {
       console.log(pid, "💕⚠️pid");
       console.log(myPushProject, "myPushProject🐰");
