@@ -74,7 +74,7 @@ const WrapRight = styled.div`
 
 const TopHeader = styled.div`
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   background: ${grey1};
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
@@ -91,7 +91,10 @@ const A = styled.a`
 `;
 
 const SubNav = styled.ul`
-  margin: 0 0 20px 30px;
+  background: ${grey3};
+  padding: 20px 20px 8px;
+  border-radius: 8px;
+  margin: -6px 0 16px;
 `;
 
 const SubLI = styled.li`
@@ -118,7 +121,7 @@ const MyButton = styled.button`
   color: ${grey10};
   margin-right: 20px;
   &:hover {
-    background: ${grey4};
+    /* background: ${grey3}; */
     border-radius: 8px;
   }
 `;
@@ -380,15 +383,15 @@ export default function Layout({ children }) {
           {isOpenNav && (
             <SubNav>
               <SubLI>
-                <LinkStyle to="/makePush">push 작성</LinkStyle>
+                <LinkStyle to="/makePush">PUSH 작성</LinkStyle>
               </SubLI>
               <SubLI>
-                <LinkStyle to="/pushList">push 리스트</LinkStyle>
+                <LinkStyle to="/pushList">PUSH 리스트</LinkStyle>
               </SubLI>
             </SubNav>
           )}
           <LI>
-            <LinkStyle to="/insertPush">Push 설정</LinkStyle>
+            <LinkStyle to="/insertPush">PUSH 설정</LinkStyle>
           </LI>
         </NavLi>
       </Nav>
@@ -430,6 +433,7 @@ export default function Layout({ children }) {
           </ProLi>
           <MyButton onClick={handleOpenMyMenu}>
             <ProfileImg src={member} alt="프로필 버튼 사진" />
+            마이프로필
             {isOpenMyMenu && (
               <MyMenu>
                 <div></div>
