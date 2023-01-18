@@ -2,6 +2,10 @@ import logo from "../assets/images/logo.png";
 import mypageLogo from "../assets/images/mypage-logo.png";
 import alarm from "../assets/images/alarm.png";
 import plus from "../assets/images/plus.png";
+import member from "../assets/images/member.png";
+import logoutIcon from "../assets/images/logout.png";
+import profile from "../assets/images/profile.png";
+import password from "../assets/images/password.png";
 import styled from "styled-components";
 import {
   grey3,
@@ -12,6 +16,7 @@ import {
   grey10,
   grey11,
   grey4,
+  grey5,
 } from "../constants/color";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -94,7 +99,7 @@ const SubLI = styled.li`
   margin-bottom: 12px;
 `;
 const LinkStyle = styled(Link)`
-  color: ${grey10};
+  color: ${grey7};
 `;
 
 const MyButton = styled.button`
@@ -119,12 +124,12 @@ const MyButton = styled.button`
 `;
 
 const MyMenu = styled.ul`
+  width: 130px;
   position: absolute;
   right: 20px;
-  top: 55px;
-  width: 105px;
+  top: 58px;
   border-radius: 8px;
-  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.16);
+  box-shadow: 3px -3px 50px rgba(0, 0, 0, 0.13);
   background-color: ${grey1};
   text-align: center;
   padding: 16px;
@@ -134,10 +139,24 @@ const MyMenu = styled.ul`
     content: "";
     position: absolute;
     width: 80%;
-    height: 2px;
-    background-color: ${grey10};
+    height: 1px;
+    background-color: ${grey5};
     left: 15px;
     top: 55px;
+  }
+  
+  &::before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-bottom: 28px solid ${grey1};
+    border-left: 0px solid transparent;
+    border-right: 28px solid transparent;
+    right:0;
+    top: -14px;
+    transform: rotate(270deg);
   }
 `;
 
@@ -149,9 +168,9 @@ const WrapBell = styled.div`
 `;
 
 const Bell = styled.img`
-  width: 10px;
-  height: 11px;
-  margin: 8px 8px 0 0;
+  width: 13px;
+  height: 13px;
+  margin: 8px 4px 0 0;
   cursor: pointer;
 `;
 
@@ -163,9 +182,18 @@ const Icon = styled.img`
 `;
 
 const MyMenuLi = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
-  margin: ${(props) => (props.first ? "12px 0 26px" : "14px 0")};
+  color: ${(props) => (props.first ? `${grey10}` : ` ${grey7}`)};
+  margin: ${(props) => (props.first ? "12px 0 26px" : "16px 0")};
+  margin: ${(props) => (props.logout ? "16px 0 0" : null)};
 `;
+
+const MyMenuIcon = styled.img`
+  width: ${(props) => (props.profile ? "18px" : "15px")}
+`
 
 const ProjectOptions = styled.li`
   padding: 6px 0;
@@ -187,6 +215,10 @@ const ProjectSelectOptions = styled.button`
   background-color: ${primary4};
   cursor: pointer;
 `;
+
+const ProfileImg = styled.img`
+  width: 30px;
+`
 
 export default function Layout({ children }) {
   const [myCategory, setMyCategory] = useRecoilState(MyCategory);
@@ -397,20 +429,26 @@ export default function Layout({ children }) {
             />
           </ProLi>
           <MyButton onClick={handleOpenMyMenu}>
-            {myProfile.name}(master)
+            <ProfileImg src={member} alt="프로필 버튼 사진" />
+            {isOpenMyMenu && (
+              <MyMenu>
+                <div></div>
+                <MyMenuLi first>{myProfile.name}(master)</MyMenuLi>
+                <MyMenuLi>
+                  <MyMenuIcon profile={true} src={profile} alt="내 정보 아이콘" />
+                  <LinkStyle to="/myPage">내 정보</LinkStyle>
+                </MyMenuLi>
+                <MyMenuLi>
+                  <MyMenuIcon src={password} alt="비밀번호 변경 아이콘" />
+                  <LinkStyle to="/myPage/newPassword">비밀번호 변경</LinkStyle>
+                </MyMenuLi>
+                <MyMenuLi logout>
+                  <MyMenuIcon src={logoutIcon} alt="로그아웃 아이콘" />
+                  <LinkStyle onClick={logout}>로그아웃</LinkStyle>
+                </MyMenuLi>
+              </MyMenu>
+            )}
           </MyButton>
-          {isOpenMyMenu && (
-            <MyMenu>
-              <MyMenuLi first>MASTER</MyMenuLi>
-              <MyMenuLi>
-                <LinkStyle to="/myPage">마이프로필</LinkStyle>
-              </MyMenuLi>
-              <MyMenuLi>
-                <LinkStyle to="/myPage/newPassword">비밀번호 변경</LinkStyle>
-              </MyMenuLi>
-              <MyMenuLi onClick={logout}>로그아웃</MyMenuLi>
-            </MyMenu>
-          )}
         </TopHeader>
         <main>{children}</main>
       </WrapRight>

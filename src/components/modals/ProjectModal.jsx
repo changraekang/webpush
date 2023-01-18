@@ -232,6 +232,7 @@ const ProjectModal = (props) => {
                   value={url}
                   type="text"
                   placeholder="https://"
+                  minlength={8}
                 />
               </ProjectInputWrap>
             </form>
