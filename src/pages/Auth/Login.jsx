@@ -169,6 +169,7 @@ export default function Login() {
   }, [browserName]);
   useEffect(() => {
     window.localStorage.removeItem("recoil-persist");
+    console.log("test-commit 02-17 11am");
   }, []);
 
   const loginData = {
@@ -206,7 +207,6 @@ export default function Login() {
                   const response = await instanceAxios.get("/project/all");
                   if (response.status === 200) {
                     setMyProject(response.data);
-                    setMyPushProject(response.data[0]);
                     if (response.data.length > 0) {
                       setIsOpenModal(false);
                     }
