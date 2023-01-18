@@ -202,7 +202,7 @@ export default function Layout({ children }) {
   const [myProfile, setMyProfile] = useRecoilState(MyProfile);
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
-  const [project, setProject] = useState([]);
+
   const requestAccessToken = async () => {
     try {
       const response = await instanceAxios.post("/auth/refresh", {
@@ -241,12 +241,12 @@ export default function Layout({ children }) {
         console.error(err);
       }
     };
+
     const checkProject = async () => {
       try {
         const response = await instanceAxios.get("/project/all");
         if (response.status === 200) {
           setMyProject(response.data);
-          setMyPushProject(response.data[0]);
           if (response.data.length === 0) {
             setIsOpenModal(true);
           }
