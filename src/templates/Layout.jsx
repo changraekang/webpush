@@ -17,6 +17,7 @@ import {
   grey11,
   grey4,
   grey5,
+  grey6,
 } from "../constants/color";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -92,7 +93,7 @@ const A = styled.a`
 
 const SubNav = styled.ul`
   background: ${grey3};
-  padding: 20px 20px 8px;
+  padding: 14px 14px 2px;
   border-radius: 8px;
   margin: -6px 0 16px;
 `;

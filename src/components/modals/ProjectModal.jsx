@@ -180,7 +180,11 @@ const ProjectModal = (props) => {
     }
   };
   const handleNext = () => {
-    setStep(2);
+    if(url.includes('https://')) {
+      setStep(2);
+    } else {
+      alert('홈페이지 주소는 "https://" 가 필요합니다.🥹');
+    }
   };
 
   const handleGoBack = () => {
@@ -232,7 +236,6 @@ const ProjectModal = (props) => {
                   value={url}
                   type="text"
                   placeholder="https://"
-                  minlength={8}
                 />
               </ProjectInputWrap>
             </form>
