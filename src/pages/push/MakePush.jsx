@@ -381,7 +381,7 @@ export default function MakePush() {
   const requestAddIcons = async () => {
     try {
       formData.append("icon", iconImg);
-      const response = await instanceAxios.post(`/image/${myPushProject.pid}/icon/upload`,formData);
+      const response = await instanceAxios.post(`/${myPushProject.pid}/icon/upload`,formData);
       if (response.status === 200) {
         console.log("🚩아이콘 등록 성공", response);
         setIconImg(response.data.url);
@@ -402,7 +402,7 @@ export default function MakePush() {
   const requestIconAll = async () => {
     try {
       const response = await instanceAxios.get(
-        `/image/${myPushProject.pid}/icon/all`
+        `/${myPushProject.pid}/icon/all`
       );
       if (response.status === 200) {
         setIconArr(response.data);
@@ -416,16 +416,20 @@ export default function MakePush() {
   // 아이콘 삭제하기
   const deleteIcon = async () => {
     console.log(iid, "iid🎉🎉🎉")
-    if(window.confirm("아이콘이 삭제하시겠습니까?")) {
-      try {
-        const response = await instanceAxios.delete(`/image/icon/${iid}`, {});
-        console.log(response);
-        if(response === 200) {
-          alert('성공적으로 아이콘이 삭제되었습니다 😆');
-          // requestIconAll();
+    if(iid === '') {
+      alert("삭제할 아이콘을 선택해주세요 😅")
+    } else {
+      if(window.confirm("아이콘이 삭제하시겠습니까?")) {
+        try {
+          const response = await instanceAxios.delete(`${myPushProject.pid}/icon/${iid}`, {});
+          console.log(response);
+          if(response === 200) {
+            alert('성공적으로 아이콘이 삭제되었습니다 😆');
+            // requestIconAll();
+          }
+        } catch (err) {
+          console.error(err);
         }
-      } catch (err) {
-        console.error(err);
       }
     }
   };
