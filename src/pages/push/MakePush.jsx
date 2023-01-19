@@ -238,6 +238,8 @@ export default function MakePush() {
   const [pid, setPid] = useState("");
   const [myProject, setMyProject] = useRecoilState(MyProject);
   const [myPushProject, setMyPushProject] = useRecoilState(MyPushProject);
+  const [iconUrl, setIconUrl] = useState('');
+  const [iid, setIid] = useState('');
 
   const getClock = () => {
     const offset = 1000 * 60 * 60 * 9;
@@ -368,7 +370,11 @@ export default function MakePush() {
 
   const onIconInputBtnClick = (e) => {
     e.preventDefault();
-    iconInputRef.current.click();
+    if(iconArr.length > 2) {
+      alert('아이콘은 3개까지 등록이 가능합니다 😅');
+    } else {
+      iconInputRef.current.click();
+    }
   };
 
   // 아이콘 추가하기
@@ -409,11 +415,18 @@ export default function MakePush() {
 
   // 아이콘 삭제하기
   const deleteIcon = async () => {
-    try {
-      // const response = await instanceAxios.delete(`/image/icon/${iid}`, {});
-      // console.log(response);
-    } catch (err) {
-      console.error(err);
+    console.log(iid, "iid🎉🎉🎉")
+    if(window.confirm("아이콘이 삭제하시겠습니까?")) {
+      try {
+        const response = await instanceAxios.delete(`/image/icon/${iid}`, {});
+        console.log(response);
+        if(response === 200) {
+          alert('성공적으로 아이콘이 삭제되었습니다 😆');
+          // requestIconAll();
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -423,7 +436,6 @@ export default function MakePush() {
     }
   }, [myPushProject]);
 
-  const [iconUrl, setIconUrl] = useState('')
   const handleIconSelect = (e) => {
     console.log(e.target.src);
     const imageSrc = e.target.src;
@@ -431,8 +443,10 @@ export default function MakePush() {
       setIconUrl(null);
     } else {
       setIconUrl(e.target.src);
+      setIid(imageSrc.split('/').at(-1));
     }
   }
+
   // 제출
   const onClickSubmit = async (e) => {
     e.preventDefault();
@@ -473,7 +487,7 @@ export default function MakePush() {
       link: inputs.link,
       // sendTime: inputs.date,
       sendTime: "2023-01-12 15:44",
-      iid: iconUrl.split('/').at(-1),
+      iid: iid,
     };
 
     formData.append(
@@ -639,7 +653,7 @@ export default function MakePush() {
                       return (
                         <SelectIconDiv key={index}> 
                         <IconBox onClick={handleIconSelect}>
-                           <MinusIconBtn>
+                           <MinusIconBtn onClick={deleteIcon}>
                              <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
                            </MinusIconBtn>
                            <Icon src={url} alt={url}/>
@@ -649,7 +663,7 @@ export default function MakePush() {
                      } else { 
                        return (
                          <IconBox onClick={handleIconSelect} key={index}>
-                            <MinusIconBtn>
+                            <MinusIconBtn onClick={deleteIcon}>
                               <DeleteIconImg src={minusIcon} alt="아이콘 삭제하기" />
                             </MinusIconBtn>
                             <Icon src={url} alt={url}/>
