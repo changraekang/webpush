@@ -182,7 +182,7 @@ const ProjectModal = (props) => {
     }
   };
   const handleNext = () => {
-    if(url.includes('https://')) {
+    if (url.includes("https://")) {
       setStep(2);
     } else {
       alert('홈페이지 주소는 "https://" 가 필요합니다.🥹');
@@ -195,7 +195,6 @@ const ProjectModal = (props) => {
 
   const onClickCat = (cat) => {
     setCat(cat);
-    console.log(cat);
   };
 
   const renderCloseModal = () => {

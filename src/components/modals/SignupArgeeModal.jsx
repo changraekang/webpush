@@ -83,7 +83,7 @@ const Button = styled.div`
   }
 `;
 const SignupArgeeModal = (props) => {
-  console.log(`Modal`, props.content);
+  // console.log(`Modal`, props.content);
   const handleClose = (e) => {
     e.preventDefault();
     props.setClose(false);

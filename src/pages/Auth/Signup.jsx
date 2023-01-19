@@ -281,7 +281,6 @@ export default function Signup() {
   };
   // 이메일 직접 쓰기
   const handleWriteEmail = (e) => {
-    console.log(e.target.value);
     e.preventDefault();
     // ***.com 정규식
     const re =
@@ -303,7 +302,7 @@ export default function Signup() {
         setIsOpenTokenBox(true);
         setIsTokenVerification(false);
       }
-      console.log(response);
+      //console.log(response);
     } catch (err) {
       console.error(err);
     }
@@ -321,7 +320,7 @@ export default function Signup() {
         setIsTokenVerification(true);
         alert(response.data.data);
       }
-      console.log(response);
+      //console.log(response);
     } catch (err) {
       console.error(err);
     }
@@ -468,7 +467,7 @@ export default function Signup() {
         });
         console.log("회원가입 성공🎉");
       }
-      console.log(response);
+      //console.log(response);
     } catch (err) {
       console.error(err);
     }

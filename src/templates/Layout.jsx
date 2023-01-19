@@ -148,7 +148,7 @@ const MyMenu = styled.ul`
     left: 15px;
     top: 55px;
   }
-  
+
   &::before {
     display: block;
     content: "";
@@ -158,7 +158,7 @@ const MyMenu = styled.ul`
     border-bottom: 28px solid ${grey1};
     border-left: 0px solid transparent;
     border-right: 28px solid transparent;
-    right:0;
+    right: 0;
     top: -14px;
     transform: rotate(270deg);
   }
@@ -192,12 +192,12 @@ const MyMenuLi = styled.li`
   cursor: pointer;
   color: ${(props) => (props.first ? `${grey10}` : ` ${grey7}`)};
   margin: ${(props) => (props.first ? "12px 0 26px" : "16px 0")};
-  justify-content : ${(props) => (props.first ? "center" : "")};
+  justify-content: ${(props) => (props.first ? "center" : "")};
 `;
 
 const MyMenuIcon = styled.img`
-  width: ${(props) => (props.profile ? "18px" : "15px")}
-`
+  width: ${(props) => (props.profile ? "18px" : "15px")};
+`;
 
 const ProjectOptions = styled.li`
   padding: 6px 0;
@@ -222,7 +222,7 @@ const ProjectSelectOptions = styled.button`
 
 const ProfileImg = styled.img`
   width: 30px;
-`
+`;
 
 export default function Layout({ children }) {
   const [myCategory, setMyCategory] = useRecoilState(MyCategory);
@@ -251,7 +251,6 @@ export default function Layout({ children }) {
       setAccessTokenToCookie(headersToken);
       setRefreshTokenToCookie(response.data.refreshToken);
       instanceAxios.defaults.headers.common["Authorization"] = headersToken;
-      console.log(response, "토큰 초기화");
     } catch (err) {
       console.error(err);
     }
@@ -261,7 +260,6 @@ export default function Layout({ children }) {
       try {
         const response = await instanceAxios.post("/member/me");
         if (response.status === 200) {
-          console.log(response, "회원확인");
         }
       } catch (err) {
         // login yet
@@ -284,6 +282,7 @@ export default function Layout({ children }) {
         const response = await instanceAxios.get("/project/all");
         if (response.status === 200) {
           setMyProject(response.data);
+          console.log(response.data);
           if (response.data.length === 0) {
             setIsOpenModal(true);
           }
@@ -440,7 +439,11 @@ export default function Layout({ children }) {
               <MyMenu>
                 <MyMenuLi first>{myProfile.name}(master)</MyMenuLi>
                 <MyMenuLi>
-                  <MyMenuIcon profile={true} src={profile} alt="내 정보 아이콘" />
+                  <MyMenuIcon
+                    profile={true}
+                    src={profile}
+                    alt="내 정보 아이콘"
+                  />
                   <LinkStyle to="/myPage">내 정보</LinkStyle>
                 </MyMenuLi>
                 <MyMenuLi>

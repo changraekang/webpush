@@ -171,19 +171,6 @@ const PushList = () => {
       // a must be equal to b
       return 0;
     });
-  console.log(
-    currentPosts.sort(function (a, b) {
-      if (a.create_time > b.create_time) {
-        return -1;
-      }
-      if (a.create_time < b.create_time) {
-        return 1;
-      }
-      // a must be equal to b
-      return 0;
-    }),
-    "currentPosts역순"
-  );
 
   useEffect(() => {
     if (isReserve && isProceed && isComplete) {
@@ -195,7 +182,6 @@ const PushList = () => {
   }, [isReserve, isProceed, isComplete]);
   useEffect(() => {
     getPushList();
-    console.log(pushList, "푸시리스트");
   }, [myPushProject]);
   const getPushList = async () => {
     try {
@@ -213,14 +199,12 @@ const PushList = () => {
 
   //handle 함수
   const handleSubmit = async (mid) => {
-    console.log(mid);
     if (window.confirm("push 메세지를 삭제하시겠습니까?")) {
       try {
         const response = await instanceAxios.delete(`/message/${mid}`);
         if (response.status === 200) {
           alert("성공적으로 삭제되었습니다.");
           window.location.reload();
-          console.log(response.data, "데이터 지우기⚠️");
         }
       } catch (err) {
         console.error(err);
@@ -313,8 +297,8 @@ const PushList = () => {
   };
   const renderReservePush = () => {
     return currentPosts.map((item, index) => {
-      console.log(item.sendTime < koreaNow, "보낸 날짜");
-      console.log(koreaNow, "현재 날짜");
+      // console.log(item.sendTime < koreaNow, "보낸 날짜");
+      // console.log(koreaNow, "현재 날짜");
       if (item.sendTime > koreaNow) {
         return (
           <PushContentListWrapper key={item.mid}>
