@@ -28,7 +28,7 @@ const logoutData = {
 export const logout = async () => {
   try {
     const response = await instanceAxios.post(`/member/logout`, logoutData);
-    console.log(response);
+    //console.log(response);
     console.log("로그아웃");
     window.localStorage.removeItem("recoil-persist");
     // window.localStorage.setItem('logout', Date.now());
@@ -54,7 +54,7 @@ export const logoutSession = async () => {
     const response = await instanceAxios.post(`/member/logout`, logoutData);
     const cookies = new Cookies();
     cookies.remove({ path: "/" });
-    console.log(response);
+    //console.log(response);
     console.log("로그아웃");
     if (response.status === 200) {
       const cookies = new Cookies();

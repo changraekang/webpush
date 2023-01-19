@@ -227,7 +227,7 @@ export default function Login() {
         };
         checkAccount();
         navigate("/dashboard");
-        console.log(response);
+        //console.log(response);
       }
     } catch (err) {
       const cookies = new Cookies();

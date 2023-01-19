@@ -78,7 +78,7 @@ export default function SetNewPassword() {
 
   useEffect(() => {
     const location = window.location;
-    if(location.search) {
+    if (location.search) {
       setToken(location.search.split("=")[1].split("&")[0]);
       setEmail(location.search.split("=")[2]);
     }
@@ -96,14 +96,12 @@ export default function SetNewPassword() {
       }
       // 영문 숫자 특수문자 1개씩 +  8-25글자 정규식
       let re = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-      console.log(re.test(e.target.value));
+      //console.log(re.test(e.target.value));
       setPasswordVaildation(re.test(e.target.value));
       if (conPasswdVaildation) {
         setConPasswdVaildation(false);
       }
     } else if (e.target.name === "confirmPassword") {
-      console.log(e.target.value, "비밀번호확인");
-      console.log(inputs.newPassword, "비밀번호확인");
       if (e.target.value === inputs.newPassword) {
         setConPasswdVaildation(true);
       } else {
@@ -114,7 +112,7 @@ export default function SetNewPassword() {
       ...inputs,
       [name]: value,
     });
-    console.log(inputs);
+    //console.log(inputs);
   };
 
   const data = {
@@ -132,7 +130,7 @@ export default function SetNewPassword() {
         alert(response.data.data);
         navigate("/");
       }
-      console.log(response);
+      //console.log(response);
     } catch (err) {
       navigate("/error_newPassword");
       console.error(err);
